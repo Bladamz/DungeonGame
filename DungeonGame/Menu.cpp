@@ -54,7 +54,7 @@ void Menu::displayMenu(SDL_Renderer* renderer)
 	exitButtonDestination.y = 550;
 
 	SDL_Rect bannerDestination;
-	bannerDestination.x = 300;
+	bannerDestination.x = 280;
 	bannerDestination.y = 0;
 
 	//get width and height from texture and set it for the destination
