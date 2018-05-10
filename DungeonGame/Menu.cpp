@@ -3,6 +3,7 @@
 
 Menu::Menu()
 {
+	int score = 0;
 }
 
 
@@ -298,7 +299,7 @@ void Menu::characterCreation(SDL_Renderer* renderer)
 						//START BUTTON THINGS HERE
 						cout << "Character Creation complete!" << endl;
 						startGame = false;
-						startGameLoop->runGameLoop(renderer);
+						coins = startGameLoop->runGameLoop(renderer);
 					}
 				}
 			}

@@ -5,8 +5,6 @@
 
 #define ROW 30
 #define COLUMN 30
-#define WALKS 30 //these numbers provide intersting outcomes
-#define STEPS 80 //these numbers provide intersting outcomes
 
 using namespace std;
 

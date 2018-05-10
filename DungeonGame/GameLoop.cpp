@@ -1,17 +1,18 @@
 #include "GameLoop.h"
 
 
-
 GameLoop::GameLoop()
 {
+	gameRunning = true;
+	floor = 1;
+	currentCoins = 0;
 }
-
 
 GameLoop::~GameLoop()
 {
 }
 
-bool GameLoop::runGameLoop(SDL_Renderer* renderer)
+int GameLoop::runGameLoop(SDL_Renderer* renderer)
 {
 	//Game World Array setup
 	srand(time(NULL)); //random seed
@@ -22,16 +23,14 @@ bool GameLoop::runGameLoop(SDL_Renderer* renderer)
 
 	dungeonGenerator.fillDungeon(dungeon); //reset the dungeon to be generated again
 
-	dungeonGenerator.generateDungeon(dungeon, 4);
+	dungeonGenerator.generateDungeon(dungeon, floor);
 	dungeonGenerator.printDungeon(dungeon);
 
 	//init tile map
 	
 	//load art
 
-	gameExit = true;
-
-	while (gameExit)
+	while (gameRunning)
 	{
 		//run through tile map
 		//draw tile map
@@ -40,16 +39,21 @@ bool GameLoop::runGameLoop(SDL_Renderer* renderer)
 		
 		//draw character on tile they are standing on
 
-		//if (gameEvent == battle)
-			//runBattleLoop(renderer);
 
 		//input handler 
 		//movement is WASD OR UP/DOWN/LEFT/RIGHT
 		//mouse button down click on menu button OR UI Elements
 
-		//SDL_RenderPresent(renderer);
-		gameExit = false;
-	}
+		//if (gameEvent == battle)
+		//runBattleLoop(renderer);
+		//if player wins or loses
+			//display victory screen with currentCoins
+			//display defeat screen and forget all scores
 
-	return gameExit;
+
+		//SDL_RenderPresent(renderer);
+		gameRunning = false;
+	}
+	//return current coins if victorius otherwise return 0
+	return currentCoins;
 }

@@ -7,7 +7,6 @@ BattleLoop::BattleLoop()
 	battle = true;
 }
 
-
 BattleLoop::~BattleLoop()
 {
 }

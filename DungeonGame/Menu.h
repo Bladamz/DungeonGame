@@ -9,9 +9,12 @@ using namespace std;
 
 class Menu
 {
-public:
+private:
+	int coins;
 	bool menuExit;
 
+
+public:
 	Menu();
 	~Menu();
 

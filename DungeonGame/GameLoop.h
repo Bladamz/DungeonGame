@@ -8,12 +8,15 @@
 class GameLoop
 {
 public:
-	bool gameExit;
+	bool gameRunning;
+	int dungeon;
+	int floor;
+	int currentCoins;
 
 	GameLoop();
 	~GameLoop();
 
-	bool runGameLoop(SDL_Renderer* renderer);
+	int runGameLoop(SDL_Renderer* renderer);
 
 };
 
