@@ -1,6 +1,8 @@
 #include <iostream>
 #include <SDL.h>
 #include <SDL_image.h>
+#include "BattleLoop.h"
+#include "DungeonGenerator.h"
 
 
 class GameLoop

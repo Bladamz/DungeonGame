@@ -123,12 +123,16 @@
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClCompile Include="Animation.cpp" />
+    <ClCompile Include="BattleLoop.cpp" />
+    <ClCompile Include="DungeonGenerator.cpp" />
     <ClCompile Include="GameLoop.cpp" />
     <ClCompile Include="main.cpp" />
     <ClCompile Include="Menu.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Animation.h" />
+    <ClInclude Include="BattleLoop.h" />
+    <ClInclude Include="DungeonGenerator.h" />
     <ClInclude Include="GameLoop.h" />
     <ClInclude Include="Menu.h" />
   </ItemGroup>
