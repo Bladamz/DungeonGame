@@ -1,3 +1,5 @@
+#pragma once
+
 #include <iostream>
 #include <string>
 
@@ -5,7 +7,7 @@ using namespace std;
 
 class Entity
 {
-private:
+protected:
 	//names for objects
 	string playerName;	//used for the player name and later on in high score
 	string objectName;	//used to label the Hero "Knight" or enemt "Zombie"
@@ -26,4 +28,20 @@ private:
 public:
 	Entity();
 	~Entity();
+
+	//misc functions
+	void displayStats();
+	string getName(); //Player name for character
+	string getSubName(); //name for enemies and hero roles eg kight, rogue, goblin
+	bool playerCheck();
+
+   //Post battle fucntions
+	void levelUp();
+	void rest();
+
+	//combat functions
+	float turn();
+	void takeDamage(float);
+	virtual float moves();
+	bool checkIfDead();
 };

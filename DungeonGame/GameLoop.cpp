@@ -1,6 +1,5 @@
 #include "GameLoop.h"
 
-
 GameLoop::GameLoop()
 {
 	gameRunning = true;
@@ -19,6 +18,7 @@ int GameLoop::runGameLoop(SDL_Renderer* renderer)
 
 	int dungeon[ROW][COLUMN]; //create array
 
+	BattleLoop battleLoop;
 	DungeonGenerator dungeonGenerator;
 
 	dungeonGenerator.fillDungeon(dungeon); //reset the dungeon to be generated again
@@ -45,7 +45,7 @@ int GameLoop::runGameLoop(SDL_Renderer* renderer)
 		//mouse button down click on menu button OR UI Elements
 
 		//if (gameEvent == battle)
-		//runBattleLoop(renderer);
+		battleLoop.runBattleLoop(renderer);
 		//if player wins or loses
 			//display victory screen with currentCoins
 			//display defeat screen and forget all scores

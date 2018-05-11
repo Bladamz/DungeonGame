@@ -1,5 +1,7 @@
 #include "BattleLoop.h"
-
+#include "Entity.h"
+#include "Player.h"
+#include "Enemy.h"
 
 BattleLoop::BattleLoop()
 {
@@ -13,6 +15,22 @@ BattleLoop::~BattleLoop()
 
 int BattleLoop::runBattleLoop(SDL_Renderer* renderer)
 {
+	Entity *player = NULL;
+	player = new Knight();
+	Entity *enemy = NULL;
+	enemy = new Zombie();
+
+	//combat module
+	while (!player->checkIfDead() && !enemy->checkIfDead())
+	{
+		enemy->takeDamage(player->turn());
+		cout << "\n\n+---------------------------------------------------------------------------+\n\n";
+		if (!enemy->checkIfDead())
+		{
+			player->takeDamage(enemy->turn());
+			cout << "\n";
+		}
+	}
 	//init art
 
 	//load art and other needed assets
