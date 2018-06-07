@@ -1,2 +1,14 @@
-﻿  DungeonGenerator.cpp
+﻿  Animation.cpp
+c:\users\blada\documents\visual studio 2017\projects\dungeongame\dungeongame\animation.cpp(59): warning C4838: conversion from 'float' to 'int' requires a narrowing conversion
+c:\users\blada\documents\visual studio 2017\projects\dungeongame\dungeongame\animation.cpp(59): warning C4244: 'initializing': conversion from 'float' to 'int', possible loss of data
+  DungeonGenerator.cpp
+  GameLoop.cpp
+c:\users\blada\documents\visual studio 2017\projects\dungeongame\dungeongame\gameloop.cpp(17): warning C4244: 'argument': conversion from 'time_t' to 'unsigned int', possible loss of data
+  Menu.cpp
+c:\users\blada\documents\visual studio 2017\projects\dungeongame\dungeongame\menu.cpp(73): warning C4305: 'argument': truncation from 'double' to 'float'
+c:\users\blada\documents\visual studio 2017\projects\dungeongame\dungeongame\menu.cpp(74): warning C4305: 'argument': truncation from 'double' to 'float'
+c:\users\blada\documents\visual studio 2017\projects\dungeongame\dungeongame\menu.cpp(85): warning C4244: 'initializing': conversion from 'double' to 'float', possible loss of data
+c:\users\blada\documents\visual studio 2017\projects\dungeongame\dungeongame\menu.cpp(208): warning C4305: 'argument': truncation from 'double' to 'float'
+c:\users\blada\documents\visual studio 2017\projects\dungeongame\dungeongame\menu.cpp(246): warning C4244: 'initializing': conversion from 'double' to 'float', possible loss of data
+  Generating Code...
   DungeonGame.vcxproj -> C:\Users\blada\Documents\Visual Studio 2017\Projects\DungeonGame\Debug\DungeonGame.exe

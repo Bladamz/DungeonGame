@@ -230,7 +230,7 @@ void Menu::characterCreation(SDL_Renderer* renderer)
 	SDL_Rect heroDescDestination;
 	heroDescDestination.x = 900;
 	heroDescDestination.y = 80;
-\
+
 	//get width and height from texture and set it for the destination
 	SDL_QueryTexture(nameHereTexture, NULL, NULL, &nameHereDestination.w, &nameHereDestination.h);
 	SDL_QueryTexture(heroDescTexture, NULL, NULL, &heroDescDestination.w, &heroDescDestination.h);
