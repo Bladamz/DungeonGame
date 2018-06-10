@@ -1,3 +1,7 @@
-﻿  GameLoop.cpp
-c:\dungeongame-daniel\dungeongame\dungeongame\gameloop.cpp(25): warning C4244: 'argument': conversion from 'time_t' to 'unsigned int', possible loss of data
+﻿  Menu.cpp
+c:\dungeongame-daniel\dungeongame\dungeongame\menu.cpp(72): warning C4305: 'argument': truncation from 'double' to 'float'
+c:\dungeongame-daniel\dungeongame\dungeongame\menu.cpp(77): warning C4305: 'argument': truncation from 'double' to 'float'
+c:\dungeongame-daniel\dungeongame\dungeongame\menu.cpp(88): warning C4244: 'initializing': conversion from 'double' to 'float', possible loss of data
+c:\dungeongame-daniel\dungeongame\dungeongame\menu.cpp(211): warning C4305: 'argument': truncation from 'double' to 'float'
+c:\dungeongame-daniel\dungeongame\dungeongame\menu.cpp(249): warning C4244: 'initializing': conversion from 'double' to 'float', possible loss of data
   DungeonGame.vcxproj -> C:\DungeonGame-Daniel\DungeonGame\Debug\DungeonGame.exe

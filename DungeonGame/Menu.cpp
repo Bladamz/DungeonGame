@@ -69,9 +69,12 @@ void Menu::displayMenu(SDL_Renderer* renderer)
 	SDL_Surface* knightSurface = IMG_Load("assets/menu/knight.png");
 	SDL_Texture* knightTexture = SDL_CreateTextureFromSurface(renderer, knightSurface);
 	SDL_FreeSurface(knightSurface);
-
 	Animation knight1(knightTexture, renderer, 45, 112, 151, 0.09);	
-	Animation knight2(knightTexture, renderer, 45, 112, 151, 0.05);
+
+	knightSurface = IMG_Load("assets/menu/Idle.png");
+	SDL_Texture* EnemyIdleTexture = SDL_CreateTextureFromSurface(renderer, knightSurface);
+	SDL_FreeSurface(knightSurface);
+	Animation knight2(EnemyIdleTexture, renderer, 40, 234, 257, 0.05);
 
 	SDL_Event e;
 
@@ -101,7 +104,7 @@ void Menu::displayMenu(SDL_Renderer* renderer)
 
 		//draw from animations
 		knight1.draw(150, 400, 2.0f);
-		knight2.draw(900, 400, 2.0f);	
+		knight2.draw(900, 400, 1.0f, true);	
 
 		while (SDL_PollEvent(&e))
 		{
