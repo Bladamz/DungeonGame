@@ -71,10 +71,15 @@ void Menu::displayMenu(SDL_Renderer* renderer)
 	SDL_FreeSurface(knightSurface);
 	Animation knight1(knightTexture, renderer, 45, 112, 151, 0.09);	
 
+	knightSurface = IMG_Load("assets/menu/Swing.png");
+	SDL_Texture* EnemySwingTexture = SDL_CreateTextureFromSurface(renderer, knightSurface);
+	SDL_FreeSurface(knightSurface);
+	Animation knight2(EnemySwingTexture, renderer, 40, 270, 297, 0.02);
+
 	knightSurface = IMG_Load("assets/menu/Idle.png");
 	SDL_Texture* EnemyIdleTexture = SDL_CreateTextureFromSurface(renderer, knightSurface);
 	SDL_FreeSurface(knightSurface);
-	Animation knight2(EnemyIdleTexture, renderer, 40, 234, 257, 0.05);
+	Animation knight3(EnemyIdleTexture, renderer, 40, 234, 257, 0.05);
 
 	SDL_Event e;
 
@@ -101,10 +106,13 @@ void Menu::displayMenu(SDL_Renderer* renderer)
 		//update animations
 		knight1.update(DT);
 		knight2.update(DT);
+		knight3.update(DT);
 
 		//draw from animations
 		knight1.draw(150, 400, 2.0f);
-		knight2.draw(900, 400, 1.0f, true);	
+		knight2.draw(700, 175, 2.0f, false);	
+		knight3.draw(1050, 400, 1.0f, true);
+
 
 		while (SDL_PollEvent(&e))
 		{
