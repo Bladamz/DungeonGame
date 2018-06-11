@@ -71,15 +71,25 @@ void Menu::displayMenu(SDL_Renderer* renderer)
 	SDL_FreeSurface(knightSurface);
 	Animation knight1(knightTexture, renderer, 45, 112, 151, 0.09);	
 
-	knightSurface = IMG_Load("assets/menu/Swing.png");
-	SDL_Texture* EnemySwingTexture = SDL_CreateTextureFromSurface(renderer, knightSurface);
+	knightSurface = IMG_Load("assets/menu/SkeletonSwing.png");
+	SDL_Texture* SkeleSwingTexture = SDL_CreateTextureFromSurface(renderer, knightSurface);
 	SDL_FreeSurface(knightSurface);
-	Animation knight2(EnemySwingTexture, renderer, 40, 270, 297, 0.02);
+	Animation knight2(SkeleSwingTexture, renderer, 40, 333, 266, 0.01);
+
+	knightSurface = IMG_Load("assets/menu/SkeletonIdle.png");
+	SDL_Texture* SkeleIdleTexture = SDL_CreateTextureFromSurface(renderer, knightSurface);
+	SDL_FreeSurface(knightSurface);
+	Animation knight3(SkeleIdleTexture, renderer, 40, 333, 266, 0.05);
+
+	knightSurface = IMG_Load("assets/menu/Swing.png");
+	SDL_Texture* ZombieSwingTexture = SDL_CreateTextureFromSurface(renderer, knightSurface);
+	SDL_FreeSurface(knightSurface);
+	Animation knight4(ZombieSwingTexture, renderer, 40, 333, 266, 0.01);
 
 	knightSurface = IMG_Load("assets/menu/Idle.png");
-	SDL_Texture* EnemyIdleTexture = SDL_CreateTextureFromSurface(renderer, knightSurface);
+	SDL_Texture* ZombieIdleTexture = SDL_CreateTextureFromSurface(renderer, knightSurface);
 	SDL_FreeSurface(knightSurface);
-	Animation knight3(EnemyIdleTexture, renderer, 40, 234, 257, 0.05);
+	Animation knight5(ZombieIdleTexture, renderer, 40, 333, 266, 0.05);
 
 	SDL_Event e;
 
@@ -107,11 +117,15 @@ void Menu::displayMenu(SDL_Renderer* renderer)
 		knight1.update(DT);
 		knight2.update(DT);
 		knight3.update(DT);
+		knight4.update(DT);
+		knight5.update(DT);
 
 		//draw from animations
 		knight1.draw(150, 400, 2.0f);
-		knight2.draw(700, 175, 2.0f, false);	
-		knight3.draw(1050, 400, 1.0f, true);
+		knight2.draw(700, 200, 1.8f, true);	
+		knight3.draw(700, 200, 1.8f, true);
+		knight4.draw(700, 200, 1.8f, false);
+		knight5.draw(700, 200, 1.8f, false);
 
 
 		while (SDL_PollEvent(&e))
