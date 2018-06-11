@@ -1,13 +1,15 @@
 #pragma once
-
 #include <iostream>
 #include <string>
+#include <SDL.h>
+#include "Vector.h"
 
 using namespace std;
 
 class Entity
 {
 protected:
+	SDL_Renderer* renderer;
 	//names for objects
 	string playerName;	//used for the player name and later on in high score
 	string objectName;	//used to label the Hero "Knight" or enemt "Zombie"
@@ -28,6 +30,20 @@ protected:
 public:
 	Entity();
 	~Entity();
+
+	//Vector related
+	Vector pos; //entities xy position
+	Vector velocity; //how fast to move within a direction
+
+	void setRenderer(SDL_Renderer* renderer);
+	float getPositionX();
+	float getPositionY();
+	void setPosition(Vector pos);
+	Vector getVelocity();
+	void setVelocity(Vector velocity);
+
+	virtual void update(float dt);
+	virtual void updateMovement(float dt);
 
 	//misc functions
 	void displayStats();

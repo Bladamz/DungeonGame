@@ -13,6 +13,7 @@ Menu::~Menu()
 
 void Menu::displayMenu(SDL_Renderer* renderer)
 {
+
 	int const runNumOfFrames = 4;
 	menuExit = true;
 	//STATIC IMAGES
@@ -126,7 +127,7 @@ void Menu::displayMenu(SDL_Renderer* renderer)
 				//check if its the left mouse button down
 				if (e.button.button = SDL_BUTTON_LEFT)
 				{
-					//check if mouse is clicked no exit button region
+					//check if mouse is clicked on exit button region
 					if (e.button.x >= exitButtonDestination.x && e.button.x <= exitButtonDestination.x + 300 && e.button.y >= exitButtonDestination.y && e.button.y <= exitButtonDestination.y + 100)
 					{
 						//EXIT BUTTON CLOSES MENU
@@ -135,7 +136,7 @@ void Menu::displayMenu(SDL_Renderer* renderer)
 					else if (e.button.x >= startButtonDestination.x && e.button.x <= startButtonDestination.x + 300 && e.button.y >= startButtonDestination.y && e.button.y <= startButtonDestination.y + 100)
 					{
 						//START BUTTON THINGS HERE
-						cout << "Starting game" << endl;
+						cout << "starting character screen selection" << endl;
 						characterCreation(renderer);
 					}
 					else if (e.button.x >= highScoreButtonDestination.x && e.button.x <= highScoreButtonDestination.x + 300 && e.button.y >= highScoreButtonDestination.y && e.button.y <= highScoreButtonDestination.y + 100)
@@ -159,7 +160,7 @@ void Menu::displayMenu(SDL_Renderer* renderer)
 
 void Menu::characterCreation(SDL_Renderer* renderer)
 {
-	GameLoop* startGameLoop = new GameLoop();
+	GameLoop* startGameLoop = new GameLoop(renderer);
 
 	//DISPLAY CHARACTER AND ASK PLAYER TO NAME THE CHARACTER
 	//ONLY 1 CHARACTER FOR NOW 
@@ -198,7 +199,7 @@ void Menu::characterCreation(SDL_Renderer* renderer)
 	SDL_QueryTexture(startButtonTexture, NULL, NULL, &startButtonDestination.w, &startButtonDestination.h);
 	SDL_QueryTexture(exitButtonTexture, NULL, NULL, &exitButtonDestination.w, &exitButtonDestination.h);
 
-	//loop to controll the character creation
+	//loop to control the character creation
 	bool startGame = true;
 
 	SDL_Surface* knightSurface = IMG_Load("assets/menu/knight.png");
@@ -298,8 +299,8 @@ void Menu::characterCreation(SDL_Renderer* renderer)
 					{
 						//START BUTTON THINGS HERE
 						cout << "Character Creation complete!" << endl;
+						startGameLoop->runGameLoop(renderer);
 						startGame = false;
-						coins = startGameLoop->runGameLoop(renderer);
 					}
 				}
 			}

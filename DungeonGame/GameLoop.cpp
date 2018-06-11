@@ -1,10 +1,28 @@
 #include "GameLoop.h"
 
-GameLoop::GameLoop()
+GameLoop::GameLoop(SDL_Renderer* renderer)
 {
 	gameRunning = true;
 	floor = 1;
 	currentCoins = 0;
+
+	//Idle ANIMATION
+	SDL_Surface* knightSurface = IMG_Load("assets/menu/knight.png");
+	//convert to texture
+	knightTexture = SDL_CreateTextureFromSurface(renderer, knightSurface);
+	//cleanup
+	SDL_FreeSurface(knightSurface);
+
+	knightAnimation = new Animation(knightTexture, renderer, 45, 112, 151, 0.05);
+
+	knight = new Knight();
+	knight->setAnimation(knightAnimation);
+	knight->setRenderer(renderer);
+	knight->pos.x = 200;
+	knight->pos.y = 200;
+
+	lastUpdate = SDL_GetTicks();
+
 }
 
 GameLoop::~GameLoop()
@@ -12,8 +30,6 @@ GameLoop::~GameLoop()
 }
 
 //Dans Shit _________________________________________
-SDL_Window* Window;
-SDL_Renderer* Renderer;
 SDL_Texture* Texture;
 SDL_Rect sourceRectangle;
 SDL_Rect destinationRectangle;
@@ -57,40 +73,15 @@ int GameLoop::runGameLoop(SDL_Renderer* renderer)
 		return -1;
 	}
 
-	//create window, params are: window title, window pos x, pos y, width, height, window flags
-	Window = SDL_CreateWindow("Map Display", SDL_WINDOWPOS_CENTERED,
-		SDL_WINDOWPOS_CENTERED, 960, 960, SDL_WINDOW_SHOWN /*| SDL_WINDOW_FULLSCREEN*/);
-
-	if (Window != NULL) {
-		cout << "Window created!" << endl;
-	}
-	else
-	{
-		cout << "Failed to create window!" << endl;
-		return -1;
-	}
-
-	//create renderer to help draw stuff to the screen
-	Renderer = SDL_CreateRenderer(Window, -1, SDL_RENDERER_ACCELERATED | SDL_RENDERER_PRESENTVSYNC);
-	if (Renderer != NULL)
-	{
-		cout << "Renderer created!" << endl;
-	}
-	else
-	{
-		cout << "Renderer FAILED!" << endl;
-		return -1;
-	}
-
 	//LOAD UP Assets as Surface then convert to texture
 	SDL_Surface* grassSurface = IMG_Load("assets/TexturesTest/GrassTile.png");
-	SDL_Texture* grassTexture = SDL_CreateTextureFromSurface(Renderer, grassSurface);
+	SDL_Texture* grassTexture = SDL_CreateTextureFromSurface(renderer, grassSurface);
 
 	SDL_Surface* gateSurface = IMG_Load("assets/TexturesTest/enterance.png");
-	SDL_Texture* gateTexture = SDL_CreateTextureFromSurface(Renderer, gateSurface);
+	SDL_Texture* gateTexture = SDL_CreateTextureFromSurface(renderer, gateSurface);
 
 	SDL_Surface* blockSurface = IMG_Load("assets/TexturesTest/block.png");
-	SDL_Texture* blockTexture = SDL_CreateTextureFromSurface(Renderer, blockSurface);
+	SDL_Texture* blockTexture = SDL_CreateTextureFromSurface(renderer, blockSurface);
 
 	//Free memory by clearing surfaces
 	SDL_FreeSurface(grassSurface);
@@ -111,7 +102,7 @@ int GameLoop::runGameLoop(SDL_Renderer* renderer)
 				destinationRectangle.y = y * 32;
 				destinationRectangle.w = sourceRectangle.w * 2; //copy the width of our texture
 				destinationRectangle.h = sourceRectangle.h * 2; //copy the height of our texture
-				SDL_RenderCopy(Renderer, grassTexture, &sourceRectangle, &destinationRectangle);
+				SDL_RenderCopy(renderer, grassTexture, &sourceRectangle, &destinationRectangle);
 			}
 			if (dungeon[y][x] == 0)
 			{
@@ -123,7 +114,7 @@ int GameLoop::runGameLoop(SDL_Renderer* renderer)
 				destinationRectangle.y = y * 32;
 				destinationRectangle.w = sourceRectangle.w * 2; //copy the width of our texture
 				destinationRectangle.h = sourceRectangle.h * 2; //copy the height of our texture
-				SDL_RenderCopy(Renderer, blockTexture, &sourceRectangle, &destinationRectangle);
+				SDL_RenderCopy(renderer, blockTexture, &sourceRectangle, &destinationRectangle);
 			}
 			if (dungeon[y][x] == 8 || dungeon[y][x] == 9)
 			{
@@ -135,11 +126,11 @@ int GameLoop::runGameLoop(SDL_Renderer* renderer)
 				destinationRectangle.y = y * 32;
 				destinationRectangle.w = sourceRectangle.w * 2; //copy the width of our texture
 				destinationRectangle.h = sourceRectangle.h * 2; //copy the height of our texture
-				SDL_RenderCopy(Renderer, gateTexture, &sourceRectangle, &destinationRectangle);
+				SDL_RenderCopy(renderer, gateTexture, &sourceRectangle, &destinationRectangle);
 			}
 		}
 	}
-	SDL_RenderPresent(Renderer);
+	SDL_RenderPresent(renderer);
 	//______________________________________________________________________________________________________________________________________________________________________
 
 	while (gameRunning)
@@ -150,21 +141,30 @@ int GameLoop::runGameLoop(SDL_Renderer* renderer)
 		//draw UI over map
 		
 		//draw character on tile they are standing on
+		
+		//update delta time
+		Uint32 timeDiff = SDL_GetTicks() - lastUpdate;
+		dt = timeDiff / 1000.0;
+		lastUpdate = SDL_GetTicks();
 
+		//knight->update(dt);
+		for (auto e : entities) {
+			e->update(dt);
+		}
 
 		//input handler 
 		//movement is WASD OR UP/DOWN/LEFT/RIGHT
 		//mouse button down click on menu button OR UI Elements
 
 		//if (gameEvent == battle)
-		battleLoop.runBattleLoop(renderer);
+		//battleLoop.runBattleLoop(renderer);
 		//if player wins or loses
 			//display victory screen with currentCoins
 			//display defeat screen and forget all scores
 
 
 		//SDL_RenderPresent(renderer);
-		gameRunning = false;
+		//gameRunning = false;
 	}
 	//return current coins if victorius otherwise return 0
 	return currentCoins;

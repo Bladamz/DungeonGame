@@ -1,25 +1,12 @@
-c:\users\blada\documents\visual studio 2017\projects\dungeongame\dungeongame\debug\vc141.pdb
-c:\users\blada\documents\visual studio 2017\projects\dungeongame\dungeongame\debug\vc141.idb
-c:\users\blada\documents\visual studio 2017\projects\dungeongame\dungeongame\debug\main.obj
-c:\users\blada\documents\visual studio 2017\projects\dungeongame\dungeongame\debug\animation.obj
-c:\users\blada\documents\visual studio 2017\projects\dungeongame\dungeongame\debug\menu.obj
-c:\users\blada\documents\visual studio 2017\projects\dungeongame\dungeongame\debug\gameloop.obj
-c:\users\blada\documents\visual studio 2017\projects\dungeongame\dungeongame\debug\dungeongenerator.obj
-c:\users\blada\documents\visual studio 2017\projects\dungeongame\dungeongame\debug\battleloop.obj
-c:\users\blada\documents\visual studio 2017\projects\dungeongame\dungeongame\debug\player.obj
-c:\users\blada\documents\visual studio 2017\projects\dungeongame\dungeongame\debug\entity.obj
-c:\users\blada\documents\visual studio 2017\projects\dungeongame\dungeongame\debug\enemy.obj
-c:\users\blada\documents\visual studio 2017\projects\dungeongame\debug\dungeongame.ilk
-c:\users\blada\documents\visual studio 2017\projects\dungeongame\debug\dungeongame.exe
-c:\users\blada\documents\visual studio 2017\projects\dungeongame\debug\dungeongame.pdb
-c:\users\blada\documents\visual studio 2017\projects\dungeongame\dungeongame\debug\dungeongame.res
-c:\users\blada\documents\visual studio 2017\projects\dungeongame\dungeongame\debug\menu.obj.enc
-c:\users\blada\documents\visual studio 2017\projects\dungeongame\dungeongame\debug\dungeongame.tlog\cl.command.1.tlog
-c:\users\blada\documents\visual studio 2017\projects\dungeongame\dungeongame\debug\dungeongame.tlog\cl.read.1.tlog
-c:\users\blada\documents\visual studio 2017\projects\dungeongame\dungeongame\debug\dungeongame.tlog\cl.write.1.tlog
-c:\users\blada\documents\visual studio 2017\projects\dungeongame\dungeongame\debug\dungeongame.tlog\link.command.1.tlog
-c:\users\blada\documents\visual studio 2017\projects\dungeongame\dungeongame\debug\dungeongame.tlog\link.read.1.tlog
-c:\users\blada\documents\visual studio 2017\projects\dungeongame\dungeongame\debug\dungeongame.tlog\link.write.1.tlog
-c:\users\blada\documents\visual studio 2017\projects\dungeongame\dungeongame\debug\dungeongame.tlog\rc.command.1.tlog
-c:\users\blada\documents\visual studio 2017\projects\dungeongame\dungeongame\debug\dungeongame.tlog\rc.read.1.tlog
-c:\users\blada\documents\visual studio 2017\projects\dungeongame\dungeongame\debug\dungeongame.tlog\rc.write.1.tlog
+b:\github\dungeongame\dungeongame\debug\vc141.pdb
+b:\github\dungeongame\dungeongame\debug\vc141.idb
+b:\github\dungeongame\dungeongame\debug\animation.obj
+b:\github\dungeongame\dungeongame\debug\battleloop.obj
+b:\github\dungeongame\dungeongame\debug\dungeongenerator.obj
+b:\github\dungeongame\dungeongame\debug\enemy.obj
+b:\github\dungeongame\dungeongame\debug\entity.obj
+b:\github\dungeongame\dungeongame\debug\gameloop.obj
+b:\github\dungeongame\dungeongame\debug\player.obj
+b:\github\dungeongame\dungeongame\debug\dungeongame.tlog\cl.command.1.tlog
+b:\github\dungeongame\dungeongame\debug\dungeongame.tlog\cl.read.1.tlog
+b:\github\dungeongame\dungeongame\debug\dungeongame.tlog\cl.write.1.tlog

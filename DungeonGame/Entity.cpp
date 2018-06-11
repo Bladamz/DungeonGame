@@ -17,6 +17,11 @@ void Entity::displayStats()
 	cout << "STATS OF PLAYER" << endl;
 }
 
+string Entity::getName()
+{
+	return playerName;
+}
+
 string Entity::getSubName()
 {
 	return objectName;
@@ -41,6 +46,47 @@ void Entity::rest()
 	defenceChange = defence;
 	critChange = critChance;
 	strengthChange = strength;
+}
+
+void Entity::setRenderer(SDL_Renderer* renderer)
+{
+
+}
+
+float Entity::getPositionX() 
+{
+	return pos.x;
+}
+
+float Entity::getPositionY()
+{
+	return pos.y;
+}
+
+void Entity::setPosition(Vector pos)
+{
+	this->pos = pos;
+}
+
+Vector Entity::getVelocity() 
+{
+	return velocity;
+}
+
+void Entity::setVelocity(Vector velocity)
+{
+	this->velocity = velocity;
+}
+
+void Entity::update(float dt)
+{
+	updateMovement(dt);
+}
+
+void Entity::updateMovement(float dt) 
+{
+	pos.x = pos.x + velocity.x*dt;
+	pos.y = pos.y + velocity.y*dt;
 }
 
 
