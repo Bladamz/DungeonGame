@@ -70,7 +70,7 @@ float Entity::turn()
 void Entity::takeDamage(float damage)
 {
 	//midigate damage with defence
-	float damageTaken = (damage - (damage*(defence / 100)));
+	float damageTaken = (damage - (damage*(defenceChange / 100)));
 	if (damageTaken > 0)
 	{
 		//take HP damage
@@ -97,4 +97,19 @@ float Entity::moves()
 bool Entity::checkIfDead()
 {
 	return (hPChange < 1);
+}
+
+void Entity::setDefenceChange(int change)
+{
+	defenceChange = defenceChange + change;
+}
+
+void Entity::setFocusChange(int change)
+{
+	critChange = critChange + change;
+}
+
+void Entity::setHpChange(int change)
+{
+	hPChange = hPChange - change;
 }

@@ -44,4 +44,7 @@ public:
 	void takeDamage(float);
 	virtual float moves();
 	bool checkIfDead();
+	void setDefenceChange(int);
+	void setFocusChange(int);
+	void setHpChange(int);
 };

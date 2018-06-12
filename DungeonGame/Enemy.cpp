@@ -21,3 +21,5 @@ float Zombie::moves()
 	cout << "zombie attack" << endl;
 	return 5;
 }
+
+

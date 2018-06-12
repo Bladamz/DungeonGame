@@ -34,54 +34,6 @@ int GameLoop::runGameLoop(SDL_Renderer* renderer)
 	dungeonGenerator.generateDungeon(dungeon, floor);
 	dungeonGenerator.printDungeon(dungeon);
 
-	//Dans Shit _________________________________________________________________________________________________________________________________________
-	//map will be 480 x 480
-	//need to load 16 x 16 png as separate files to display
-	//initiate SDL with the subsystems you want to use ie SDL_INIT_VIDEO
-	//we're initaliasing all of them (sound, input, video etc)
-	if (SDL_Init(SDL_INIT_EVERYTHING) != 0)
-	{
-		cout << "SDL Fail initialised!!!\n";
-		return -1; //failed, dont continue rest of main code
-	}
-	else
-	{
-		cout << "SDL initialised success!!!\n";
-	}
-
-	//NEED TO INIT SDL_Image
-	if (!(IMG_Init(IMG_INIT_PNG) & IMG_INIT_PNG)) {
-		cout << "sdl image did not load: " << IMG_GetError() << endl;
-		SDL_Quit();
-		system("pause");
-		return -1;
-	}
-
-	//create window, params are: window title, window pos x, pos y, width, height, window flags
-	Window = SDL_CreateWindow("Map Display", SDL_WINDOWPOS_CENTERED,
-		SDL_WINDOWPOS_CENTERED, 960, 960, SDL_WINDOW_SHOWN /*| SDL_WINDOW_FULLSCREEN*/);
-
-	if (Window != NULL) {
-		cout << "Window created!" << endl;
-	}
-	else
-	{
-		cout << "Failed to create window!" << endl;
-		return -1;
-	}
-
-	//create renderer to help draw stuff to the screen
-	Renderer = SDL_CreateRenderer(Window, -1, SDL_RENDERER_ACCELERATED | SDL_RENDERER_PRESENTVSYNC);
-	if (Renderer != NULL)
-	{
-		cout << "Renderer created!" << endl;
-	}
-	else
-	{
-		cout << "Renderer FAILED!" << endl;
-		return -1;
-	}
-
 	//LOAD UP Assets as Surface then convert to texture
 	SDL_Surface* grassSurface = IMG_Load("assets/TexturesTest/GrassTile.png");
 	SDL_Texture* grassTexture = SDL_CreateTextureFromSurface(Renderer, grassSurface);
@@ -96,7 +48,7 @@ int GameLoop::runGameLoop(SDL_Renderer* renderer)
 	SDL_FreeSurface(grassSurface);
 	SDL_FreeSurface(gateSurface);
 	SDL_FreeSurface(blockSurface);
-
+	/*
 	for (int x = 0; x < 30; x++)
 	{
 		for (int y = 0; y < 30; y++)
@@ -140,6 +92,7 @@ int GameLoop::runGameLoop(SDL_Renderer* renderer)
 		}
 	}
 	SDL_RenderPresent(Renderer);
+	*/
 	//______________________________________________________________________________________________________________________________________________________________________
 
 	while (gameRunning)
@@ -152,7 +105,7 @@ int GameLoop::runGameLoop(SDL_Renderer* renderer)
 		//draw character on tile they are standing on
 
 
-		//input handler 
+
 		//movement is WASD OR UP/DOWN/LEFT/RIGHT
 		//mouse button down click on menu button OR UI Elements
 
