@@ -125,10 +125,12 @@
     <ClCompile Include="Animation.cpp" />
     <ClCompile Include="BattleLoop.cpp" />
     <ClCompile Include="DungeonGenerator.cpp" />
+    <ClCompile Include="endGameScreen.cpp" />
     <ClCompile Include="Enemy.cpp" />
     <ClCompile Include="Entity.cpp" />
     <ClCompile Include="EventSystem.cpp" />
     <ClCompile Include="GameLoop.cpp" />
+    <ClCompile Include="Highscores.cpp" />
     <ClCompile Include="main.cpp" />
     <ClCompile Include="Menu.cpp" />
     <ClCompile Include="Player.cpp" />
@@ -137,10 +139,12 @@
     <ClInclude Include="Animation.h" />
     <ClInclude Include="BattleLoop.h" />
     <ClInclude Include="DungeonGenerator.h" />
+    <ClInclude Include="endGameScreen.h" />
     <ClInclude Include="Enemy.h" />
     <ClInclude Include="Entity.h" />
     <ClInclude Include="EventSystem.h" />
     <ClInclude Include="GameLoop.h" />
+    <ClInclude Include="Highscores.h" />
     <ClInclude Include="Menu.h" />
     <ClInclude Include="Player.h" />
     <ClInclude Include="resource.h" />

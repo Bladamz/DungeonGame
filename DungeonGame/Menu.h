@@ -4,6 +4,7 @@
 #include <SDL_ttf.h>
 #include "GameLoop.h"
 #include "Animation.h"
+#include "Highscores.h"
 
 using namespace std;
 
