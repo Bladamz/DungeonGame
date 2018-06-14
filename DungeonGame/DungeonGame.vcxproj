@@ -125,6 +125,7 @@
     <ClCompile Include="Animation.cpp" />
     <ClCompile Include="BattleLoop.cpp" />
     <ClCompile Include="DungeonGenerator.cpp" />
+    <ClCompile Include="endGameScreen.cpp" />
     <ClCompile Include="Enemy.cpp" />
     <ClCompile Include="Entity.cpp" />
     <ClCompile Include="GameLoop.cpp" />
@@ -137,6 +138,7 @@
     <ClInclude Include="Animation.h" />
     <ClInclude Include="BattleLoop.h" />
     <ClInclude Include="DungeonGenerator.h" />
+    <ClInclude Include="endGameScreen.h" />
     <ClInclude Include="Enemy.h" />
     <ClInclude Include="Entity.h" />
     <ClInclude Include="Highscores.h" />

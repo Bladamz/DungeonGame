@@ -1,14 +1,2 @@
-﻿  Highscores.cpp
-  Menu.cpp
-c:\dungeongame-daniel\dungeongame\dungeongame\menu.cpp(73): warning C4305: 'argument': truncation from 'double' to 'float'
-c:\dungeongame-daniel\dungeongame\dungeongame\menu.cpp(78): warning C4305: 'argument': truncation from 'double' to 'float'
-c:\dungeongame-daniel\dungeongame\dungeongame\menu.cpp(83): warning C4305: 'argument': truncation from 'double' to 'float'
-c:\dungeongame-daniel\dungeongame\dungeongame\menu.cpp(88): warning C4305: 'argument': truncation from 'double' to 'float'
-c:\dungeongame-daniel\dungeongame\dungeongame\menu.cpp(93): warning C4305: 'argument': truncation from 'double' to 'float'
-c:\dungeongame-daniel\dungeongame\dungeongame\menu.cpp(104): warning C4244: 'initializing': conversion from 'double' to 'float', possible loss of data
-c:\dungeongame-daniel\dungeongame\dungeongame\menu.cpp(234): warning C4305: 'argument': truncation from 'double' to 'float'
-c:\dungeongame-daniel\dungeongame\dungeongame\menu.cpp(272): warning C4244: 'initializing': conversion from 'double' to 'float', possible loss of data
-  main.cpp
-c:\dungeongame-daniel\dungeongame\dungeongame\main.cpp(92): warning C4551: function call missing argument list
-  Generating Code...
+﻿  endGameScreen.cpp
   DungeonGame.vcxproj -> C:\DungeonGame-Daniel\DungeonGame\Debug\DungeonGame.exe
