@@ -123,7 +123,7 @@ void Menu::displayMenu(SDL_Renderer* renderer)
 
 		//draw from animations
 		knight1.draw(150, 400, 2.0f);
-		knight2.draw(700, 200, 1.8f, true);	
+		knight2.draw(700, 200, 1.8f);	
 		knight3.draw(700, 200, 1.8f, true);
 		knight4.draw(700, 200, 1.8f, false);
 		knight5.draw(700, 200, 1.8f, false);
