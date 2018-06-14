@@ -1,4 +1,5 @@
 #include "Menu.h"
+#include "Highscores.h"
 
 
 Menu::Menu()
@@ -69,9 +70,27 @@ void Menu::displayMenu(SDL_Renderer* renderer)
 	SDL_Surface* knightSurface = IMG_Load("assets/menu/knight.png");
 	SDL_Texture* knightTexture = SDL_CreateTextureFromSurface(renderer, knightSurface);
 	SDL_FreeSurface(knightSurface);
-
 	Animation knight1(knightTexture, renderer, 45, 112, 151, 0.09);	
-	Animation knight2(knightTexture, renderer, 45, 112, 151, 0.05);
+
+	knightSurface = IMG_Load("assets/menu/SkeletonSwing.png");
+	SDL_Texture* SkeleSwingTexture = SDL_CreateTextureFromSurface(renderer, knightSurface);
+	SDL_FreeSurface(knightSurface);
+	Animation knight2(SkeleSwingTexture, renderer, 40, 333, 266, 0.01);
+
+	knightSurface = IMG_Load("assets/menu/SkeletonIdle.png");
+	SDL_Texture* SkeleIdleTexture = SDL_CreateTextureFromSurface(renderer, knightSurface);
+	SDL_FreeSurface(knightSurface);
+	Animation knight3(SkeleIdleTexture, renderer, 40, 333, 266, 0.05);
+
+	knightSurface = IMG_Load("assets/menu/Swing.png");
+	SDL_Texture* ZombieSwingTexture = SDL_CreateTextureFromSurface(renderer, knightSurface);
+	SDL_FreeSurface(knightSurface);
+	Animation knight4(ZombieSwingTexture, renderer, 40, 333, 266, 0.01);
+
+	knightSurface = IMG_Load("assets/menu/Idle.png");
+	SDL_Texture* ZombieIdleTexture = SDL_CreateTextureFromSurface(renderer, knightSurface);
+	SDL_FreeSurface(knightSurface);
+	Animation knight5(ZombieIdleTexture, renderer, 40, 333, 266, 0.05);
 
 	SDL_Event e;
 
@@ -98,10 +117,17 @@ void Menu::displayMenu(SDL_Renderer* renderer)
 		//update animations
 		knight1.update(DT);
 		knight2.update(DT);
+		knight3.update(DT);
+		knight4.update(DT);
+		knight5.update(DT);
 
 		//draw from animations
 		knight1.draw(150, 400, 2.0f);
-		knight2.draw(900, 400, 2.0f);	
+		knight2.draw(700, 200, 1.8f, true);	
+		knight3.draw(700, 200, 1.8f, true);
+		knight4.draw(700, 200, 1.8f, false);
+		knight5.draw(700, 200, 1.8f, false);
+
 
 		while (SDL_PollEvent(&e))
 		{
@@ -343,6 +369,7 @@ void Menu::viewHighScores(SDL_Renderer* renderer)
 	TTF_Font* font = TTF_OpenFont("assets/menu/BLKCHCRY.ttf", 32);	//params: font file, font size
 
 	SDL_Color textColor = { 255, 255,255, 0 };
+	Highscores highscore;
 
 	//create a surface using this fonr to display some sort of message
 	SDL_Surface* highScoresSurface = TTF_RenderText_Blended(font, "High Scores", textColor);

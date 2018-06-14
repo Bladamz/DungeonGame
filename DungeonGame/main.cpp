@@ -2,6 +2,7 @@
 #include <SDL.h>
 #include <SDL_ttf.h>
 #include "Menu.h"
+#include "endGameScreen.h"
 
 /*
 Game will be a dungeon combat game, with similarities to game such as pokemon and final fantasy
@@ -21,6 +22,8 @@ SDL_Renderer* renderer = NULL;
 
 int main(int argc, char **argv)
 {
+	
+
 	//init
 	if (SDL_Init(SDL_INIT_EVERYTHING) != 0)
 	{
@@ -74,8 +77,10 @@ int main(int argc, char **argv)
 		SDL_Quit();
 		return -1;
 	}
-
 	Menu *menu = new Menu();
+	endGameScreen endScreen;
+	endScreen.getDefeat(renderer);
+	endScreen.getVictory(renderer);
 
 	//displayMenu Returns a false boolean which exits the loop and game
 	menu->displayMenu(renderer);
