@@ -190,8 +190,8 @@ void DungeonGenerator::spawnEvents(int(*a)[COLUMN])
 	//Make Cave tiles random numbers which represent events
 	//2 Is nothing
 	//3 is enemy
-	//4 is loot
-	//5 is event
+	//4 is coins
+	//5 is experience
 	for (int i = 0; i < ROW; i++)
 	{
 		for (int j = 0; j < COLUMN; j++)
