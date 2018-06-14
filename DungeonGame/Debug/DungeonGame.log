@@ -1,10 +1,14 @@
-﻿  Menu.cpp
-c:\dungeongame-daniel\dungeongame\dungeongame\menu.cpp(72): warning C4305: 'argument': truncation from 'double' to 'float'
-c:\dungeongame-daniel\dungeongame\dungeongame\menu.cpp(77): warning C4305: 'argument': truncation from 'double' to 'float'
-c:\dungeongame-daniel\dungeongame\dungeongame\menu.cpp(82): warning C4305: 'argument': truncation from 'double' to 'float'
-c:\dungeongame-daniel\dungeongame\dungeongame\menu.cpp(87): warning C4305: 'argument': truncation from 'double' to 'float'
-c:\dungeongame-daniel\dungeongame\dungeongame\menu.cpp(92): warning C4305: 'argument': truncation from 'double' to 'float'
-c:\dungeongame-daniel\dungeongame\dungeongame\menu.cpp(103): warning C4244: 'initializing': conversion from 'double' to 'float', possible loss of data
-c:\dungeongame-daniel\dungeongame\dungeongame\menu.cpp(233): warning C4305: 'argument': truncation from 'double' to 'float'
-c:\dungeongame-daniel\dungeongame\dungeongame\menu.cpp(271): warning C4244: 'initializing': conversion from 'double' to 'float', possible loss of data
+﻿  Highscores.cpp
+  Menu.cpp
+c:\dungeongame-daniel\dungeongame\dungeongame\menu.cpp(73): warning C4305: 'argument': truncation from 'double' to 'float'
+c:\dungeongame-daniel\dungeongame\dungeongame\menu.cpp(78): warning C4305: 'argument': truncation from 'double' to 'float'
+c:\dungeongame-daniel\dungeongame\dungeongame\menu.cpp(83): warning C4305: 'argument': truncation from 'double' to 'float'
+c:\dungeongame-daniel\dungeongame\dungeongame\menu.cpp(88): warning C4305: 'argument': truncation from 'double' to 'float'
+c:\dungeongame-daniel\dungeongame\dungeongame\menu.cpp(93): warning C4305: 'argument': truncation from 'double' to 'float'
+c:\dungeongame-daniel\dungeongame\dungeongame\menu.cpp(104): warning C4244: 'initializing': conversion from 'double' to 'float', possible loss of data
+c:\dungeongame-daniel\dungeongame\dungeongame\menu.cpp(234): warning C4305: 'argument': truncation from 'double' to 'float'
+c:\dungeongame-daniel\dungeongame\dungeongame\menu.cpp(272): warning C4244: 'initializing': conversion from 'double' to 'float', possible loss of data
+  main.cpp
+c:\dungeongame-daniel\dungeongame\dungeongame\main.cpp(92): warning C4551: function call missing argument list
+  Generating Code...
   DungeonGame.vcxproj -> C:\DungeonGame-Daniel\DungeonGame\Debug\DungeonGame.exe

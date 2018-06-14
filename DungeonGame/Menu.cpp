@@ -1,4 +1,5 @@
 #include "Menu.h"
+#include "Highscores.h"
 
 
 Menu::Menu()
@@ -368,6 +369,7 @@ void Menu::viewHighScores(SDL_Renderer* renderer)
 	TTF_Font* font = TTF_OpenFont("assets/menu/BLKCHCRY.ttf", 32);	//params: font file, font size
 
 	SDL_Color textColor = { 255, 255,255, 0 };
+	Highscores highscore;
 
 	//create a surface using this fonr to display some sort of message
 	SDL_Surface* highScoresSurface = TTF_RenderText_Blended(font, "High Scores", textColor);
