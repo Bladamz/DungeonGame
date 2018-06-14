@@ -1,5 +1,14 @@
 #include "GameLoop.h"
 
+
+//Dans Shit _________________________________________
+SDL_Window* Window;
+SDL_Renderer* Renderer;
+SDL_Texture* Texture;
+SDL_Rect sourceRectangle;
+SDL_Rect destinationRectangle;
+//___________________________________________________
+
 GameLoop::GameLoop(SDL_Renderer* renderer)
 {
 	gameRunning = true;
@@ -21,19 +30,17 @@ GameLoop::GameLoop(SDL_Renderer* renderer)
 	knight->pos.x = 200;
 	knight->pos.y = 200;
 
+	entities.push_back(knight);
+
 	lastUpdate = SDL_GetTicks();
 
 }
 
 GameLoop::~GameLoop()
 {
+	delete knight;
 }
 
-//Dans Shit _________________________________________
-SDL_Texture* Texture;
-SDL_Rect sourceRectangle;
-SDL_Rect destinationRectangle;
-//___________________________________________________
 
 int GameLoop::runGameLoop(SDL_Renderer* renderer)
 {
@@ -88,9 +95,9 @@ int GameLoop::runGameLoop(SDL_Renderer* renderer)
 	SDL_FreeSurface(gateSurface);
 	SDL_FreeSurface(blockSurface);
 
-	for (int x = 0; x < 30; x++)
+	for (int x = 0; x < 40; x++)
 	{
-		for (int y = 0; y < 30; y++)
+		for (int y = 0; y < 23; y++)
 		{
 			if (dungeon[y][x] <= 7 && dungeon[y][x] > 1)
 			{
@@ -130,8 +137,9 @@ int GameLoop::runGameLoop(SDL_Renderer* renderer)
 			}
 		}
 	}
-	SDL_RenderPresent(renderer);
 	//______________________________________________________________________________________________________________________________________________________________________
+
+	SDL_Event e;
 
 	while (gameRunning)
 	{
@@ -147,10 +155,33 @@ int GameLoop::runGameLoop(SDL_Renderer* renderer)
 		dt = timeDiff / 1000.0;
 		lastUpdate = SDL_GetTicks();
 
-		//knight->update(dt);
-		for (auto e : entities) {
-			e->update(dt);
+		while (SDL_PollEvent(&e))
+		{
+			//check if user has clicked on the close window button
+			if (e.type == SDL_QUIT)
+			{
+				//exit loop
+				gameRunning = false;
+			}
+
+			if (e.type == SDL_KEYDOWN) 
+			{
+				if (e.key.keysym.scancode == SDL_SCANCODE_ESCAPE)
+				{
+					gameRunning = false;
+				}
+			}
 		}
+
+		////update all entities (knight)
+		//for (auto e : entities) {
+		//	e->update(dt);
+		//}
+
+		////draw all entities (knight)
+		//for (auto e : entities) {
+		//	e->draw();
+		//}
 
 		//input handler 
 		//movement is WASD OR UP/DOWN/LEFT/RIGHT
@@ -163,8 +194,7 @@ int GameLoop::runGameLoop(SDL_Renderer* renderer)
 			//display defeat screen and forget all scores
 
 
-		//SDL_RenderPresent(renderer);
-		//gameRunning = false;
+		SDL_RenderPresent(renderer);
 	}
 	//return current coins if victorius otherwise return 0
 	return currentCoins;

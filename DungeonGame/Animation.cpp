@@ -17,7 +17,6 @@ void Animation::update(float dt) {
 
 	//update frameTimer
 	frameTimer += dt;
-
 	//if this frame has been shown long enough
 	if (frameTimer >= frameDuration)
 	{
@@ -76,6 +75,6 @@ void Animation::draw(int x, int y, bool flip) {
 	if (flip)
 		flipType = SDL_FLIP_HORIZONTAL;
 
-	//draw                                              angle, rotationPoint, flip flag
+	//draw angle, rotationPoint, flip flag
 	SDL_RenderCopyEx(renderer, spriteSheet, &clip, &dest, 0, 0, flipType);
 }

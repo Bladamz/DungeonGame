@@ -89,6 +89,9 @@ void Entity::updateMovement(float dt)
 	pos.y = pos.y + velocity.y*dt;
 }
 
+void Entity::draw() {
+	//also do nothing for now
+}
 
 //combat functions
 float Entity::turn()

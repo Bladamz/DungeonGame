@@ -44,6 +44,7 @@ public:
 
 	virtual void update(float dt);
 	virtual void updateMovement(float dt);
+	virtual void draw();
 
 	//misc functions
 	void displayStats();
