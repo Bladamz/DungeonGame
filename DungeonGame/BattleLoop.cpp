@@ -15,7 +15,7 @@ BattleLoop::~BattleLoop()
 int BattleLoop::runBattleLoop(SDL_Renderer* renderer)
 {
 	Entity *player = NULL;
-	player = new Knight();
+	player = new Player();
 	Entity *enemy = NULL;
 	enemy = new Zombie();
 

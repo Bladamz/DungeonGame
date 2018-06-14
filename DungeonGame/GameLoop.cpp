@@ -48,7 +48,7 @@ int GameLoop::runGameLoop(SDL_Renderer* renderer)
 	SDL_FreeSurface(grassSurface);
 	SDL_FreeSurface(gateSurface);
 	SDL_FreeSurface(blockSurface);
-	/*
+	
 	for (int x = 0; x < 30; x++)
 	{
 		for (int y = 0; y < 30; y++)
@@ -56,7 +56,6 @@ int GameLoop::runGameLoop(SDL_Renderer* renderer)
 			if (dungeon[y][x] <= 7 && dungeon[y][x] > 1)
 			{
 				SDL_QueryTexture(grassTexture, NULL, NULL, &sourceRectangle.w, &sourceRectangle.h);
-				cout << "texture size is : " << sourceRectangle.w << "x" << sourceRectangle.h << endl;
 				sourceRectangle.x = 0;
 				sourceRectangle.y = 0;
 				destinationRectangle.x = x * 32;
@@ -68,7 +67,6 @@ int GameLoop::runGameLoop(SDL_Renderer* renderer)
 			if (dungeon[y][x] == 0)
 			{
 				SDL_QueryTexture(blockTexture, NULL, NULL, &sourceRectangle.w, &sourceRectangle.h);
-				cout << "texture size is : " << sourceRectangle.w << "x" << sourceRectangle.h << endl;
 				sourceRectangle.x = 0;
 				sourceRectangle.y = 0;
 				destinationRectangle.x = x * 32;
@@ -80,7 +78,6 @@ int GameLoop::runGameLoop(SDL_Renderer* renderer)
 			if (dungeon[y][x] == 8 || dungeon[y][x] == 9)
 			{
 				SDL_QueryTexture(gateTexture, NULL, NULL, &sourceRectangle.w, &sourceRectangle.h);
-				cout << "texture size is : " << sourceRectangle.w << "x" << sourceRectangle.h << endl;
 				sourceRectangle.x = 0;
 				sourceRectangle.y = 0;
 				destinationRectangle.x = x * 32;
@@ -91,8 +88,7 @@ int GameLoop::runGameLoop(SDL_Renderer* renderer)
 			}
 		}
 	}
-	SDL_RenderPresent(Renderer);
-	*/
+	
 	//______________________________________________________________________________________________________________________________________________________________________
 
 	while (gameRunning)
