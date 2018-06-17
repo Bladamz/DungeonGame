@@ -2,9 +2,9 @@
 
 #include "Entity.h"
 
-class Zombie : public Entity
+class Enemy : public Entity
 {
 public: 
 	float moves();
-	Zombie();
+	Enemy(int);
 };

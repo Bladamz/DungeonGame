@@ -69,11 +69,6 @@ public:
 	void setDefenceChange(int);
 	void setFocusChange(int);
 	void setHpChange(int);
-	void setExperience(float);
-	float getExperience();
-	void addExperience(float);
-	void calculateExperienceNeeded();
-	void levelUp();
 	int getHpChange();
 	bool getIsPlayer();
 };

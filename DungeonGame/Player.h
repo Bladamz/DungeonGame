@@ -15,6 +15,7 @@ private :
 	bool levelUpRunning;
 	Animation* animation = NULL;
 	bool faceRight = true;
+	int coins;
 public:
 	Player();
 	//animatino related
@@ -26,8 +27,17 @@ public:
 
 	void setExperience(float);
 	float getExperience();
+	float getLevelUpExperience();
 	void addExperience(float);
 	void calculateExperienceNeeded();
 	void levelUp();
+
+	int getStrength();
+	int getDefence();
+	int getCritChance();
+
+	int getCoins();
+	void addCoins(int);
+	void setCoins(int);
 };
 

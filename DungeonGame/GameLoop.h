@@ -3,10 +3,13 @@
 #include <iostream>
 #include <SDL.h>
 #include <SDL_image.h>
-#include "BattleLoop.h"
+
 #include "DungeonGenerator.h"
 #include "Animation.h"
 #include "Player.h"
+#include "EventSystem.h"
+#include "Timer.h"
+#include "endGameScreen.h"
 
 class GameLoop
 {
@@ -14,10 +17,11 @@ public:
 	SDL_Texture * knightTexture;
 	Animation* knightAnimation;
 	Player* knight;
+	EventSystem* eventSystem;
 	bool gameRunning;
+	bool floorRunning;
 	int dungeon;
 	int floor;
-	int currentCoins;
 	int spawnPosX;
 	int spawnPosY;
 	int arrayPosX;

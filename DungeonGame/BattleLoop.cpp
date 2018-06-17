@@ -4,21 +4,18 @@
 BattleLoop::BattleLoop()
 {
 	reward = 0;
+	srand(time(NULL));
 }
 
 BattleLoop::~BattleLoop()
 {
 }
 
-int BattleLoop::runBattleLoop(SDL_Renderer* renderer)
+int BattleLoop::runBattleLoop(SDL_Renderer* renderer, Player* knightPlayer)
 {
-	Entity *player = NULL;
-	player = new Player();
-	Entity *enemy = NULL;
-	enemy = new Zombie();
-
-
-
+	player = knightPlayer;
+	enemy = new Enemy(rand() % 2 + 1);
+	Timer timer;
 
 	//init art
 	//load surfaces from assets folder
@@ -49,18 +46,23 @@ int BattleLoop::runBattleLoop(SDL_Renderer* renderer)
 	SDL_Rect backgroundDesination;
 	backgroundDesination.x = 0;
 	backgroundDesination.y = -100;
+
 	SDL_Rect uiBarDestination;
 	uiBarDestination.x = 0;
 	uiBarDestination.y = 550;
+
 	SDL_Rect attackButtonDestination;
 	attackButtonDestination.x = 0;
 	attackButtonDestination.y = 550;
+
 	SDL_Rect defendButtonDestination;
 	defendButtonDestination.x = 227;
 	defendButtonDestination.y = 550;
+
 	SDL_Rect focusButtonDestination;
 	focusButtonDestination.x = 0;
 	focusButtonDestination.y = 635;
+
 	SDL_Rect runButtonDestination;
 	runButtonDestination.x = 227;
 	runButtonDestination.y = 635;
@@ -75,18 +77,54 @@ int BattleLoop::runBattleLoop(SDL_Renderer* renderer)
 	
 
 	//Animation Init
-	SDL_Surface* knightSurface = IMG_Load("assets/menu/knight.png");
-	SDL_Texture* knightTexture = SDL_CreateTextureFromSurface(renderer, knightSurface);
-	SDL_FreeSurface(knightSurface);
+	SDL_Surface* knightSurface = IMG_Load("assets/battle/CharacterIdle.png");
+	SDL_Surface* enemySurface = IMG_Load("assets/menu/knight.png");
+	SDL_Surface* knightSwingSurface = IMG_Load("assets/battle/CharacterSwing.png");
 
-	Animation knight1(knightTexture, renderer, 45, 112, 151, 0.09);
-	Animation knight2(knightTexture, renderer, 45, 112, 151, 0.05);
+	SDL_Texture* knightTexture = SDL_CreateTextureFromSurface(renderer, knightSurface);
+	SDL_Texture* enemyTexture = SDL_CreateTextureFromSurface(renderer, enemySurface);
+	SDL_Texture* knightSwingTexture = SDL_CreateTextureFromSurface(renderer, knightSwingSurface);
+
+	SDL_FreeSurface(knightSurface);
+	SDL_FreeSurface(enemySurface);
+	SDL_FreeSurface(knightSwingSurface);
+
+	//some shit animation code because I ran out of time
+	SDL_Surface* zombieSurface = IMG_Load("assets/battle/ZombieIdle.png");
+	SDL_Surface* zombieSwingSurface = IMG_Load("assets/battle/ZombieSwing.png");
+
+	SDL_Texture* zombieTexture = SDL_CreateTextureFromSurface(renderer, zombieSurface);
+	SDL_Texture* zombieSwingTexture = SDL_CreateTextureFromSurface(renderer, zombieSwingSurface);
+
+	SDL_FreeSurface(zombieSurface);
+	SDL_FreeSurface(zombieSwingSurface);
+
+	Animation zombieIdle(zombieTexture, renderer, 15, 476, 381, 0.06);
+	Animation zombieSwing(zombieSwingTexture, renderer, 15, 476, 381, 0.02);
+		
+	SDL_Surface* skeletonSurface = IMG_Load("assets/battle/SkeletonIdle.png");
+	SDL_Surface* skeletonSwingSurface = IMG_Load("assets/battle/SkeletonSwing.png");
+
+	SDL_Texture* skeletonTexture = SDL_CreateTextureFromSurface(renderer, skeletonSurface);
+	SDL_Texture* skeletonSwingTexture = SDL_CreateTextureFromSurface(renderer, skeletonSwingSurface);
+
+	SDL_FreeSurface(skeletonSurface);
+	SDL_FreeSurface(skeletonSwingSurface);
+
+	Animation skeletonIdle(skeletonTexture, renderer, 15, 476, 381, 0.06);
+	Animation skeletonSwing(skeletonSwingTexture, renderer, 15, 476, 381, 0.02);
+
+	Animation knight(knightTexture, renderer, 15, 179, 179, 0.1);
+	Animation knightSwing(knightSwingTexture, renderer, 15, 179, 178, 0.02);
 
 	//load art and other needed assets
 
 	Uint32 lastUpdate = SDL_GetTicks(); //set last update to current time (milliseconds to reach this bit of code)
 
 	SDL_Event e;
+
+	bool playerAttacking = false;
+	bool enemyAttacking = false;
 		
 	while (!player->checkIfDead() && !enemy->checkIfDead())
 	{
@@ -103,25 +141,75 @@ int BattleLoop::runBattleLoop(SDL_Renderer* renderer)
 
 		//draw character HERO & ENEMY
 		//update animations
-		knight1.update(DT);
-		knight2.update(DT);
+		
+		
+		
 
 		//draw from animations
-		knight1.draw(150, 250, 2.0f);
-		knight2.draw(900, 250, 2.0f);
 
 
-		//draw UI
+		if (playerAttacking)
+		{
+			knightSwing.update(DT);
+			knightSwing.draw(300, 200, 2.0f);
+		}
+		else
+		{
+			knight.update(DT);
+			knight.draw(300, 200, 2.0f);
+		}
+
+		if (enemyAttacking)
+		{
+			if (enemy->getSubName() == "Zombie")
+			{
+				zombieSwing.update(DT);
+				zombieSwing.draw(700, 200, 1.0f);
+			}
+			else
+			{
+				skeletonSwing.update(DT);
+				skeletonSwing.draw(700, 200, 1.0f, true);
+			}
+		}
+		else
+		{
+			if (enemy->getSubName() == "Zombie")
+			{
+				zombieIdle.update(DT);
+				zombieIdle.draw(700, 200, 1.0f);
+			}
+			else
+			{
+				skeletonIdle.update(DT);
+				skeletonIdle.draw(700, 200, 1.0f, true);
+			}
+		}
+
+		//draw UI buttons
 		SDL_RenderCopy(renderer, uiBarTexture, NULL, &uiBarDestination);
 		SDL_RenderCopy(renderer, attackButtonTexture, NULL, &attackButtonDestination);
 		SDL_RenderCopy(renderer, defendButtonTexture, NULL, &defendButtonDestination);
 		SDL_RenderCopy(renderer, focusButtonTexture, NULL, &focusButtonDestination);
 		SDL_RenderCopy(renderer, runButtonTexture, NULL, &runButtonDestination);
 
+		//draw HP and UI
 		displayHp(player, renderer);
 		displayHp(enemy, renderer);
-		
-		
+		diplayStats(player, renderer);
+		if (timer.isStarted() && (timer.getTicks() >= 400))
+		{
+			enemyAttacking = true;
+			playerAttacking = false;
+		}
+
+
+		if (timer.isStarted() && (timer.getTicks() >= 1000))
+		{
+			timer.stop();
+			playerAttacking = false;
+			enemyAttacking = false;
+		}
 
 		//INPUT HANDLER		//input handler 
 		while (SDL_PollEvent(&e))
@@ -133,7 +221,7 @@ int BattleLoop::runBattleLoop(SDL_Renderer* renderer)
 				battle = false;
 				//SDL_Quit();
 			}
-			if (e.type == SDL_MOUSEBUTTONDOWN)
+			if (e.type == SDL_MOUSEBUTTONDOWN && !timer.isStarted())
 			{
 				//check if its the left mouse button down
 				if (e.button.button = SDL_BUTTON_LEFT)
@@ -141,7 +229,9 @@ int BattleLoop::runBattleLoop(SDL_Renderer* renderer)
 					//check if mouse is clicked on the attack button
 					if (e.button.x >= attackButtonDestination.x && e.button.x <= attackButtonDestination.x + 227 && e.button.y >= attackButtonDestination.y && e.button.y <= attackButtonDestination.y + 85)
 					{
+						playerAttacking = true;
 						enemy->takeDamage(player->turn());
+						timer.start();
 						cout << "\n\n+---------------------------------------------------------------------------+\n\n";
 						if (!enemy->checkIfDead())
 						{
@@ -157,13 +247,16 @@ int BattleLoop::runBattleLoop(SDL_Renderer* renderer)
 						cout << "\n\n+---------------------------------------------------------------------------+\n\n";
 						if (!enemy->checkIfDead())
 						{
+							timer.start();
 							player->takeDamage(enemy->turn());
 							cout << "\n";
+							enemyAttacking = true;
 						}
 					}
 					//check if mouse is clicked on the focus button
 					if (e.button.x >= focusButtonDestination.x && e.button.x <= focusButtonDestination.x + 227 && e.button.y >= focusButtonDestination.y && e.button.y <= focusButtonDestination.y + 85)
 					{
+						timer.start();
 						cout << "Player has increased their crit chance by 1%." << endl;
 						player->setFocusChange(1);
 						cout << "\n\n+---------------------------------------------------------------------------+\n\n";
@@ -171,29 +264,98 @@ int BattleLoop::runBattleLoop(SDL_Renderer* renderer)
 						{
 							player->takeDamage(enemy->turn());
 							cout << "\n";
+							enemyAttacking = true;
 						}
 					}
 					//check if mouse is clicked on the run button
 					if (e.button.x >= runButtonDestination.x && e.button.x <= runButtonDestination.x + 227 && e.button.y >= runButtonDestination.y && e.button.y <= runButtonDestination.y + 85)
 					{
 						enemy->setHpChange(5000000000); //kill enemy
+						cout << "Coward" << endl;
 					}
 
 				}
 			}
 		}
-		//if action happens do calculations
-		//eg attack defend flee;
-		//click buttons for menu and ui
-
-
 		SDL_RenderPresent(renderer);
-		
-		//if player or enemy HP < 0 
-		//battle = false;
+	}
+
+	//calculate coins based on outcome of battle
+	if (enemy->checkIfDead() == true)
+	{
+		reward = rand() % 300 + 100;
+	}
+	else
+	{
+		reward = 0;
 	}
 
 	return reward;
+}
+
+void BattleLoop::diplayStats(Player* player, SDL_Renderer* renderer)
+{
+	string strength = "Strength: ";
+	strength += to_string(player->getStrength());
+	string defence = "Defence: ";
+	defence += to_string(player->getDefence());
+	string critChance = "Crit Chacnce: ";
+	critChance += to_string(player->getCritChance());
+	string experience = "Experience: ";
+	experience += to_string(player->getExperience());
+
+	TTF_Font* font = TTF_OpenFont("assets/menu/BLKCHCRY.ttf", 32);	//params: font file, font size
+	SDL_Color textColor = { 0, 0, 0, 0 };
+
+	// now create a surface from the font
+	SDL_Surface* strengthSurface = TTF_RenderText_Solid(font, strength.c_str(), textColor);
+	SDL_Surface* defenceSurface = TTF_RenderText_Solid(font, defence.c_str(), textColor);
+	SDL_Surface* critSurface = TTF_RenderText_Solid(font, critChance.c_str(), textColor);
+	SDL_Surface* expSurface = TTF_RenderText_Solid(font, experience.c_str(), textColor);
+
+	//convert surface to texture
+	SDL_Texture* strengthTextTexture = SDL_CreateTextureFromSurface(renderer, strengthSurface);
+	SDL_Texture* defenceTextTexture = SDL_CreateTextureFromSurface(renderer, defenceSurface);
+	SDL_Texture* critTextTexture = SDL_CreateTextureFromSurface(renderer, critSurface);
+	SDL_Texture* expTextTexture = SDL_CreateTextureFromSurface(renderer, expSurface);
+
+	//delete surface properly
+	SDL_FreeSurface(strengthSurface);
+	SDL_FreeSurface(defenceSurface);
+	SDL_FreeSurface(critSurface);
+	SDL_FreeSurface(expSurface);
+
+	//text destination
+	SDL_Rect strengthDestination;
+	strengthDestination.x = 600;
+	strengthDestination.y = 560;
+
+	SDL_Rect defenceDestination;
+	defenceDestination.x = 900;
+	defenceDestination.y = 560;
+
+	SDL_Rect critDestination;
+	critDestination.x = 600;
+	critDestination.y = 660;
+
+	SDL_Rect expDestination;
+	expDestination.x = 900;
+	expDestination.y = 660;
+
+	SDL_QueryTexture(strengthTextTexture, NULL, NULL, &strengthDestination.w, &strengthDestination.h);
+	SDL_QueryTexture(defenceTextTexture, NULL, NULL, &defenceDestination.w, &defenceDestination.h);
+	SDL_QueryTexture(critTextTexture, NULL, NULL, &critDestination.w, &critDestination.h);
+	SDL_QueryTexture(expTextTexture, NULL, NULL, &expDestination.w, &expDestination.h);
+
+	SDL_RenderCopy(renderer, strengthTextTexture, NULL, &strengthDestination);
+	SDL_RenderCopy(renderer, defenceTextTexture, NULL, &defenceDestination);
+	SDL_RenderCopy(renderer, critTextTexture, NULL, &critDestination);
+	SDL_RenderCopy(renderer, expTextTexture, NULL, &expDestination);
+
+	SDL_DestroyTexture(strengthTextTexture);
+	SDL_DestroyTexture(defenceTextTexture);
+	SDL_DestroyTexture(critTextTexture);
+	SDL_DestroyTexture(expTextTexture);
 }
 
 void BattleLoop::displayHp(Entity* entity, SDL_Renderer* renderer)
@@ -224,9 +386,10 @@ void BattleLoop::displayHp(Entity* entity, SDL_Renderer* renderer)
 		textDestination.x = 1220;
 		textDestination.y = 500;
 	}
-	
 
 	SDL_QueryTexture(textTexture, NULL, NULL, &textDestination.w, &textDestination.h);
 
 	SDL_RenderCopy(renderer, textTexture, NULL, &textDestination);
+
+	SDL_DestroyTexture(textTexture);
 }

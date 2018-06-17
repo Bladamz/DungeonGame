@@ -78,10 +78,7 @@ int main(int argc, char **argv)
 		return -1;
 	}
 	Menu *menu = new Menu();
-	endGameScreen *endScrn = new endGameScreen();
 	//displayMenu Returns a false boolean which exits the loop and game
-	endScrn->getDefeat(renderer);
-	endScrn->getVictory(renderer);
 	menu->displayMenu(renderer);
 	
 	delete menu;

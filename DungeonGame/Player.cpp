@@ -16,6 +16,8 @@ Player::Player()
 	critChange = critChance;
 	strengthChange = strength;
 	isPlayer = true;
+
+	coins = 0;
 }
 
 void Player::setAnimation(Animation* animation)
@@ -68,6 +70,11 @@ float Player::getExperience()
 	return experience;
 }
 
+float Player::getLevelUpExperience()
+{
+	return levelUpExperience;
+}
+
 void Player::addExperience(float exp)
 {
 	experience = experience + exp;
@@ -95,4 +102,34 @@ void Player::levelUp()
 	playerLevel++;					//add to player level
 	setExperience(0);				//set the experience back to 0
 	calculateExperienceNeeded();	//calculate next experience goal
+}
+
+int Player::getStrength()
+{
+	return strengthChange;
+}
+
+int Player::getDefence()
+{
+	return defenceChange;
+}
+
+int Player::getCritChance()
+{
+	return critChange;
+}
+
+int Player::getCoins()
+{
+	return coins;
+}
+
+void Player::addCoins(int addedCoins)
+{
+	coins = coins + addedCoins;
+}	
+
+void Player::setCoins(int setCoins)
+{
+	coins = setCoins;
 }

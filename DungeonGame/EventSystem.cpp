@@ -8,6 +8,11 @@ EventSystem::EventSystem()
 	eventMessage = "";
 }
 
+EventSystem::~EventSystem()
+{
+	delete battleLoop;
+}
+
 float EventSystem::experienceEvent(SDL_Renderer* renderer)
 {
 	eventRunning = true;
@@ -180,4 +185,35 @@ float EventSystem::coinEvent(SDL_Renderer* renderer)
 	}
 	delete(cMessage);
 	return eventCoins;
+}
+
+void EventSystem::checkEvent(int row, int column, int(*a)[10],SDL_Renderer *renderer,Player* player)
+{
+	int * eventNumber = new int();
+	*eventNumber = a[row][column];
+
+	//Make Cave tiles random numbers which represent events
+	//2 Is nothing
+	//3 is enemy
+	//4 is coins
+	//5 is experience
+	switch (*eventNumber)
+	{
+	case 3: 
+		battleLoop = new BattleLoop();
+		battleLoop->runBattleLoop(renderer, player);
+		a[row][column] = 2;
+		player->rest();
+		delete battleLoop;
+		break;
+	case 4:
+		player->addCoins(coinEvent(renderer));
+		a[row][column] = 2;
+		break;
+	case 5:
+		player->addExperience(experienceEvent(renderer));
+		a[row][column] = 2;
+		break;
+	}
+
 }
