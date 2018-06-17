@@ -48,8 +48,11 @@
     <ClCompile Include="Highscores.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="endGameScreen.cpp">
+    <ClCompile Include="Vector.cpp">
       <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="endGameScreen.cpp">
+      <Filter>Resource Files</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -87,6 +90,9 @@
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="Highscores.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="Vector.h">
       <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>

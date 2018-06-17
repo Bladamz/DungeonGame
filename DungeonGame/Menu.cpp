@@ -185,7 +185,7 @@ void Menu::displayMenu(SDL_Renderer* renderer)
 
 void Menu::characterCreation(SDL_Renderer* renderer)
 {
-	GameLoop* startGameLoop = new GameLoop();
+	GameLoop* startGameLoop = new GameLoop(renderer);
 
 	//DISPLAY CHARACTER AND ASK PLAYER TO NAME THE CHARACTER
 	//ONLY 1 CHARACTER FOR NOW 
@@ -324,8 +324,8 @@ void Menu::characterCreation(SDL_Renderer* renderer)
 					{
 						//START BUTTON THINGS HERE
 						cout << "Character Creation complete!" << endl;
-						startGame = false;
 						coins = startGameLoop->runGameLoop(renderer);
+						startGame = false;
 					}
 				}
 			}

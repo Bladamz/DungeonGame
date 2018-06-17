@@ -43,6 +43,51 @@ void Entity::rest()
 	strengthChange = strength;
 }
 
+void Entity::setRenderer(SDL_Renderer* renderer)
+{
+	this->renderer = renderer;
+}
+
+float Entity::getPositionX()
+{
+	return pos.x;
+}
+
+float Entity::getPositionY()
+{
+	return pos.y;
+}
+
+void Entity::setPosition(Vector pos)
+{
+	this->pos = pos;
+}
+
+Vector Entity::getVelocity()
+{
+	return velocity;
+}
+
+void Entity::setVelocity(Vector velocity)
+{
+	this->velocity = velocity;
+}
+
+void Entity::update(float dt)
+{
+	updateMovement(dt);
+}
+
+void Entity::updateMovement(float dt)
+{
+	pos.x = pos.x + velocity.x*dt;
+	pos.y = pos.y + velocity.y*dt;
+}
+
+void Entity::draw(float scale)
+{
+	//do nothing, let others override this
+}
 
 //combat functions
 float Entity::turn()

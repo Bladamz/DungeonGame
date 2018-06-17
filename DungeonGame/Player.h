@@ -4,6 +4,7 @@
 #include <string>
 
 #include "Entity.h"
+#include "Animation.h"
 
 class Player : public Entity
 {
@@ -12,8 +13,17 @@ private :
 	int playerLevel;			//level of the player 1-100....
 	float levelUpExperience;	//experience needed to level up
 	bool levelUpRunning;
+	Animation* animation = NULL;
+	bool faceRight = true;
 public:
 	Player();
+	//animatino related
+	void setAnimation(Animation* animation);
+	//overriding
+	virtual void update(float dt);
+	virtual void draw(float scale);
+
+
 	void setExperience(float);
 	float getExperience();
 	void addExperience(float);
