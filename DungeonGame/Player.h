@@ -8,7 +8,6 @@
 
 class Player : public Entity
 {
-<<<<<<< HEAD
 private :
 	float experience;			//players current experience
 	int playerLevel;			//level of the player 1-100....
@@ -30,11 +29,5 @@ public:
 	void addExperience(float);
 	void calculateExperienceNeeded();
 	void levelUp();
-=======
-private:
-
-public:
-	Player();
->>>>>>> BattleSystem
 };
 

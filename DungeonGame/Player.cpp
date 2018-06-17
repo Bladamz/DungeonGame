@@ -18,7 +18,6 @@ Player::Player()
 	isPlayer = true;
 }
 
-<<<<<<< HEAD
 void Player::setAnimation(Animation* animation)
 {
 	this->animation = animation;
@@ -97,5 +96,3 @@ void Player::levelUp()
 	setExperience(0);				//set the experience back to 0
 	calculateExperienceNeeded();	//calculate next experience goal
 }
-=======
->>>>>>> BattleSystem

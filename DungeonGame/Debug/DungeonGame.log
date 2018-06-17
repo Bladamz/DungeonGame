@@ -1,49 +1,41 @@
-<<<<<<< HEAD
-<<<<<<< HEAD
-﻿  main.cpp
-c:\users\blada\documents\visual studio 2017\projects\dungeongame\dungeongame\main.cpp(93): warning C4551: function call missing argument list
-=======
 ﻿  BattleLoop.cpp
 c:\users\blada\documents\visual studio 2017\projects\dungeongame\dungeongame\battleloop.cpp(82): warning C4305: 'argument': truncation from 'double' to 'float'
 c:\users\blada\documents\visual studio 2017\projects\dungeongame\dungeongame\battleloop.cpp(83): warning C4305: 'argument': truncation from 'double' to 'float'
 c:\users\blada\documents\visual studio 2017\projects\dungeongame\dungeongame\battleloop.cpp(97): warning C4244: 'initializing': conversion from 'double' to 'float', possible loss of data
 c:\users\blada\documents\visual studio 2017\projects\dungeongame\dungeongame\battleloop.cpp(179): warning C4305: 'argument': truncation from '__int64' to 'int'
 c:\users\blada\documents\visual studio 2017\projects\dungeongame\dungeongame\battleloop.cpp(179): warning C4309: 'argument': truncation of constant value
->>>>>>> BattleSystem
-  DungeonGame.vcxproj -> C:\Users\blada\Documents\Visual Studio 2017\Projects\DungeonGame\Debug\DungeonGame.exe
-=======
-﻿  GameLoop.cpp
-<<<<<<< HEAD
-c:\master\dungeongame\dungeongame\gameloop.cpp(16): warning C4305: 'argument': truncation from 'double' to 'float'
-c:\master\dungeongame\dungeongame\gameloop.cpp(47): warning C4244: 'argument': conversion from 'time_t' to 'unsigned int', possible loss of data
-c:\master\dungeongame\dungeongame\gameloop.cpp(123): warning C4244: '=': conversion from 'int' to 'float', possible loss of data
-c:\master\dungeongame\dungeongame\gameloop.cpp(124): warning C4244: '=': conversion from 'int' to 'float', possible loss of data
-c:\master\dungeongame\dungeongame\gameloop.cpp(147): warning C4244: '=': conversion from 'double' to 'float', possible loss of data
-c:\master\dungeongame\dungeongame\gameloop.cpp(177): warning C4305: 'argument': truncation from 'double' to 'float'
-  Menu.cpp
-c:\master\dungeongame\dungeongame\menu.cpp(73): warning C4305: 'argument': truncation from 'double' to 'float'
-c:\master\dungeongame\dungeongame\menu.cpp(78): warning C4305: 'argument': truncation from 'double' to 'float'
-c:\master\dungeongame\dungeongame\menu.cpp(83): warning C4305: 'argument': truncation from 'double' to 'float'
-c:\master\dungeongame\dungeongame\menu.cpp(88): warning C4305: 'argument': truncation from 'double' to 'float'
-c:\master\dungeongame\dungeongame\menu.cpp(93): warning C4305: 'argument': truncation from 'double' to 'float'
-c:\master\dungeongame\dungeongame\menu.cpp(104): warning C4244: 'initializing': conversion from 'double' to 'float', possible loss of data
-c:\master\dungeongame\dungeongame\menu.cpp(234): warning C4305: 'argument': truncation from 'double' to 'float'
-c:\master\dungeongame\dungeongame\menu.cpp(272): warning C4244: 'initializing': conversion from 'double' to 'float', possible loss of data
+  EventSystem.cpp
+c:\users\blada\documents\visual studio 2017\projects\dungeongame\dungeongame\eventsystem.cpp(5): warning C4244: 'argument': conversion from 'time_t' to 'unsigned int', possible loss of data
+c:\users\blada\documents\visual studio 2017\projects\dungeongame\dungeongame\eventsystem.cpp(14): warning C4553: '==': operator has no effect; did you intend '='?
+c:\users\blada\documents\visual studio 2017\projects\dungeongame\dungeongame\eventsystem.cpp(17): warning C4244: 'argument': conversion from 'float' to 'char', possible loss of data
+c:\users\blada\documents\visual studio 2017\projects\dungeongame\dungeongame\eventsystem.cpp(101): warning C4553: '==': operator has no effect; did you intend '='?
+c:\users\blada\documents\visual studio 2017\projects\dungeongame\dungeongame\eventsystem.cpp(104): warning C4244: 'argument': conversion from 'float' to 'char', possible loss of data
+  GameLoop.cpp
+c:\users\blada\documents\visual studio 2017\projects\dungeongame\dungeongame\gameloop.cpp(16): warning C4305: 'argument': truncation from 'double' to 'float'
+c:\users\blada\documents\visual studio 2017\projects\dungeongame\dungeongame\gameloop.cpp(47): warning C4244: 'argument': conversion from 'time_t' to 'unsigned int', possible loss of data
+c:\users\blada\documents\visual studio 2017\projects\dungeongame\dungeongame\gameloop.cpp(131): warning C4244: '=': conversion from 'int' to 'float', possible loss of data
+c:\users\blada\documents\visual studio 2017\projects\dungeongame\dungeongame\gameloop.cpp(132): warning C4244: '=': conversion from 'int' to 'float', possible loss of data
+c:\users\blada\documents\visual studio 2017\projects\dungeongame\dungeongame\gameloop.cpp(187): warning C4244: '=': conversion from 'double' to 'float', possible loss of data
+c:\users\blada\documents\visual studio 2017\projects\dungeongame\dungeongame\gameloop.cpp(214): warning C4244: '=': conversion from 'int' to 'float', possible loss of data
+c:\users\blada\documents\visual studio 2017\projects\dungeongame\dungeongame\gameloop.cpp(232): warning C4244: '=': conversion from 'int' to 'float', possible loss of data
+c:\users\blada\documents\visual studio 2017\projects\dungeongame\dungeongame\gameloop.cpp(251): warning C4244: '=': conversion from 'int' to 'float', possible loss of data
+c:\users\blada\documents\visual studio 2017\projects\dungeongame\dungeongame\gameloop.cpp(269): warning C4244: '=': conversion from 'int' to 'float', possible loss of data
+c:\users\blada\documents\visual studio 2017\projects\dungeongame\dungeongame\gameloop.cpp(291): warning C4305: 'argument': truncation from 'double' to 'float'
   main.cpp
-c:\master\dungeongame\dungeongame\main.cpp(90): warning C4551: function call missing argument list
+c:\users\blada\documents\visual studio 2017\projects\dungeongame\dungeongame\main.cpp(93): warning C4551: function call missing argument list
+  Menu.cpp
+c:\users\blada\documents\visual studio 2017\projects\dungeongame\dungeongame\menu.cpp(73): warning C4305: 'argument': truncation from 'double' to 'float'
+c:\users\blada\documents\visual studio 2017\projects\dungeongame\dungeongame\menu.cpp(78): warning C4305: 'argument': truncation from 'double' to 'float'
+c:\users\blada\documents\visual studio 2017\projects\dungeongame\dungeongame\menu.cpp(83): warning C4305: 'argument': truncation from 'double' to 'float'
+c:\users\blada\documents\visual studio 2017\projects\dungeongame\dungeongame\menu.cpp(88): warning C4305: 'argument': truncation from 'double' to 'float'
+c:\users\blada\documents\visual studio 2017\projects\dungeongame\dungeongame\menu.cpp(93): warning C4305: 'argument': truncation from 'double' to 'float'
+c:\users\blada\documents\visual studio 2017\projects\dungeongame\dungeongame\menu.cpp(104): warning C4244: 'initializing': conversion from 'double' to 'float', possible loss of data
+c:\users\blada\documents\visual studio 2017\projects\dungeongame\dungeongame\menu.cpp(234): warning C4305: 'argument': truncation from 'double' to 'float'
+c:\users\blada\documents\visual studio 2017\projects\dungeongame\dungeongame\menu.cpp(272): warning C4244: 'initializing': conversion from 'double' to 'float', possible loss of data
+  Player.cpp
+c:\users\blada\documents\visual studio 2017\projects\dungeongame\dungeongame\player.cpp(9): warning C4305: '=': truncation from 'double' to 'float'
+c:\users\blada\documents\visual studio 2017\projects\dungeongame\dungeongame\player.cpp(52): warning C4244: 'argument': conversion from 'float' to 'int', possible loss of data
+c:\users\blada\documents\visual studio 2017\projects\dungeongame\dungeongame\player.cpp(56): warning C4244: 'argument': conversion from 'float' to 'int', possible loss of data
+c:\users\blada\documents\visual studio 2017\projects\dungeongame\dungeongame\player.cpp(78): warning C4244: '=': conversion from 'int' to 'float', possible loss of data
   Generating Code...
-  DungeonGame.vcxproj -> C:\Master\DungeonGame\Debug\DungeonGame.exe
->>>>>>> 557375279fba9b0fd5c79e54f6ff64c439d58afc
-=======
-b:\github\dungeongame\dungeongame\gameloop.cpp(16): warning C4305: 'argument': truncation from 'double' to 'float'
-b:\github\dungeongame\dungeongame\gameloop.cpp(47): warning C4244: 'argument': conversion from 'time_t' to 'unsigned int', possible loss of data
-b:\github\dungeongame\dungeongame\gameloop.cpp(131): warning C4244: '=': conversion from 'int' to 'float', possible loss of data
-b:\github\dungeongame\dungeongame\gameloop.cpp(132): warning C4244: '=': conversion from 'int' to 'float', possible loss of data
-b:\github\dungeongame\dungeongame\gameloop.cpp(187): warning C4244: '=': conversion from 'double' to 'float', possible loss of data
-b:\github\dungeongame\dungeongame\gameloop.cpp(214): warning C4244: '=': conversion from 'int' to 'float', possible loss of data
-b:\github\dungeongame\dungeongame\gameloop.cpp(232): warning C4244: '=': conversion from 'int' to 'float', possible loss of data
-b:\github\dungeongame\dungeongame\gameloop.cpp(251): warning C4244: '=': conversion from 'int' to 'float', possible loss of data
-b:\github\dungeongame\dungeongame\gameloop.cpp(269): warning C4244: '=': conversion from 'int' to 'float', possible loss of data
-b:\github\dungeongame\dungeongame\gameloop.cpp(291): warning C4305: 'argument': truncation from 'double' to 'float'
-  DungeonGame.vcxproj -> B:\GitHub\DungeonGame\Debug\DungeonGame.exe
->>>>>>> DungeonGame/movement
+  DungeonGame.vcxproj -> C:\Users\blada\Documents\Visual Studio 2017\Projects\DungeonGame\Debug\DungeonGame.exe
