@@ -7,17 +7,9 @@
 
 class Player : public Entity
 {
-private :
-	float experience;			//players current experience
-	int playerLevel;			//level of the player 1-100....
-	float levelUpExperience;	//experience needed to level up
-	bool levelUpRunning;
+private:
+
 public:
 	Player();
-	void setExperience(float);
-	float getExperience();
-	void addExperience(float);
-	void calculateExperienceNeeded();
-	void levelUp();
 };
 
