@@ -207,19 +207,17 @@ int GameLoop::runGameLoop(SDL_Renderer* renderer)
 					if (e.key.keysym.scancode == SDL_SCANCODE_ESCAPE)
 					{
 						gameRunning = false;
-						floorRunning = false;
 					}
 					//move to the left
 					if (e.key.keysym.scancode == SDL_SCANCODE_LEFT)
 					{
 						//move the actual array position
 						arrayPosX -= 1;
+						cout << "current array " << dungeon[arrayPosY][arrayPosX] << endl;
 						//check if current array is not 0 (not a block texture)
-						if (arrayPosX != 0)
+						if (dungeon[arrayPosY][arrayPosX] != 0)
 						{
 							knight->pos.x = (arrayPosX * 32) - playerOffSetX;
-							cout << "X: " << arrayPosX << endl;
-							cout << &dungeon << endl;
 						}
 						//else if current array position is 0 (a block texture), then move back
 						else
@@ -232,12 +230,11 @@ int GameLoop::runGameLoop(SDL_Renderer* renderer)
 					{
 						//move the actual array position
 						arrayPosX += 1;
+						cout << "current array " << dungeon[arrayPosX][arrayPosY] << endl;
 						//check if current array is not 0 (not a block texture)
-						if (arrayPosX != 0)
+						if (dungeon[arrayPosY][arrayPosX] != 0)
 						{
 							knight->pos.x = (arrayPosX * 32) - playerOffSetX;
-							cout << "X: " << arrayPosX << endl;
-							cout << &dungeon << endl;
 						}
 						//else if current array position is 0 (a block texture), then move back
 						else
@@ -251,12 +248,11 @@ int GameLoop::runGameLoop(SDL_Renderer* renderer)
 					{
 						//move the actual array position
 						arrayPosY -= 1;
+						cout << "current array " << dungeon[arrayPosY][arrayPosX] << endl;
 						//check if current array is not 0 (not a block texture)
-						if (arrayPosY != 0)
+						if (dungeon[arrayPosY][arrayPosX] != 0)
 						{
 							knight->pos.y = (arrayPosY * 32) - playerOffSetY;
-							cout << "Y: " << arrayPosY << endl;
-							cout << &dungeon << endl;
 						}
 						//else if current array position is 0 (a block texture), then move back
 						else
@@ -269,12 +265,11 @@ int GameLoop::runGameLoop(SDL_Renderer* renderer)
 					{
 						//move the actual array position
 						arrayPosY += 1;
+						cout << "current array " << dungeon[arrayPosY][arrayPosX] << endl;
 						//check if current array is not 0 (not a block texture)
-						if (arrayPosY != 0)
+						if (dungeon[arrayPosY][arrayPosX] != 0)
 						{
 							knight->pos.y = (arrayPosY * 32) - playerOffSetY;
-							cout << "Y: " << arrayPosY << endl;
-							cout << &dungeon << endl;
 						}
 						//else if current array position is 0 (a block texture), then move back
 						else
@@ -297,8 +292,12 @@ int GameLoop::runGameLoop(SDL_Renderer* renderer)
 				e->draw(0.4);
 			}
 
-			//if (gameEvent == battle)
-			battleLoop.runBattleLoop(renderer, knight);
+			//check to see if player encountered monster
+			if(dungeon[arrayPosY][arrayPosX] == 3)
+			{
+				battleLoop.runBattleLoop(renderer, knight);
+			}
+			
 
 			//check to see if player is at exit
 			if (dungeon[arrayPosX][arrayPosY] == 9)

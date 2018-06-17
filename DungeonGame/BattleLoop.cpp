@@ -219,7 +219,7 @@ int BattleLoop::runBattleLoop(SDL_Renderer* renderer, Player* knightPlayer)
 			{
 				//exit game
 				battle = false;
-				//SDL_Quit();
+				SDL_Quit();
 			}
 			if (e.type == SDL_MOUSEBUTTONDOWN && !timer.isStarted())
 			{
@@ -272,6 +272,7 @@ int BattleLoop::runBattleLoop(SDL_Renderer* renderer, Player* knightPlayer)
 					{
 						enemy->setHpChange(5000000000); //kill enemy
 						cout << "Coward" << endl;
+						battle = false;
 					}
 
 				}
