@@ -53,8 +53,12 @@ public:
 	string getSubName(); //name for enemies and hero roles eg kight, rogue, goblin
 	bool playerCheck();
 
+	float experience;			//players current experience
+	int playerLevel;			//level of the player 1-100....
+	float levelUpExperience;	//experience needed to level up
+	bool levelUpRunning;
+
    //Post battle fucntions
-	void levelUp();
 	void rest();
 
 	//combat functions
@@ -65,4 +69,12 @@ public:
 	void setDefenceChange(int);
 	void setFocusChange(int);
 	void setHpChange(int);
+	void setExperience(float);
+	float getExperience();
+	void addExperience(float);
+	void calculateExperienceNeeded();
+	void levelUp();
+	int getHpChange();
+	bool getIsPlayer();
 };
+

@@ -1,7 +1,5 @@
 #include "BattleLoop.h"
-#include "Entity.h"
-#include "Player.h"
-#include "Enemy.h"
+
 
 BattleLoop::BattleLoop()
 {
@@ -18,6 +16,9 @@ int BattleLoop::runBattleLoop(SDL_Renderer* renderer)
 	player = new Player();
 	Entity *enemy = NULL;
 	enemy = new Zombie();
+
+
+
 
 	//init art
 	//load surfaces from assets folder
@@ -71,6 +72,8 @@ int BattleLoop::runBattleLoop(SDL_Renderer* renderer)
 	SDL_QueryTexture(focusButtonTexture, NULL, NULL, &focusButtonDestination.w, &focusButtonDestination.h);
 	SDL_QueryTexture(runButtonTexture, NULL, NULL, &runButtonDestination.w, &runButtonDestination.h);
 
+	
+
 	//Animation Init
 	SDL_Surface* knightSurface = IMG_Load("assets/menu/knight.png");
 	SDL_Texture* knightTexture = SDL_CreateTextureFromSurface(renderer, knightSurface);
@@ -107,12 +110,18 @@ int BattleLoop::runBattleLoop(SDL_Renderer* renderer)
 		knight1.draw(150, 250, 2.0f);
 		knight2.draw(900, 250, 2.0f);
 
+
 		//draw UI
 		SDL_RenderCopy(renderer, uiBarTexture, NULL, &uiBarDestination);
 		SDL_RenderCopy(renderer, attackButtonTexture, NULL, &attackButtonDestination);
 		SDL_RenderCopy(renderer, defendButtonTexture, NULL, &defendButtonDestination);
 		SDL_RenderCopy(renderer, focusButtonTexture, NULL, &focusButtonDestination);
 		SDL_RenderCopy(renderer, runButtonTexture, NULL, &runButtonDestination);
+
+		displayHp(player, renderer);
+		displayHp(enemy, renderer);
+		
+		
 
 		//INPUT HANDLER		//input handler 
 		while (SDL_PollEvent(&e))
@@ -187,3 +196,37 @@ int BattleLoop::runBattleLoop(SDL_Renderer* renderer)
 	return reward;
 }
 
+void BattleLoop::displayHp(Entity* entity, SDL_Renderer* renderer)
+{
+	string text = to_string(entity->getHpChange());
+
+	TTF_Font* font = TTF_OpenFont("assets/menu/BLKCHCRY.ttf", 32);	//params: font file, font size
+	SDL_Color textColor = { 0, 0, 0, 0 };
+
+	// now create a surface from the font
+	SDL_Surface* text_surface = TTF_RenderText_Solid(font, text.c_str(), textColor);
+
+	//convert surface to texture
+	SDL_Texture* textTexture = SDL_CreateTextureFromSurface(renderer, text_surface);
+
+	//delete surface properly
+	SDL_FreeSurface(text_surface);
+
+	//text destination
+	SDL_Rect textDestination;
+	if (entity->getIsPlayer())
+	{
+		textDestination.x = 20;
+		textDestination.y = 500;
+	}
+	else
+	{
+		textDestination.x = 1220;
+		textDestination.y = 500;
+	}
+	
+
+	SDL_QueryTexture(textTexture, NULL, NULL, &textDestination.w, &textDestination.h);
+
+	SDL_RenderCopy(renderer, textTexture, NULL, &textDestination);
+}

@@ -28,13 +28,6 @@ bool Entity::playerCheck()
 }
 
 //Post battle fucntions
-void Entity::levelUp()
-{
-	//ASK PLAYER TO LEVEL UP A STAT
-	cout << "LEVEL UP" << endl;
-
-}
-
 void Entity::rest()
 {
 	hPChange = hP;
@@ -157,4 +150,53 @@ void Entity::setFocusChange(int change)
 void Entity::setHpChange(int change)
 {
 	hPChange = hPChange - change;
+}
+
+void Entity::setExperience(float exp)
+{
+	experience = exp;
+}
+
+float Entity::getExperience()
+{
+	return experience;
+}
+
+void Entity::addExperience(float exp)
+{
+	experience = experience + exp;
+}
+
+void Entity::calculateExperienceNeeded()
+{
+	levelUpExperience = 1000 * ((playerLevel / 4) + 1);
+}
+
+void Entity::levelUp()
+{
+	levelUpRunning = true;
+	//init ui here
+
+	while (levelUpRunning)
+	{
+		//draw level up UI here
+
+		//action listeners for all the buttons
+
+
+	}
+	//after player has chosen add 1 to player level
+	playerLevel++;					//add to player level
+	setExperience(0);				//set the experience back to 0
+	calculateExperienceNeeded();	//calculate next experience goal
+}
+
+int Entity::getHpChange()
+{
+	return hPChange;
+}
+
+bool Entity::getIsPlayer()
+{
+	return isPlayer;
 }

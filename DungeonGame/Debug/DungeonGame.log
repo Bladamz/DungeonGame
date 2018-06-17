@@ -1,6 +1,15 @@
 <<<<<<< HEAD
+<<<<<<< HEAD
 ﻿  main.cpp
 c:\users\blada\documents\visual studio 2017\projects\dungeongame\dungeongame\main.cpp(93): warning C4551: function call missing argument list
+=======
+﻿  BattleLoop.cpp
+c:\users\blada\documents\visual studio 2017\projects\dungeongame\dungeongame\battleloop.cpp(82): warning C4305: 'argument': truncation from 'double' to 'float'
+c:\users\blada\documents\visual studio 2017\projects\dungeongame\dungeongame\battleloop.cpp(83): warning C4305: 'argument': truncation from 'double' to 'float'
+c:\users\blada\documents\visual studio 2017\projects\dungeongame\dungeongame\battleloop.cpp(97): warning C4244: 'initializing': conversion from 'double' to 'float', possible loss of data
+c:\users\blada\documents\visual studio 2017\projects\dungeongame\dungeongame\battleloop.cpp(179): warning C4305: 'argument': truncation from '__int64' to 'int'
+c:\users\blada\documents\visual studio 2017\projects\dungeongame\dungeongame\battleloop.cpp(179): warning C4309: 'argument': truncation of constant value
+>>>>>>> BattleSystem
   DungeonGame.vcxproj -> C:\Users\blada\Documents\Visual Studio 2017\Projects\DungeonGame\Debug\DungeonGame.exe
 =======
 ﻿  GameLoop.cpp
