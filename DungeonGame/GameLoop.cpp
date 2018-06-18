@@ -58,16 +58,20 @@ int GameLoop::runGameLoop(SDL_Renderer* renderer)
 	SDL_Surface* grassSurface = IMG_Load("assets/TexturesTest/GrassTile.png");
 	SDL_Texture* grassTexture = SDL_CreateTextureFromSurface(renderer, grassSurface);
 
-	SDL_Surface* gateSurface = IMG_Load("assets/TexturesTest/enterance.png");
-	SDL_Texture* gateTexture = SDL_CreateTextureFromSurface(renderer, gateSurface);
+	SDL_Surface* gateEnteranceSurface = IMG_Load("assets/TexturesTest/GateEnterance.png");
+	SDL_Texture* gateEnteranceTexture = SDL_CreateTextureFromSurface(renderer, gateEnteranceSurface);
+
+	SDL_Surface* gateExitSurface = IMG_Load("assets/TexturesTest/GateExit.png");
+	SDL_Texture* gateExitTexture = SDL_CreateTextureFromSurface(renderer, gateExitSurface);
 
 	SDL_Surface* blockSurface = IMG_Load("assets/TexturesTest/block.png");
 	SDL_Texture* blockTexture = SDL_CreateTextureFromSurface(renderer, blockSurface);
 
 	//Free memory by clearing surfaces
 	SDL_FreeSurface(grassSurface);
-	SDL_FreeSurface(gateSurface);
+	SDL_FreeSurface(gateEnteranceSurface);
 	SDL_FreeSurface(blockSurface);
+	SDL_FreeSurface(gateExitSurface);
 
 	SDL_Event e;
 	
@@ -119,19 +123,28 @@ int GameLoop::runGameLoop(SDL_Renderer* renderer)
 					//asign array position x and y
 					arrayPosX = x;
 					arrayPosY = y;
-
-				}
-				if (dungeon[y][x] == 8 || dungeon[y][x] == 9)
-				{
-					//make 8 and 9 array the gate. 
-					SDL_QueryTexture(gateTexture, NULL, NULL, &sourceRectangle.w, &sourceRectangle.h);
+					SDL_QueryTexture(gateEnteranceTexture, NULL, NULL, &sourceRectangle.w, &sourceRectangle.h);
 					sourceRectangle.x = 0;
 					sourceRectangle.y = 0;
 					destinationRectangle.x = x * 32;
 					destinationRectangle.y = y * 32;
 					destinationRectangle.w = sourceRectangle.w * 2; //copy the width of our texture
 					destinationRectangle.h = sourceRectangle.h * 2; //copy the height of our texture
-					SDL_RenderCopy(renderer, gateTexture, &sourceRectangle, &destinationRectangle);
+					SDL_RenderCopy(renderer, gateExitTexture, &sourceRectangle, &destinationRectangle);
+
+
+				}
+				if (dungeon[y][x] == 9)
+				{
+					//make 8 and 9 array the gate. 
+					SDL_QueryTexture(gateExitTexture, NULL, NULL, &sourceRectangle.w, &sourceRectangle.h);
+					sourceRectangle.x = 0;
+					sourceRectangle.y = 0;
+					destinationRectangle.x = x * 32;
+					destinationRectangle.y = y * 32;
+					destinationRectangle.w = sourceRectangle.w * 2; //copy the width of our texture
+					destinationRectangle.h = sourceRectangle.h * 2; //copy the height of our texture
+					SDL_RenderCopy(renderer, gateEnteranceTexture, &sourceRectangle, &destinationRectangle);
 				}
 			}
 		}
@@ -156,8 +169,8 @@ int GameLoop::runGameLoop(SDL_Renderer* renderer)
 						sourceRectangle.y = 0;
 						destinationRectangle.x = x * 32;
 						destinationRectangle.y = y * 32;
-						destinationRectangle.w = sourceRectangle.w * 2; //copy the width of our texture
-						destinationRectangle.h = sourceRectangle.h * 2; //copy the height of our texture
+						destinationRectangle.w = sourceRectangle.w * 1; //copy the width of our texture
+						destinationRectangle.h = sourceRectangle.h * 1; //copy the height of our texture
 						SDL_RenderCopy(renderer, grassTexture, &sourceRectangle, &destinationRectangle);
 					}
 					if (dungeon[y][x] == 0)
@@ -167,21 +180,34 @@ int GameLoop::runGameLoop(SDL_Renderer* renderer)
 						sourceRectangle.y = 0;
 						destinationRectangle.x = x * 32;
 						destinationRectangle.y = y * 32;
-						destinationRectangle.w = sourceRectangle.w * 2; //copy the width of our texture
-						destinationRectangle.h = sourceRectangle.h * 2; //copy the height of our texture
+						destinationRectangle.w = sourceRectangle.w * 1; //copy the width of our texture
+						destinationRectangle.h = sourceRectangle.h * 1; //copy the height of our texture
 						SDL_RenderCopy(renderer, blockTexture, &sourceRectangle, &destinationRectangle);
 					}
-					if (dungeon[y][x] == 8 || dungeon[y][x] == 9)
+					
+						if (dungeon[y][x] == 8)
+						{
+
+							SDL_QueryTexture(gateEnteranceTexture, NULL, NULL, &sourceRectangle.w, &sourceRectangle.h);
+							sourceRectangle.x = 0;
+							sourceRectangle.y = 0;
+							destinationRectangle.x = x * 32;
+							destinationRectangle.y = y * 32;
+							destinationRectangle.w = sourceRectangle.w * 1; //copy the width of our texture
+							destinationRectangle.h = sourceRectangle.h * 1; //copy the height of our texture
+							SDL_RenderCopy(renderer, gateEnteranceTexture, &sourceRectangle, &destinationRectangle);
+						}
+					if (dungeon[y][x] == 9)
 					{
 
-						SDL_QueryTexture(gateTexture, NULL, NULL, &sourceRectangle.w, &sourceRectangle.h);
+						SDL_QueryTexture(gateExitTexture, NULL, NULL, &sourceRectangle.w, &sourceRectangle.h);
 						sourceRectangle.x = 0;
 						sourceRectangle.y = 0;
 						destinationRectangle.x = x * 32;
 						destinationRectangle.y = y * 32;
-						destinationRectangle.w = sourceRectangle.w * 2; //copy the width of our texture
-						destinationRectangle.h = sourceRectangle.h * 2; //copy the height of our texture
-						SDL_RenderCopy(renderer, gateTexture, &sourceRectangle, &destinationRectangle);
+						destinationRectangle.w = sourceRectangle.w * 1; //copy the width of our texture
+						destinationRectangle.h = sourceRectangle.h * 1; //copy the height of our texture
+						SDL_RenderCopy(renderer, gateExitTexture, &sourceRectangle, &destinationRectangle);
 					}
 
 				}
