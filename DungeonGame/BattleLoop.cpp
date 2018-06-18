@@ -5,7 +5,7 @@ BattleLoop::BattleLoop()
 {
 	reward = 0;
 	srand(time(NULL));
-	TTF_Font* font = TTF_OpenFont("assets/menu/BLKCHCRY.ttf", 32);	
+	font = TTF_OpenFont("assets/menu/BLKCHCRY.ttf", 32);	
 }
 
 BattleLoop::~BattleLoop()
@@ -396,8 +396,6 @@ void BattleLoop::displayHp(Entity* entity, SDL_Renderer* renderer)
 
 	stream.str(string());
 	stream.clear();
-
-	TTF_Font* font = TTF_OpenFont("assets/menu/BLKCHCRY.ttf", 32);	//params: font file, font size
 	SDL_Color textColor = { 0, 0, 0, 0 };
 
 	// now create a surface from the font
