@@ -51,7 +51,6 @@ int GameLoop::runGameLoop(SDL_Renderer* renderer)
 
 	int dungeon[ROW][COLUMN]; //create 2D array
 
-	BattleLoop battleLoop;
 	DungeonGenerator dungeonGenerator;
 	EventSystem eventSystem;
 
