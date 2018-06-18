@@ -137,6 +137,7 @@ void DungeonGenerator::generateDungeon(int(*arr)[COLUMN], int diff)
 
 void DungeonGenerator::placeEntrance(int(*a)[COLUMN])
 {
+	entrancePlaced = 0;
 	//place entrance (NUMBER 8)
 	for (int i = 0; i < ROW; i++)
 	{
@@ -162,6 +163,7 @@ void DungeonGenerator::placeEntrance(int(*a)[COLUMN])
 
 void DungeonGenerator::placeExit(int(*a)[COLUMN])
 {
+	exitPlaced = 0;
 	//place exit (NUMBER 9)
 	for (int i = ROW - 1; i > 0; i--)
 	{

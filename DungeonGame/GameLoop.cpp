@@ -28,6 +28,8 @@ GameLoop::GameLoop(SDL_Renderer* renderer)
 	playerOffSetX = 8;
 	playerOffSetY = 26;
 
+	//font
+	font = TTF_OpenFont("assets/menu/BLKCHCRY.ttf", 32);
 	entities.push_back(knight);
 
 	lastUpdate = SDL_GetTicks();
@@ -35,7 +37,10 @@ GameLoop::GameLoop(SDL_Renderer* renderer)
 
 GameLoop::~GameLoop()
 {
+	knight = NULL;
 	delete knight;
+	font = NULL;
+	delete font;
 }
 
 //Dans Shit _________________________________________
@@ -84,9 +89,9 @@ int GameLoop::runGameLoop(SDL_Renderer* renderer)
 		dungeonGenerator.printDungeon(dungeon);
 
 		//generate tile map here
-		for (int x = 0; x < 30; x++)
+		for (int x = 0; x < 40; x++)
 		{
-			for (int y = 0; y < 30; y++)
+			for (int y = 0; y < 40; y++)
 			{
 				//2-7 is the walkable grass area
 				//0 = unwalkable block 
@@ -155,12 +160,13 @@ int GameLoop::runGameLoop(SDL_Renderer* renderer)
 		while (floorRunning && !knight->checkIfDead())
 		{
 			//check number on array tile and fire respective event
-			eventSystem.checkEvent(arrayPosY, arrayPosX, dungeon, renderer, knight);
+			eventSystem.checkEvent(arrayPosY, arrayPosX, dungeon, renderer, knight, floor);
+			
 
 			//draw tile map in the loop
-			for (int x = 0; x < 30; x++)
+			for (int x = 0; x < 40; x++)
 			{
-				for (int y = 0; y < 30; y++)
+				for (int y = 0; y < 40; y++)
 				{
 					if (dungeon[y][x] <= 7 && dungeon[y][x] > 1)
 					{
@@ -324,10 +330,11 @@ int GameLoop::runGameLoop(SDL_Renderer* renderer)
 			{
 				floorRunning = false;
 			}
-
+			displayUI(renderer, knight, floor);
 			SDL_RenderPresent(renderer);
 		}
 
+		
 		//victory or defeat conditions
 		if (knight->checkIfDead()) //if player is dead
 		{
@@ -348,3 +355,110 @@ int GameLoop::runGameLoop(SDL_Renderer* renderer)
 	return knight->getCoins();
 }
 
+void GameLoop::displayUI(SDL_Renderer* renderer, Player* player, float currentFloor)
+{
+	//UI BAR
+	SDL_Surface* uiBarSurface = IMG_Load("assets/battle/UiBar.png");
+	//convert surface to texture 
+	SDL_Texture* uiBarTexture = SDL_CreateTextureFromSurface(renderer, uiBarSurface);
+	//delete surface properly
+	SDL_FreeSurface(uiBarSurface);
+	SDL_Rect uiBarDestination;
+	uiBarDestination.x = 0;
+	uiBarDestination.y = 550;
+	SDL_QueryTexture(uiBarTexture, NULL, NULL, &uiBarDestination.w, &uiBarDestination.h);
+
+	//START OF VARIABLE DISPLAY
+	stringstream stream;
+	string s;
+
+	string level = "Level: ";
+	stream << fixed << setprecision(0) << player->getLevel();
+	s = stream.str();
+	level += s;
+
+	stream.str(string());
+	stream.clear();
+
+	string experience = "Experience: ";
+	stream << fixed << setprecision(0) << player->getExperience();
+	s = stream.str();
+	experience += s;
+
+	stream.str(string());
+	stream.clear();
+
+	string floor = "Floor: ";
+	stream << fixed << setprecision(0) << currentFloor;
+	s = stream.str();
+	floor += s;
+
+	stream.str(string());
+	stream.clear();
+
+	string coins = "Coins: ";
+	stream << fixed << setprecision(0) << player->getCoins();
+	s = stream.str();
+	coins += s;
+
+	stream.str(string());
+	stream.clear();
+
+	
+	SDL_Color textColor = { 0, 0, 0, 0 };
+
+	if (font)
+	{
+		// now create a surface from the font
+		SDL_Surface* levelSurface = TTF_RenderText_Solid(font, level.c_str(), textColor);
+		SDL_Surface* experienceSurface = TTF_RenderText_Solid(font, experience.c_str(), textColor);
+		SDL_Surface* floorSurface = TTF_RenderText_Solid(font, floor.c_str(), textColor);
+		SDL_Surface* coinsSurface = TTF_RenderText_Solid(font, coins.c_str(), textColor);
+
+		//convert surface to texture
+		SDL_Texture* levelTexture = SDL_CreateTextureFromSurface(renderer, levelSurface);
+		SDL_Texture* experienceTexture = SDL_CreateTextureFromSurface(renderer, experienceSurface);
+		SDL_Texture* floorTexture = SDL_CreateTextureFromSurface(renderer, floorSurface);
+		SDL_Texture* coinsTexture = SDL_CreateTextureFromSurface(renderer, coinsSurface);
+
+		//delete surface properly
+		SDL_FreeSurface(levelSurface);
+		SDL_FreeSurface(experienceSurface);
+		SDL_FreeSurface(floorSurface);
+		SDL_FreeSurface(coinsSurface);
+
+		//text destination
+		SDL_Rect levelDestination;
+		levelDestination.x = 600;
+		levelDestination.y = 560;
+
+		SDL_Rect experienceDestination;
+		experienceDestination.x = 900;
+		experienceDestination.y = 560;
+
+		SDL_Rect floorDestination;
+		floorDestination.x = 600;
+		floorDestination.y = 660;
+
+		SDL_Rect coinsDestination;
+		coinsDestination.x = 900;
+		coinsDestination.y = 660;
+
+		SDL_QueryTexture(levelTexture, NULL, NULL, &levelDestination.w, &levelDestination.h);
+		SDL_QueryTexture(experienceTexture, NULL, NULL, &experienceDestination.w, &experienceDestination.h);
+		SDL_QueryTexture(floorTexture, NULL, NULL, &floorDestination.w, &floorDestination.h);
+		SDL_QueryTexture(coinsTexture, NULL, NULL, &coinsDestination.w, &coinsDestination.h);
+
+		SDL_RenderCopy(renderer, uiBarTexture, NULL, &uiBarDestination);
+		SDL_RenderCopy(renderer, levelTexture, NULL, &levelDestination);
+		SDL_RenderCopy(renderer, experienceTexture, NULL, &experienceDestination);
+		SDL_RenderCopy(renderer, floorTexture, NULL, &floorDestination);
+		SDL_RenderCopy(renderer, coinsTexture, NULL, &coinsDestination);
+
+		SDL_DestroyTexture(levelTexture);
+		SDL_DestroyTexture(experienceTexture);
+		SDL_DestroyTexture(floorTexture);
+		SDL_DestroyTexture(coinsTexture);
+		SDL_DestroyTexture(uiBarTexture);
+	}
+}

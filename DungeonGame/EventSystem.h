@@ -25,6 +25,6 @@ public:
 	~EventSystem();
 	float experienceEvent(SDL_Renderer* renderer);
 	float coinEvent(SDL_Renderer* renderer);
-	void checkEvent(int, int, int(*a)[30], SDL_Renderer*,Player* player);
+	void checkEvent(int, int, int(*a)[40], SDL_Renderer*,Player* player, float);
 };
 

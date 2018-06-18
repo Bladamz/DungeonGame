@@ -104,19 +104,24 @@ void Player::levelUp()
 	calculateExperienceNeeded();	//calculate next experience goal
 }
 
-int Player::getStrength()
+float Player::getStrength()
 {
 	return strengthChange;
 }
 
-int Player::getDefence()
+float Player::getDefence()
 {
 	return defenceChange;
 }
 
-int Player::getCritChance()
+float Player::getCritChance()
 {
 	return critChange;
+}
+
+float Player::getLevel()
+{
+	return playerLevel;
 }
 
 int Player::getCoins()

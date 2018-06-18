@@ -5,16 +5,19 @@ BattleLoop::BattleLoop()
 {
 	reward = 0;
 	srand(time(NULL));
+	TTF_Font* font = TTF_OpenFont("assets/menu/BLKCHCRY.ttf", 32);	
 }
 
 BattleLoop::~BattleLoop()
 {
+	font = NULL;
+	delete font;
 }
 
-int BattleLoop::runBattleLoop(SDL_Renderer* renderer, Player* knightPlayer)
+int BattleLoop::runBattleLoop(SDL_Renderer* renderer, Player* knightPlayer, float floor)
 {
 	player = knightPlayer;
-	enemy = new Enemy(rand() % 2 + 1);
+	enemy = new Enemy((rand() % 2 + 1),floor);
 	Timer timer;
 
 	//init art
@@ -138,27 +141,24 @@ int BattleLoop::runBattleLoop(SDL_Renderer* renderer, Player* knightPlayer)
 		
 		//draw background
 		SDL_RenderCopy(renderer, backgroundTexture, NULL, &backgroundDesination);
-
-		//draw character HERO & ENEMY
-		//update animations
-		
-		
-		
+	
 
 		//draw from animations
-
+		knightSwing.update(DT);
+		knight.update(DT);
 
 		if (playerAttacking)
 		{
-			knightSwing.update(DT);
+			//knightSwing.update(DT);
 			knightSwing.draw(300, 200, 2.0f);
 		}
 		else
 		{
-			knight.update(DT);
+			//knight.update(DT);
 			knight.draw(300, 200, 2.0f);
 		}
 
+		//terrible code for managing aimations
 		if (enemyAttacking)
 		{
 			if (enemy->getSubName() == "Zombie")
@@ -296,72 +296,106 @@ int BattleLoop::runBattleLoop(SDL_Renderer* renderer, Player* knightPlayer)
 
 void BattleLoop::diplayStats(Player* player, SDL_Renderer* renderer)
 {
+	stringstream stream;
+	string s;
+
+	
 	string strength = "Strength: ";
-	strength += to_string(player->getStrength());
+	stream << fixed << setprecision(0) << player->getStrength();
+	s = stream.str();
+	strength += s;
+
+	stream.str(string());
+	stream.clear();
+
 	string defence = "Defence: ";
-	defence += to_string(player->getDefence());
+	stream << fixed << setprecision(0) << player->getDefence();
+	s = stream.str();
+	defence += s;
+
+	stream.str(string());
+	stream.clear();
+
 	string critChance = "Crit Chacnce: ";
-	critChance += to_string(player->getCritChance());
+	stream << fixed << setprecision(2) << player->getCritChance();
+	s = stream.str();
+	critChance += s;
+
+	stream.str(string());
+	stream.clear();
+
 	string experience = "Experience: ";
-	experience += to_string(player->getExperience());
+	stream << fixed << setprecision(0) << player->getExperience();
+	s = stream.str();
+	experience += s;
 
-	TTF_Font* font = TTF_OpenFont("assets/menu/BLKCHCRY.ttf", 32);	//params: font file, font size
+	
 	SDL_Color textColor = { 0, 0, 0, 0 };
+	if (font)
+	{
+		// now create a surface from the font
+		SDL_Surface* strengthSurface = TTF_RenderText_Solid(font, strength.c_str(), textColor);
+		SDL_Surface* defenceSurface = TTF_RenderText_Solid(font, defence.c_str(), textColor);
+		SDL_Surface* critSurface = TTF_RenderText_Solid(font, critChance.c_str(), textColor);
+		SDL_Surface* expSurface = TTF_RenderText_Solid(font, experience.c_str(), textColor);
 
-	// now create a surface from the font
-	SDL_Surface* strengthSurface = TTF_RenderText_Solid(font, strength.c_str(), textColor);
-	SDL_Surface* defenceSurface = TTF_RenderText_Solid(font, defence.c_str(), textColor);
-	SDL_Surface* critSurface = TTF_RenderText_Solid(font, critChance.c_str(), textColor);
-	SDL_Surface* expSurface = TTF_RenderText_Solid(font, experience.c_str(), textColor);
+		//convert surface to texture
+		SDL_Texture* strengthTextTexture = SDL_CreateTextureFromSurface(renderer, strengthSurface);
+		SDL_Texture* defenceTextTexture = SDL_CreateTextureFromSurface(renderer, defenceSurface);
+		SDL_Texture* critTextTexture = SDL_CreateTextureFromSurface(renderer, critSurface);
+		SDL_Texture* expTextTexture = SDL_CreateTextureFromSurface(renderer, expSurface);
 
-	//convert surface to texture
-	SDL_Texture* strengthTextTexture = SDL_CreateTextureFromSurface(renderer, strengthSurface);
-	SDL_Texture* defenceTextTexture = SDL_CreateTextureFromSurface(renderer, defenceSurface);
-	SDL_Texture* critTextTexture = SDL_CreateTextureFromSurface(renderer, critSurface);
-	SDL_Texture* expTextTexture = SDL_CreateTextureFromSurface(renderer, expSurface);
+		//delete surface properly
+		SDL_FreeSurface(strengthSurface);
+		SDL_FreeSurface(defenceSurface);
+		SDL_FreeSurface(critSurface);
+		SDL_FreeSurface(expSurface);
 
-	//delete surface properly
-	SDL_FreeSurface(strengthSurface);
-	SDL_FreeSurface(defenceSurface);
-	SDL_FreeSurface(critSurface);
-	SDL_FreeSurface(expSurface);
+		//text destination
+		SDL_Rect strengthDestination;
+		strengthDestination.x = 600;
+		strengthDestination.y = 560;
 
-	//text destination
-	SDL_Rect strengthDestination;
-	strengthDestination.x = 600;
-	strengthDestination.y = 560;
+		SDL_Rect defenceDestination;
+		defenceDestination.x = 900;
+		defenceDestination.y = 560;
 
-	SDL_Rect defenceDestination;
-	defenceDestination.x = 900;
-	defenceDestination.y = 560;
+		SDL_Rect critDestination;
+		critDestination.x = 600;
+		critDestination.y = 660;
 
-	SDL_Rect critDestination;
-	critDestination.x = 600;
-	critDestination.y = 660;
+		SDL_Rect expDestination;
+		expDestination.x = 900;
+		expDestination.y = 660;
 
-	SDL_Rect expDestination;
-	expDestination.x = 900;
-	expDestination.y = 660;
+		SDL_QueryTexture(strengthTextTexture, NULL, NULL, &strengthDestination.w, &strengthDestination.h);
+		SDL_QueryTexture(defenceTextTexture, NULL, NULL, &defenceDestination.w, &defenceDestination.h);
+		SDL_QueryTexture(critTextTexture, NULL, NULL, &critDestination.w, &critDestination.h);
+		SDL_QueryTexture(expTextTexture, NULL, NULL, &expDestination.w, &expDestination.h);
 
-	SDL_QueryTexture(strengthTextTexture, NULL, NULL, &strengthDestination.w, &strengthDestination.h);
-	SDL_QueryTexture(defenceTextTexture, NULL, NULL, &defenceDestination.w, &defenceDestination.h);
-	SDL_QueryTexture(critTextTexture, NULL, NULL, &critDestination.w, &critDestination.h);
-	SDL_QueryTexture(expTextTexture, NULL, NULL, &expDestination.w, &expDestination.h);
+		SDL_RenderCopy(renderer, strengthTextTexture, NULL, &strengthDestination);
+		SDL_RenderCopy(renderer, defenceTextTexture, NULL, &defenceDestination);
+		SDL_RenderCopy(renderer, critTextTexture, NULL, &critDestination);
+		SDL_RenderCopy(renderer, expTextTexture, NULL, &expDestination);
 
-	SDL_RenderCopy(renderer, strengthTextTexture, NULL, &strengthDestination);
-	SDL_RenderCopy(renderer, defenceTextTexture, NULL, &defenceDestination);
-	SDL_RenderCopy(renderer, critTextTexture, NULL, &critDestination);
-	SDL_RenderCopy(renderer, expTextTexture, NULL, &expDestination);
-
-	SDL_DestroyTexture(strengthTextTexture);
-	SDL_DestroyTexture(defenceTextTexture);
-	SDL_DestroyTexture(critTextTexture);
-	SDL_DestroyTexture(expTextTexture);
+		SDL_DestroyTexture(strengthTextTexture);
+		SDL_DestroyTexture(defenceTextTexture);
+		SDL_DestroyTexture(critTextTexture);
+		SDL_DestroyTexture(expTextTexture);
+	}
 }
 
 void BattleLoop::displayHp(Entity* entity, SDL_Renderer* renderer)
 {
-	string text = to_string(entity->getHpChange());
+	stringstream stream;
+	string s;
+
+	stream << fixed << setprecision(0) << entity->getHpChange();
+	string text = stream.str();
+
+
+	stream.str(string());
+	stream.clear();
 
 	TTF_Font* font = TTF_OpenFont("assets/menu/BLKCHCRY.ttf", 32);	//params: font file, font size
 	SDL_Color textColor = { 0, 0, 0, 0 };

@@ -1,14 +1,14 @@
 #include "Enemy.h"
 
-Enemy::Enemy(int enemyChoice)
+Enemy::Enemy(int enemyChoice, float floor)
 {
 	if (enemyChoice == 1)
 	{
 		//construct zombie
 		objectName = "Zombie";
-		strength = 2;
-		defence = 0;
-		hP = 150;
+		strength = 3 * (1 + (floor / 4));
+		defence = 0.1 * (1 + (floor / 4));
+		hP = 120 * (1 + (floor / 4));
 		critChance = 0.1;
 
 		defenceChange = defence;
@@ -21,9 +21,9 @@ Enemy::Enemy(int enemyChoice)
 	{
 		//construct skeleton
 		objectName = "Skeleton";
-		strength = 1;
-		defence = 1;
-		hP = 120;
+		strength = 4 * (1 + (floor / 4));
+		defence = 1 * (1 + (floor / 4));
+		hP = 100 * (1 + (floor / 4));
 		critChance = 0.4;
 
 		defenceChange = defence;
@@ -33,10 +33,3 @@ Enemy::Enemy(int enemyChoice)
 		isPlayer = false;
 	}
 }
-
-float Enemy::moves()
-{
-	cout << "zombie attack" << endl;
-	return 5;
-}
-

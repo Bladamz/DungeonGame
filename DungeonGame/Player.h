@@ -32,9 +32,10 @@ public:
 	void calculateExperienceNeeded();
 	void levelUp();
 
-	int getStrength();
-	int getDefence();
-	int getCritChance();
+	float getStrength();
+	float getDefence();
+	float getCritChance();
+	float getLevel();
 
 	int getCoins();
 	void addCoins(int);

@@ -10,13 +10,14 @@ EventSystem::EventSystem()
 
 EventSystem::~EventSystem()
 {
+	battleLoop = NULL;
 	delete battleLoop;
 }
 
 float EventSystem::experienceEvent(SDL_Renderer* renderer)
 {
 	eventRunning = true;
-	eventExperience == rand() % 400 + 1;
+	eventExperience = rand() % 400 + 1;
 
 	eventMessage = "You stumble across an old book, on tonights camp you decided to skim through a few pages.\n You have gained ";
 	eventMessage += eventExperience;
@@ -96,13 +97,15 @@ float EventSystem::experienceEvent(SDL_Renderer* renderer)
 		}
 		SDL_RenderPresent(renderer);
 	}
+	cMessage = NULL;
+	delete(cMessage);
 	return eventExperience;
 }
 
 float EventSystem::coinEvent(SDL_Renderer* renderer)
 {
 	eventRunning = true;
-	eventCoins == rand() % 500 + 1;
+	eventCoins = rand() % 500 + 1;
 
 	eventMessage = "In the distance you spot something unusual, as you approach it you\n realise its a small pouch of coins.You received ";
 	eventMessage += eventCoins;
@@ -182,13 +185,16 @@ float EventSystem::coinEvent(SDL_Renderer* renderer)
 		}
 		SDL_RenderPresent(renderer);
 	}
+	cMessage = NULL;
+	delete(cMessage);
 	return eventCoins;
 }
 
-void EventSystem::checkEvent(int row, int column, int(*a)[30],SDL_Renderer *renderer,Player* player)
+void EventSystem::checkEvent(int row, int column, int(*a)[40],SDL_Renderer *renderer,Player* player, float floor)
 {
 	int * eventNumber = new int();
 	*eventNumber = a[row][column];
+	int tempCoins;
 
 	//Make Cave tiles random numbers which represent events
 	//2 Is nothing
@@ -199,19 +205,36 @@ void EventSystem::checkEvent(int row, int column, int(*a)[30],SDL_Renderer *rend
 	{
 	case 3: 
 		battleLoop = new BattleLoop();
-		battleLoop->runBattleLoop(renderer, player);
+		//used to check if player ran
+		tempCoins = player->getCoins();
+		player->addCoins(battleLoop->runBattleLoop(renderer, player,floor));
+
+		//add experience (will later be replaced with unique experience for each enemy)
+		if(player->getCoins() > tempCoins)
+			player->addExperience(rand() % 500 + 300);
+		//set current tile to 0
 		a[row][column] = 2;
+
+		//reset players stats
 		player->rest();
+
+		//clean up battle loop
+		battleLoop = NULL;
 		delete battleLoop;
 		break;
 	case 4:
+		//play coin event
 		player->addCoins(coinEvent(renderer));
+		//set current tile to nothing
 		a[row][column] = 2;
 		break;
 	case 5:
+		//play experience event
 		player->addExperience(experienceEvent(renderer));
+		//set current tile to nothing
 		a[row][column] = 2;
 		break;
 	}
-
+	eventNumber = NULL;
+	delete(eventNumber);
 }
