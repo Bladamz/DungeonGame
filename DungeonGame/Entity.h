@@ -69,7 +69,7 @@ public:
 	void setDefenceChange(int);
 	void setFocusChange(int);
 	void setHpChange(int);
-	int getHpChange();
+	float getHpChange();
 	bool getIsPlayer();
 };
 

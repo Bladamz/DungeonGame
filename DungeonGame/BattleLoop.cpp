@@ -5,16 +5,19 @@ BattleLoop::BattleLoop()
 {
 	reward = 0;
 	srand(time(NULL));
+	TTF_Font* font = TTF_OpenFont("assets/menu/BLKCHCRY.ttf", 32);	
 }
 
 BattleLoop::~BattleLoop()
 {
+	font = NULL;
+	delete font;
 }
 
-int BattleLoop::runBattleLoop(SDL_Renderer* renderer, Player* knightPlayer)
+int BattleLoop::runBattleLoop(SDL_Renderer* renderer, Player* knightPlayer, float floor)
 {
 	player = knightPlayer;
-	enemy = new Enemy(rand() % 2 + 1);
+	enemy = new Enemy((rand() % 2 + 1),floor);
 	Timer timer;
 
 	//init art
@@ -293,16 +296,40 @@ int BattleLoop::runBattleLoop(SDL_Renderer* renderer, Player* knightPlayer)
 
 void BattleLoop::diplayStats(Player* player, SDL_Renderer* renderer)
 {
-	string strength = "Strength: ";
-	strength += to_string(player->getStrength());
-	string defence = "Defence: ";
-	defence += to_string(player->getDefence());
-	string critChance = "Crit Chacnce: ";
-	critChance += to_string(player->getCritChance());
-	string experience = "Experience: ";
-	experience += to_string(player->getExperience());
+	stringstream stream;
+	string s;
 
-	TTF_Font* font = TTF_OpenFont("assets/menu/BLKCHCRY.ttf", 32);	//params: font file, font size
+	
+	string strength = "Strength: ";
+	stream << fixed << setprecision(0) << player->getStrength();
+	s = stream.str();
+	strength += s;
+
+	stream.str(string());
+	stream.clear();
+
+	string defence = "Defence: ";
+	stream << fixed << setprecision(0) << player->getDefence();
+	s = stream.str();
+	defence += s;
+
+	stream.str(string());
+	stream.clear();
+
+	string critChance = "Crit Chacnce: ";
+	stream << fixed << setprecision(2) << player->getCritChance();
+	s = stream.str();
+	critChance += s;
+
+	stream.str(string());
+	stream.clear();
+
+	string experience = "Experience: ";
+	stream << fixed << setprecision(0) << player->getExperience();
+	s = stream.str();
+	experience += s;
+
+	
 	SDL_Color textColor = { 0, 0, 0, 0 };
 
 	// now create a surface from the font
@@ -358,7 +385,15 @@ void BattleLoop::diplayStats(Player* player, SDL_Renderer* renderer)
 
 void BattleLoop::displayHp(Entity* entity, SDL_Renderer* renderer)
 {
-	string text = to_string(entity->getHpChange());
+	stringstream stream;
+	string s;
+
+	stream << fixed << setprecision(0) << entity->getHpChange();
+	string text = stream.str();
+
+
+	stream.str(string());
+	stream.clear();
 
 	TTF_Font* font = TTF_OpenFont("assets/menu/BLKCHCRY.ttf", 32);	//params: font file, font size
 	SDL_Color textColor = { 0, 0, 0, 0 };

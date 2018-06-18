@@ -51,10 +51,10 @@
     <ClCompile Include="Vector.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="endGameScreen.cpp">
-      <Filter>Resource Files</Filter>
-    </ClCompile>
     <ClCompile Include="Timer.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="endGameScreen.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
   </ItemGroup>

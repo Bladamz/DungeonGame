@@ -190,10 +190,11 @@ float EventSystem::coinEvent(SDL_Renderer* renderer)
 	return eventCoins;
 }
 
-void EventSystem::checkEvent(int row, int column, int(*a)[30],SDL_Renderer *renderer,Player* player)
+void EventSystem::checkEvent(int row, int column, int(*a)[40],SDL_Renderer *renderer,Player* player, float floor)
 {
 	int * eventNumber = new int();
 	*eventNumber = a[row][column];
+	int tempCoins;
 
 	//Make Cave tiles random numbers which represent events
 	//2 Is nothing
@@ -204,9 +205,13 @@ void EventSystem::checkEvent(int row, int column, int(*a)[30],SDL_Renderer *rend
 	{
 	case 3: 
 		battleLoop = new BattleLoop();
-		battleLoop->runBattleLoop(renderer, player);
+		//used to check if player ran
+		tempCoins = player->getCoins();
+		player->addCoins(battleLoop->runBattleLoop(renderer, player,floor));
+
 		//add experience (will later be replaced with unique experience for each enemy)
-		player->addExperience(rand() % 500 + 300);
+		if(player->getCoins() > tempCoins)
+			player->addExperience(rand() % 500 + 300);
 		//set current tile to 0
 		a[row][column] = 2;
 
@@ -230,5 +235,6 @@ void EventSystem::checkEvent(int row, int column, int(*a)[30],SDL_Renderer *rend
 		a[row][column] = 2;
 		break;
 	}
-
+	eventNumber = NULL;
+	delete(eventNumber);
 }

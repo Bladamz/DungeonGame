@@ -3,8 +3,8 @@
 #include <string>
 #include <ctime>
 
-#define ROW 30
-#define COLUMN 30
+#define ROW 40
+#define COLUMN 40
 
 using namespace std;
 

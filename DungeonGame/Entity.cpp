@@ -149,7 +149,7 @@ void Entity::setHpChange(int change)
 	hPChange = hPChange - change;
 }
 
-int Entity::getHpChange()
+float Entity::getHpChange()
 {
 	return hPChange;
 }

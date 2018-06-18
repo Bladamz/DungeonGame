@@ -1,6 +1,9 @@
 #include <iostream>
 #include <SDL.h>
 #include <string>
+#include <sstream>
+#include <iomanip> // setprecision
+
 #include <SDL_image.h>
 #include <SDL_ttf.h>
 #include <time.h>
@@ -21,12 +24,13 @@ private:
 	bool battle;
 	Player* player;
 	Enemy* enemy;
+	TTF_Font* font;
 
 public:
 	BattleLoop();
 	~BattleLoop();
 
-	int runBattleLoop(SDL_Renderer* renderer, Player* knightPlayer);
+	int runBattleLoop(SDL_Renderer* renderer, Player* knightPlayer, float floor);
 	void displayHp(Entity* entity, SDL_Renderer* renderer);
 	void diplayStats(Player* player, SDL_Renderer* renderer);
 };
