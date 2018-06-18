@@ -138,27 +138,24 @@ int BattleLoop::runBattleLoop(SDL_Renderer* renderer, Player* knightPlayer)
 		
 		//draw background
 		SDL_RenderCopy(renderer, backgroundTexture, NULL, &backgroundDesination);
-
-		//draw character HERO & ENEMY
-		//update animations
-		
-		
-		
+	
 
 		//draw from animations
-
+		knightSwing.update(DT);
+		knight.update(DT);
 
 		if (playerAttacking)
 		{
-			knightSwing.update(DT);
+			//knightSwing.update(DT);
 			knightSwing.draw(300, 200, 2.0f);
 		}
 		else
 		{
-			knight.update(DT);
+			//knight.update(DT);
 			knight.draw(300, 200, 2.0f);
 		}
 
+		//terrible code for managing aimations
 		if (enemyAttacking)
 		{
 			if (enemy->getSubName() == "Zombie")

@@ -31,7 +31,6 @@ void Animation::update(float dt) {
 			//if cycled through all frames, go back to the beginning (reset animation)
 			currentFrame = 0;
 		}
-
 	}
 }
 
