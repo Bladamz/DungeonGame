@@ -96,7 +96,6 @@ float EventSystem::experienceEvent(SDL_Renderer* renderer)
 		}
 		SDL_RenderPresent(renderer);
 	}
-	delete(cMessage);
 	return eventExperience;
 }
 
@@ -183,11 +182,10 @@ float EventSystem::coinEvent(SDL_Renderer* renderer)
 		}
 		SDL_RenderPresent(renderer);
 	}
-	delete(cMessage);
 	return eventCoins;
 }
 
-void EventSystem::checkEvent(int row, int column, int(*a)[10],SDL_Renderer *renderer,Player* player)
+void EventSystem::checkEvent(int row, int column, int(*a)[30],SDL_Renderer *renderer,Player* player)
 {
 	int * eventNumber = new int();
 	*eventNumber = a[row][column];

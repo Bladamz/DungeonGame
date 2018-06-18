@@ -142,6 +142,9 @@ int GameLoop::runGameLoop(SDL_Renderer* renderer)
 
 		while (floorRunning && !knight->checkIfDead())
 		{
+			//check number on array tile and fire respective event
+			eventSystem.checkEvent(arrayPosY, arrayPosX, dungeon, renderer, knight);
+
 			//draw tile map in the loop
 			for (int x = 0; x < 30; x++)
 			{
@@ -290,19 +293,11 @@ int GameLoop::runGameLoop(SDL_Renderer* renderer)
 			for (auto e : entities)
 			{
 				e->draw(0.4);
-			}
-
-			//check to see if player encountered monster
-			if(dungeon[arrayPosY][arrayPosX] == 3)
-			{
-				battleLoop.runBattleLoop(renderer, knight);
-			}
-			
+			}			
 
 			//check to see if player is at exit
-			if (dungeon[arrayPosX][arrayPosY] == 9)
+			if (dungeon[arrayPosY][arrayPosX] == 9)
 			{
-				floor++;
 				floorRunning = false;
 			}
 
@@ -317,12 +312,13 @@ int GameLoop::runGameLoop(SDL_Renderer* renderer)
 			knight->setCoins(0);
 			gameRunning = false;
 		}
-		else if (floor == 2 && dungeon[arrayPosX][arrayPosY] == 9)	//if player is on floor 2 and on the exit end game FOR NOW!
+		else if (floor == 2 && dungeon[arrayPosY][arrayPosX] == 9)	//if player is on floor 2 and on the exit end game FOR NOW!
 		{
 			endGameScreen victory;
 			victory.getVictory(renderer);
 			gameRunning = false;
 		}
+		floor++;
 	}
 	//return current coins if victorius otherwise return 0
 	return knight->getCoins();
