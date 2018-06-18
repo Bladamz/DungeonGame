@@ -3,10 +3,10 @@ c:\master\dungeongame\dungeongame\gameloop.cpp(16): warning C4305: 'argument': t
 c:\master\dungeongame\dungeongame\gameloop.cpp(50): warning C4244: 'argument': conversion from 'time_t' to 'unsigned int', possible loss of data
 c:\master\dungeongame\dungeongame\gameloop.cpp(152): warning C4244: '=': conversion from 'int' to 'float', possible loss of data
 c:\master\dungeongame\dungeongame\gameloop.cpp(153): warning C4244: '=': conversion from 'int' to 'float', possible loss of data
-c:\master\dungeongame\dungeongame\gameloop.cpp(220): warning C4244: '=': conversion from 'double' to 'float', possible loss of data
-c:\master\dungeongame\dungeongame\gameloop.cpp(248): warning C4244: '=': conversion from 'int' to 'float', possible loss of data
-c:\master\dungeongame\dungeongame\gameloop.cpp(265): warning C4244: '=': conversion from 'int' to 'float', possible loss of data
-c:\master\dungeongame\dungeongame\gameloop.cpp(283): warning C4244: '=': conversion from 'int' to 'float', possible loss of data
-c:\master\dungeongame\dungeongame\gameloop.cpp(300): warning C4244: '=': conversion from 'int' to 'float', possible loss of data
-c:\master\dungeongame\dungeongame\gameloop.cpp(320): warning C4305: 'argument': truncation from 'double' to 'float'
+c:\master\dungeongame\dungeongame\gameloop.cpp(219): warning C4244: '=': conversion from 'double' to 'float', possible loss of data
+c:\master\dungeongame\dungeongame\gameloop.cpp(247): warning C4244: '=': conversion from 'int' to 'float', possible loss of data
+c:\master\dungeongame\dungeongame\gameloop.cpp(264): warning C4244: '=': conversion from 'int' to 'float', possible loss of data
+c:\master\dungeongame\dungeongame\gameloop.cpp(282): warning C4244: '=': conversion from 'int' to 'float', possible loss of data
+c:\master\dungeongame\dungeongame\gameloop.cpp(299): warning C4244: '=': conversion from 'int' to 'float', possible loss of data
+c:\master\dungeongame\dungeongame\gameloop.cpp(319): warning C4305: 'argument': truncation from 'double' to 'float'
   DungeonGame.vcxproj -> C:\Master\DungeonGame\Debug\DungeonGame.exe
