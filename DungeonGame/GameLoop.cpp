@@ -330,7 +330,16 @@ int GameLoop::runGameLoop(SDL_Renderer* renderer)
 			{
 				floorRunning = false;
 			}
+
+			//display UI
 			displayUI(renderer, knight, floor);
+
+			//check if level up
+			if (knight->getExperience() >= knight->getLevelUpExperience())
+			{
+				knight->levelUp(renderer);
+			}
+
 			SDL_RenderPresent(renderer);
 		}
 

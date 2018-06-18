@@ -4,6 +4,7 @@
 BattleLoop::BattleLoop()
 {
 	reward = 0;
+	coward = false;
 	srand(time(NULL));
 	font = TTF_OpenFont("assets/menu/BLKCHCRY.ttf", 32);	
 }
@@ -273,8 +274,8 @@ int BattleLoop::runBattleLoop(SDL_Renderer* renderer, Player* knightPlayer, floa
 						enemy->setHpChange(5000000000); //kill enemy
 						cout << "Coward" << endl;
 						battle = false;
+						coward = true;
 					}
-
 				}
 			}
 		}
@@ -282,7 +283,7 @@ int BattleLoop::runBattleLoop(SDL_Renderer* renderer, Player* knightPlayer, floa
 	}
 
 	//calculate coins based on outcome of battle
-	if (enemy->checkIfDead() == true)
+	if (enemy->checkIfDead() == true && !coward)
 	{
 		reward = rand() % 300 + 100;
 	}
@@ -298,7 +299,6 @@ void BattleLoop::diplayStats(Player* player, SDL_Renderer* renderer)
 {
 	stringstream stream;
 	string s;
-
 	
 	string strength = "Strength: ";
 	stream << fixed << setprecision(0) << player->getStrength();

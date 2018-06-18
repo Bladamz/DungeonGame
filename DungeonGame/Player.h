@@ -2,6 +2,8 @@
 
 #include <iostream>
 #include <string>
+#include <SDL_ttf.h>
+#include <SDL_image.h>
 
 #include "Entity.h"
 #include "Animation.h"
@@ -30,7 +32,7 @@ public:
 	float getLevelUpExperience();
 	void addExperience(float);
 	void calculateExperienceNeeded();
-	void levelUp();
+	void levelUp(SDL_Renderer* renderer);
 
 	float getStrength();
 	float getDefence();

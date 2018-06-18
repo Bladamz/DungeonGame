@@ -20,6 +20,7 @@ private:
 	float eventCoins;
 	bool eventRunning;
 	string eventMessage;
+	TTF_Font* font;
 public:
 	EventSystem();
 	~EventSystem();

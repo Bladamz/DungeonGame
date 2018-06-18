@@ -22,6 +22,7 @@ class BattleLoop
 private:
 	int reward;
 	bool battle;
+	bool coward;
 	Player* player;
 	Enemy* enemy;
 	TTF_Font* font;
