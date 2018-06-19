@@ -38,7 +38,7 @@ public:
 
 	//Displaying UI
 	void displayUI(SDL_Renderer* renderer, Player* player, float);
-
+	void displayMap(SDL_Renderer* renderer);
 	GameLoop(SDL_Renderer* renderer);
 	~GameLoop();
 

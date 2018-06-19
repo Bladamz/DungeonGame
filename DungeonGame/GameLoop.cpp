@@ -123,11 +123,11 @@ int GameLoop::runGameLoop(SDL_Renderer* renderer)
 				}
 				if (dungeon[y][x] == 8)
 				{
-					spawnPosX = x * 32;
-					spawnPosY = y * 32;
-					//asign array position x and y
 					arrayPosX = x;
 					arrayPosY = y;
+					spawnPosX = x * 32;
+					spawnPosY = y * 32 - ((arrayPosY-8) * 32);
+					//asign array position x and y
 					SDL_QueryTexture(gateExitTexture, NULL, NULL, &sourceRectangle.w, &sourceRectangle.h);
 					sourceRectangle.x = 0;
 					sourceRectangle.y = 0;
@@ -136,8 +136,6 @@ int GameLoop::runGameLoop(SDL_Renderer* renderer)
 					destinationRectangle.w = sourceRectangle.w * 2; //copy the width of our texture
 					destinationRectangle.h = sourceRectangle.h * 2; //copy the height of our texture
 					SDL_RenderCopy(renderer, gateExitTexture, &sourceRectangle, &destinationRectangle);
-
-
 				}
 				if (dungeon[y][x] == 9)
 				{
@@ -174,7 +172,7 @@ int GameLoop::runGameLoop(SDL_Renderer* renderer)
 						sourceRectangle.x = 0;
 						sourceRectangle.y = 0;
 						destinationRectangle.x = x * 32;
-						destinationRectangle.y = y * 32;
+						destinationRectangle.y = y * 32 - ((arrayPosY-8) * 32);
 						destinationRectangle.w = sourceRectangle.w * 1; //copy the width of our texture
 						destinationRectangle.h = sourceRectangle.h * 1; //copy the height of our texture
 						SDL_RenderCopy(renderer, grassTexture, &sourceRectangle, &destinationRectangle);
@@ -185,7 +183,7 @@ int GameLoop::runGameLoop(SDL_Renderer* renderer)
 						sourceRectangle.x = 0;
 						sourceRectangle.y = 0;
 						destinationRectangle.x = x * 32;
-						destinationRectangle.y = y * 32;
+						destinationRectangle.y = y * 32 - ((arrayPosY-8) * 32);
 						destinationRectangle.w = sourceRectangle.w * 1; //copy the width of our texture
 						destinationRectangle.h = sourceRectangle.h * 1; //copy the height of our texture
 						SDL_RenderCopy(renderer, blockTexture, &sourceRectangle, &destinationRectangle);
@@ -197,7 +195,7 @@ int GameLoop::runGameLoop(SDL_Renderer* renderer)
 						sourceRectangle.x = 0;
 						sourceRectangle.y = 0;
 						destinationRectangle.x = x * 32;
-						destinationRectangle.y = y * 32;
+						destinationRectangle.y = y * 32 - ((arrayPosY-8) * 32);
 						destinationRectangle.w = sourceRectangle.w * 1; //copy the width of our texture
 						destinationRectangle.h = sourceRectangle.h * 1; //copy the height of our texture
 						SDL_RenderCopy(renderer, gateExitTexture, &sourceRectangle, &destinationRectangle);
@@ -209,7 +207,7 @@ int GameLoop::runGameLoop(SDL_Renderer* renderer)
 						sourceRectangle.x = 0;
 						sourceRectangle.y = 0;
 						destinationRectangle.x = x * 32;
-						destinationRectangle.y = y * 32;
+						destinationRectangle.y = y * 32 - ((arrayPosY-8) * 32);
 						destinationRectangle.w = sourceRectangle.w * 1; //copy the width of our texture
 						destinationRectangle.h = sourceRectangle.h * 1; //copy the height of our texture
 						SDL_RenderCopy(renderer, gateEnteranceTexture, &sourceRectangle, &destinationRectangle);
@@ -285,7 +283,7 @@ int GameLoop::runGameLoop(SDL_Renderer* renderer)
 						//check if current array is not 0 (not a block texture)
 						if (dungeon[arrayPosY][arrayPosX] != 0)
 						{
-							knight->pos.y = (arrayPosY * 32) - playerOffSetY;
+							knight->pos.y = (arrayPosY * 32 - ((arrayPosY-8) * 32)) - playerOffSetY;
 						}
 						//else if current array position is 0 (a block texture), then move back
 						else
@@ -302,7 +300,7 @@ int GameLoop::runGameLoop(SDL_Renderer* renderer)
 						//check if current array is not 0 (not a block texture)
 						if (dungeon[arrayPosY][arrayPosX] != 0)
 						{
-							knight->pos.y = (arrayPosY * 32) - playerOffSetY;
+							knight->pos.y = (arrayPosY * 32 - ((arrayPosY-8) * 32 )) - playerOffSetY;
 						}
 						//else if current array position is 0 (a block texture), then move back
 						else
@@ -470,4 +468,9 @@ void GameLoop::displayUI(SDL_Renderer* renderer, Player* player, float currentFl
 		SDL_DestroyTexture(coinsTexture);
 		SDL_DestroyTexture(uiBarTexture);
 	}
+}
+
+void GameLoop::displayMap(SDL_Renderer* renderer)
+{
+
 }
