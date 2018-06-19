@@ -2,6 +2,8 @@
 #include <SDL.h>
 #include <SDL_image.h>
 #include <SDL_ttf.h>
+#include <SDL_mixer.h>
+
 #include "GameLoop.h"
 #include "Animation.h"
 #include "Highscores.h"
@@ -13,7 +15,7 @@ class Menu
 private:
 	int coins;
 	bool menuExit;
-
+	Mix_Music* music;
 
 public:
 	Menu();

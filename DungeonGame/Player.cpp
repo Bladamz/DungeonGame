@@ -203,6 +203,13 @@ void Player::levelUp(SDL_Renderer* renderer)
 	rest();
 	setExperience(0);				//set the experience back to 0
 	calculateExperienceNeeded();	//calculate next experience goal
+
+	//destroy texture
+	SDL_DestroyTexture(plusTexture1);
+	SDL_DestroyTexture(plusTexture2);
+	SDL_DestroyTexture(plusTexture3);
+	SDL_DestroyTexture(plusTexture4);
+	SDL_DestroyTexture(levelUpTextTexture);
 }
 
 float Player::getStrength()

@@ -7,6 +7,13 @@ EventSystem::EventSystem()
 	eventRunning = false;
 	eventMessage = "";
 	font = TTF_OpenFont("assets/menu/BLKCHCRY.ttf", 32);
+
+	battleMusic = Mix_LoadMUS("assets/battle.wav");
+	if (battleMusic == NULL) {
+		cout << "Music failed to load!!!" << endl;
+		SDL_Quit();
+		system("pause");
+	}
 }
 
 EventSystem::~EventSystem()
@@ -15,6 +22,7 @@ EventSystem::~EventSystem()
 	delete battleLoop;
 	font = NULL;
 	delete font;
+	Mix_FreeMusic(battleMusic);
 }
 
 float EventSystem::experienceEvent(SDL_Renderer* renderer)
@@ -90,6 +98,10 @@ float EventSystem::experienceEvent(SDL_Renderer* renderer)
 		}
 		SDL_RenderPresent(renderer);
 	}
+
+	SDL_DestroyTexture(eventMessageTexure);
+	SDL_DestroyTexture(pressSpaceTexture);
+
 	return eventExperience;
 }
 
@@ -166,10 +178,14 @@ float EventSystem::coinEvent(SDL_Renderer* renderer)
 		}
 		SDL_RenderPresent(renderer);
 	}
+
+	SDL_DestroyTexture(eventMessageTexure);
+	SDL_DestroyTexture(pressSpaceTexture);
+
 	return eventCoins;
 }
 
-void EventSystem::checkEvent(int row, int column, int(*a)[40],SDL_Renderer *renderer,Player* player, float floor)
+void EventSystem::checkEvent(int row, int column, int(*a)[40],SDL_Renderer *renderer,Player* player, float floor, Mix_Music* dungeonMusic)
 {
 	int * eventNumber = new int();
 	*eventNumber = a[row][column];
@@ -182,8 +198,10 @@ void EventSystem::checkEvent(int row, int column, int(*a)[40],SDL_Renderer *rend
 	//5 is experience
 	switch (*eventNumber)
 	{
-	case 3: 
+	case 3:
+		Mix_HaltMusic();
 		battleLoop = new BattleLoop();
+		Mix_PlayMusic(battleMusic, -1);
 		//used to check if player ran
 		tempCoins = player->getCoins();
 		player->addCoins(battleLoop->runBattleLoop(renderer, player,floor));
@@ -200,6 +218,8 @@ void EventSystem::checkEvent(int row, int column, int(*a)[40],SDL_Renderer *rend
 		//clean up battle loop
 		battleLoop = NULL;
 		delete battleLoop;
+		Mix_HaltMusic();
+		Mix_PlayMusic(dungeonMusic, -1);
 		break;
 	case 4:
 		//play coin event

@@ -3,6 +3,7 @@
 #include <iostream>
 #include <SDL.h>
 #include <SDL_image.h>
+#include <SDL_mixer.h>
 
 #include "DungeonGenerator.h"
 #include "Animation.h"
@@ -31,6 +32,8 @@ public:
 	TTF_Font* font;
 
 	list<Entity*> entities;
+
+	Mix_Music* dungeonMusic;
 
 	//TIME STUFF
 	Uint32 lastUpdate; //last sdl_ticks

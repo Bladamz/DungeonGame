@@ -115,6 +115,12 @@ void endGameScreen::getVictory(SDL_Renderer* renderer) {
 		}
 		SDL_RenderPresent(renderer);
 	}
+
+	SDL_DestroyTexture(backgroundTexture);
+	SDL_DestroyTexture(exitButtonTexture);
+	SDL_DestroyTexture(highScoresTexture);
+	SDL_DestroyTexture(namesTextTexture);
+	SDL_DestroyTexture(scoresTextTexture);
 }
 
 void endGameScreen::getDefeat(SDL_Renderer* renderer) {
@@ -229,6 +235,12 @@ void endGameScreen::getDefeat(SDL_Renderer* renderer) {
 		}
 		SDL_RenderPresent(renderer);
 	}
+
+	SDL_DestroyTexture(backgroundTexture);
+	SDL_DestroyTexture(exitButtonTexture);
+	SDL_DestroyTexture(highScoresTexture);
+	SDL_DestroyTexture(namesTextTexture);
+	SDL_DestroyTexture(scoresTextTexture);
 }
 
 endGameScreen::endGameScreen()

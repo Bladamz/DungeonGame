@@ -1,6 +1,8 @@
 #include <iostream>
 #include <SDL.h>
 #include <SDL_ttf.h>
+#include <SDL_mixer.h>
+
 #include "Menu.h"
 #include "endGameScreen.h"
 
@@ -43,6 +45,14 @@ int main(int argc, char **argv)
 		return -1;
 	}
 
+	//INIT MIXER
+	if (Mix_OpenAudio(44100, MIX_DEFAULT_FORMAT, 2, 4096) == -1) {
+		cout << "mixer didn't initialise" << endl;
+		SDL_Quit();
+		system("pause");
+		return -1;
+	}
+
 	//create window, params are: window title, window pos x, pos y, width, height, window flags
 	window = SDL_CreateWindow("DungeonGame", SDL_WINDOWPOS_CENTERED, SDL_WINDOWPOS_CENTERED, 1280, 720, SDL_WINDOW_SHOWN /* SDL_WINDOW_FULLSCREEN */);
 	if (window != NULL) {
@@ -77,6 +87,7 @@ int main(int argc, char **argv)
 		SDL_Quit();
 		return -1;
 	}
+
 	Menu *menu = new Menu();
 	//displayMenu Returns a false boolean which exits the loop and game
 	menu->displayMenu(renderer);
@@ -85,7 +96,9 @@ int main(int argc, char **argv)
 
 	//destroy window
 	SDL_DestroyWindow(window);
-	//destroy texures
+	//destroy renderer
+	SDL_DestroyRenderer(renderer);
+
 	//quit
 	SDL_Quit;
 	return 0;

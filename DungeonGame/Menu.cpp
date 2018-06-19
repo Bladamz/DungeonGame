@@ -5,6 +5,13 @@
 Menu::Menu()
 {
 	int score = 0;
+
+	music = Mix_LoadMUS("assets/menu.wav");
+	if (music == NULL) {
+		cout << "Music failed to load!!!" << endl;
+		SDL_Quit();
+		system("pause");
+	}
 }
 
 
@@ -14,6 +21,9 @@ Menu::~Menu()
 
 void Menu::displayMenu(SDL_Renderer* renderer)
 {
+
+	Mix_PlayMusic(music, -1);
+
 	int const runNumOfFrames = 4;
 	menuExit = true;
 	//STATIC IMAGES
@@ -142,6 +152,7 @@ void Menu::displayMenu(SDL_Renderer* renderer)
 						//START BUTTON THINGS HERE
 						cout << "Starting game" << endl;
 						characterCreation(renderer);
+
 					}
 					else if (e.button.x >= highScoreButtonDestination.x && e.button.x <= highScoreButtonDestination.x + 300 && e.button.y >= highScoreButtonDestination.y && e.button.y <= highScoreButtonDestination.y + 100)
 					{
@@ -164,7 +175,6 @@ void Menu::displayMenu(SDL_Renderer* renderer)
 
 void Menu::characterCreation(SDL_Renderer* renderer)
 {
-	GameLoop* startGameLoop = new GameLoop(renderer);
 
 	//DISPLAY CHARACTER AND ASK PLAYER TO NAME THE CHARACTER
 	//ONLY 1 CHARACTER FOR NOW 
@@ -303,7 +313,10 @@ void Menu::characterCreation(SDL_Renderer* renderer)
 					{
 						//START BUTTON THINGS HERE
 						cout << "Character Creation complete!" << endl;
+						Mix_HaltMusic();
+						GameLoop* startGameLoop = new GameLoop(renderer);
 						coins = startGameLoop->runGameLoop(renderer);
+						Mix_PlayMusic(music, -1);
 						startGame = false;
 					}
 				}
@@ -314,6 +327,11 @@ void Menu::characterCreation(SDL_Renderer* renderer)
 	}
 	//clean up textures before exiting
 	SDL_DestroyTexture(backgroundTexture);
+	SDL_DestroyTexture(startButtonTexture);
+	SDL_DestroyTexture(exitButtonTexture);
+	SDL_DestroyTexture(knightTexture);
+	SDL_DestroyTexture(nameHereTexture);
+	SDL_DestroyTexture(heroDescTexture);
 }
 
 void Menu::viewHighScores(SDL_Renderer* renderer)
@@ -430,4 +448,10 @@ void Menu::viewHighScores(SDL_Renderer* renderer)
 		}
 		SDL_RenderPresent(renderer);
 	}
+
+	SDL_DestroyTexture(backgroundTexture);
+	SDL_DestroyTexture(exitButtonTexture);
+	SDL_DestroyTexture(highScoresTexture);
+	SDL_DestroyTexture(namesTextTexture);
+	SDL_DestroyTexture(scoresTextTexture);
 }

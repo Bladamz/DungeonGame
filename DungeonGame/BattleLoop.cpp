@@ -142,7 +142,6 @@ int BattleLoop::runBattleLoop(SDL_Renderer* renderer, Player* knightPlayer, floa
 		
 		//draw background
 		SDL_RenderCopy(renderer, backgroundTexture, NULL, &backgroundDesination);
-	
 
 		//draw from animations
 		knightSwing.update(DT);
@@ -193,6 +192,7 @@ int BattleLoop::runBattleLoop(SDL_Renderer* renderer, Player* knightPlayer, floa
 		SDL_RenderCopy(renderer, defendButtonTexture, NULL, &defendButtonDestination);
 		SDL_RenderCopy(renderer, focusButtonTexture, NULL, &focusButtonDestination);
 		SDL_RenderCopy(renderer, runButtonTexture, NULL, &runButtonDestination);
+
 
 		//draw HP and UI
 		displayHp(player, renderer);
@@ -291,6 +291,13 @@ int BattleLoop::runBattleLoop(SDL_Renderer* renderer, Player* knightPlayer, floa
 	{
 		reward = 0;
 	}
+
+	SDL_DestroyTexture(uiBarTexture);
+	SDL_DestroyTexture(attackButtonTexture);
+	SDL_DestroyTexture(defendButtonTexture);
+	SDL_DestroyTexture(focusButtonTexture);
+	SDL_DestroyTexture(runButtonTexture);
+	SDL_DestroyTexture(backgroundTexture);
 
 	return reward;
 }

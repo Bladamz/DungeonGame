@@ -33,6 +33,16 @@ GameLoop::GameLoop(SDL_Renderer* renderer)
 	entities.push_back(knight);
 
 	lastUpdate = SDL_GetTicks();
+
+	//load music
+	dungeonMusic = Mix_LoadMUS("assets/dungeon.wav");
+	if (dungeonMusic == NULL) {
+		cout << "Music failed to load!!!" << endl;
+		SDL_Quit();
+		system("pause");
+	}
+
+	Mix_PlayMusic(dungeonMusic, -1);
 }
 
 GameLoop::~GameLoop()
@@ -44,7 +54,6 @@ GameLoop::~GameLoop()
 }
 
 //Dans Shit _________________________________________
-SDL_Texture* Texture;
 SDL_Rect sourceRectangle;
 SDL_Rect destinationRectangle;
 //___________________________________________________
@@ -207,7 +216,7 @@ int GameLoop::runGameLoop(SDL_Renderer* renderer)
 			{
 				timer.stop();
 				//check number on array tile and fire respective event
-				eventSystem.checkEvent(arrayPosY, arrayPosX, dungeon, renderer, knight, floor);
+				eventSystem.checkEvent(arrayPosY, arrayPosX, dungeon, renderer, knight, floor, dungeonMusic);
 
 				//check to see if player is at exit
 				if (dungeon[arrayPosY][arrayPosX] == 9)
@@ -239,10 +248,11 @@ int GameLoop::runGameLoop(SDL_Renderer* renderer)
 			knight->setCoins(0);
 			gameRunning = false;
 		}
-		else if (floor == 2 && dungeon[arrayPosY][arrayPosX] == 9)	//if player is on floor 2 and on the exit end game FOR NOW!
+		else if (floor == 3 && dungeon[arrayPosY][arrayPosX] == 9)	//if player is on floor 2 and on the exit end game FOR NOW!
 		{
 			endGameScreen victory;
 			victory.getVictory(renderer);
+			Mix_FreeMusic(dungeonMusic);
 			gameRunning = false;
 		}
 		floor++;
