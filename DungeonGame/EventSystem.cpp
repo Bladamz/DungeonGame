@@ -212,8 +212,11 @@ void EventSystem::checkEvent(int row, int column, int(*a)[40],SDL_Renderer *rend
 		//set current tile to 0
 		a[row][column] = 2;
 
-		//reset players stats
-		player->rest();
+		if (!player->checkIfDead())
+		{
+			//reset players stats
+			player->rest();
+		}
 
 		//clean up battle loop
 		battleLoop = NULL;

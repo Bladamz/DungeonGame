@@ -92,7 +92,7 @@ float Entity::turn()
 		float critRoll = rand() % 100;
 		critRoll = critRoll / 100;
 		//test to see if crit is sucessful
-		if (critChance >= critRoll)
+		if (critChange >= critRoll)
 		{
 
 			cout << "\t" << objectName << " have dealt a critical hit!" << endl;
@@ -105,7 +105,7 @@ float Entity::turn()
 void Entity::takeDamage(float damage)
 {
 	//midigate damage with defence
-	float damageTaken = (damage - (damage*(defenceChange / 100)));
+	float damageTaken = (damage - (damage*(defenceChange / 50)));
 	if (damageTaken > 0)
 	{
 		//take HP damage
@@ -134,17 +134,17 @@ bool Entity::checkIfDead()
 	return (hPChange < 1);
 }
 
-void Entity::setDefenceChange(int change)
+void Entity::setDefenceChange(float change)
 {
 	defenceChange = defenceChange + change;
 }
 
-void Entity::setFocusChange(int change)
+void Entity::setCritChange(float change)
 {
 	critChange = critChange + change;
 }
 
-void Entity::setHpChange(int change)
+void Entity::setHpChange(float change)
 {
 	hPChange = hPChange - change;
 }
