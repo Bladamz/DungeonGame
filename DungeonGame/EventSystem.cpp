@@ -6,12 +6,15 @@ EventSystem::EventSystem()
 	eventExperience = 0;
 	eventRunning = false;
 	eventMessage = "";
+	font = TTF_OpenFont("assets/menu/BLKCHCRY.ttf", 32);
 }
 
 EventSystem::~EventSystem()
 {
 	battleLoop = NULL;
 	delete battleLoop;
+	font = NULL;
+	delete font;
 }
 
 float EventSystem::experienceEvent(SDL_Renderer* renderer)
@@ -19,86 +22,74 @@ float EventSystem::experienceEvent(SDL_Renderer* renderer)
 	eventRunning = true;
 	eventExperience = rand() % 400 + 1;
 
+	stringstream stream;
+	string s;
+
 	eventMessage = "You stumble across an old book, on tonights camp you decided to skim through a few pages.\n You have gained ";
-	eventMessage += eventExperience;
-	eventMessage += " experience";
-	const char * cMessage = new char();
-	cMessage = eventMessage.c_str();
+	stream << fixed << setprecision(0) << eventExperience;
+	s = stream.str();
+	eventMessage += s;
+	eventMessage += " experience.";
 
-	SDL_Surface* exitButtonSurface = IMG_Load("assets/menu/exitButton.png");
+	string pressSpace = "Press Space To Continue...";
 
-	//convert surface to texture 
-	SDL_Texture* exitButtonTexture = SDL_CreateTextureFromSurface(renderer, exitButtonSurface);
-
-	//delete surface properly
-	SDL_FreeSurface(exitButtonSurface);
-
-	//destination of exit button
-	SDL_Rect exitButtonDestination;
-	exitButtonDestination.x = 80;
-	exitButtonDestination.y = 540;
-
-	//get width and height from texture and set it for the destination
-	SDL_QueryTexture(exitButtonTexture, NULL, NULL, &exitButtonDestination.w, &exitButtonDestination.h);
-
-	TTF_Font* font = TTF_OpenFont("assets/menu/BLKCHCRY.ttf", 32);	//params: font file, font size
-	SDL_Color textColor = { 255, 255,255, 0 };
+	SDL_Color textColor = { 255, 255, 255, 0 };
 
 	//create a surface using this fonr to display some sort of message
-	SDL_Surface* eventMessageSurface = TTF_RenderText_Blended(font, cMessage, textColor);
+	SDL_Surface* pressSpaceSurface = TTF_RenderText_Blended_Wrapped(font, pressSpace.c_str(), textColor, 1000);
+	SDL_Surface* eventMessageSurface = TTF_RenderText_Blended_Wrapped(font, eventMessage.c_str(), textColor, 500);
 
 	//convert surface to texture
 	SDL_Texture* eventMessageTexure = SDL_CreateTextureFromSurface(renderer, eventMessageSurface);
+	SDL_Texture* pressSpaceTexture = SDL_CreateTextureFromSurface(renderer, pressSpaceSurface);
 
 	//delete surface properly
 	SDL_FreeSurface(eventMessageSurface);
+	SDL_FreeSurface(pressSpaceSurface);
 
 	//text destination
 	SDL_Rect eventMessageDestination;
-	eventMessageDestination.x = 1280;
-	eventMessageDestination.y = 50;
+	eventMessageDestination.x = 200;
+	eventMessageDestination.y = 200;
+
+	SDL_Rect pressSpaceDestination;
+	pressSpaceDestination.x = 500;
+	pressSpaceDestination.y = 400;
 
 	//get width and height from texture and set it for the destination
 	SDL_QueryTexture(eventMessageTexure, NULL, NULL, &eventMessageDestination.w, &eventMessageDestination.h);
+	SDL_QueryTexture(pressSpaceTexture, NULL, NULL, &pressSpaceDestination.w, &pressSpaceDestination.h);
 
 	SDL_Event e;
 
 	while (eventRunning)
 	{
-		//place UI elements
 		//set colour to black with some transparance
 		SDL_SetRenderDrawColor(renderer, 0, 0, 0, 200);
 		//make a SDL_Rect, to describe a rectangle x,y,w,h
-		SDL_Rect rect = { 50, 50, 1180, 620 };
+		SDL_Rect rect = { 50, 50, 1180, 420 };
 		//render rectangle to screen (renderer and a rectangle for positioning)
 		SDL_RenderFillRect(renderer, &rect);
-		//place start and back button
-		SDL_RenderCopy(renderer, exitButtonTexture, NULL, &exitButtonDestination);
 
 		//place text
 		SDL_RenderCopy(renderer, eventMessageTexure, NULL, &eventMessageDestination);
+		SDL_RenderCopy(renderer, pressSpaceTexture, NULL, &pressSpaceDestination);
 
 		while (SDL_PollEvent(&e))
 		{
-			//check if user has clicked on the close window button
-			if (e.type == SDL_MOUSEBUTTONDOWN)
+			//check for keydown
+			if (e.type == SDL_KEYDOWN)
 			{
-				//check if its the left mouse button down
-				if (e.button.button = SDL_BUTTON_LEFT)
+				//check for space bar keypress
+				if (e.key.keysym.scancode == SDL_SCANCODE_SPACE)
 				{
-					//check if mouse is clicked no exit button region
-					if (e.button.x >= exitButtonDestination.x && e.button.x <= exitButtonDestination.x + 300 && e.button.y >= exitButtonDestination.y && e.button.y <= exitButtonDestination.y + 100)
-					{
-						//EXIT BUTTON CLOSES MENU
-						eventRunning = false;
-					}
+					//press space to close event
+					eventRunning = false;
 				}
 			}
 		}
 		SDL_RenderPresent(renderer);
 	}
-	cMessage = NULL;
-	delete(cMessage);
 	return eventExperience;
 }
 
@@ -107,86 +98,74 @@ float EventSystem::coinEvent(SDL_Renderer* renderer)
 	eventRunning = true;
 	eventCoins = rand() % 500 + 1;
 
+	stringstream stream;
+	string s;
+
 	eventMessage = "In the distance you spot something unusual, as you approach it you\n realise its a small pouch of coins.You received ";
-	eventMessage += eventCoins;
-	eventMessage += " coins";
-	const char * cMessage = new char();
-	cMessage = eventMessage.c_str();
+	stream << fixed << setprecision(0) << eventCoins;
+	s = stream.str();
+	eventMessage += s;
+	eventMessage += " coins.";
 
-	SDL_Surface* exitButtonSurface = IMG_Load("assets/menu/exitButton.png");
+	string pressSpace = "Press Space To Continue...";
 
-	//convert surface to texture 
-	SDL_Texture* exitButtonTexture = SDL_CreateTextureFromSurface(renderer, exitButtonSurface);
-
-	//delete surface properly
-	SDL_FreeSurface(exitButtonSurface);
-
-	//destination of exit button
-	SDL_Rect exitButtonDestination;
-	exitButtonDestination.x = 80;
-	exitButtonDestination.y = 540;
-
-	//get width and height from texture and set it for the destination
-	SDL_QueryTexture(exitButtonTexture, NULL, NULL, &exitButtonDestination.w, &exitButtonDestination.h);
-
-	TTF_Font* font = TTF_OpenFont("assets/menu/BLKCHCRY.ttf", 32);	//params: font file, font size
-	SDL_Color textColor = { 255, 255,255, 0 };
+	SDL_Color textColor = { 255, 255, 255, 0 };
 
 	//create a surface using this fonr to display some sort of message
-	SDL_Surface* eventMessageSurface = TTF_RenderText_Blended(font, cMessage , textColor);
+	SDL_Surface* pressSpaceSurface = TTF_RenderText_Blended_Wrapped(font, pressSpace.c_str(), textColor, 1000);
+	SDL_Surface* eventMessageSurface = TTF_RenderText_Blended_Wrapped(font, eventMessage.c_str(), textColor, 500);
 
 	//convert surface to texture
 	SDL_Texture* eventMessageTexure = SDL_CreateTextureFromSurface(renderer, eventMessageSurface);
+	SDL_Texture* pressSpaceTexture = SDL_CreateTextureFromSurface(renderer, pressSpaceSurface);
 
 	//delete surface properly
 	SDL_FreeSurface(eventMessageSurface);
+	SDL_FreeSurface(pressSpaceSurface);
 
 	//text destination
 	SDL_Rect eventMessageDestination;
-	eventMessageDestination.x = 1280;
-	eventMessageDestination.y = 50;
+	eventMessageDestination.x = 200;
+	eventMessageDestination.y = 200;
+
+	SDL_Rect pressSpaceDestination;
+	pressSpaceDestination.x = 500;
+	pressSpaceDestination.y = 400;
 
 	//get width and height from texture and set it for the destination
 	SDL_QueryTexture(eventMessageTexure, NULL, NULL, &eventMessageDestination.w, &eventMessageDestination.h);
+	SDL_QueryTexture(pressSpaceTexture, NULL, NULL, &pressSpaceDestination.w, &pressSpaceDestination.h);
 
 	SDL_Event e;
 
 	while (eventRunning)
 	{
-		//place UI elements
 		//set colour to black with some transparance
 		SDL_SetRenderDrawColor(renderer, 0, 0, 0, 200);
 		//make a SDL_Rect, to describe a rectangle x,y,w,h
-		SDL_Rect rect = { 50, 50, 1180, 620 };
+		SDL_Rect rect = { 50, 50, 1180, 420 };
 		//render rectangle to screen (renderer and a rectangle for positioning)
 		SDL_RenderFillRect(renderer, &rect);
-		//place start and back button
-		SDL_RenderCopy(renderer, exitButtonTexture, NULL, &exitButtonDestination);
 
 		//place text
 		SDL_RenderCopy(renderer, eventMessageTexure, NULL, &eventMessageDestination);
+		SDL_RenderCopy(renderer, pressSpaceTexture, NULL, &pressSpaceDestination);
 
 		while (SDL_PollEvent(&e))
 		{
-			//check if user has clicked on the close window button
-			if (e.type == SDL_MOUSEBUTTONDOWN)
+			//check for keydown
+			if (e.type == SDL_KEYDOWN)
 			{
-				//check if its the left mouse button down
-				if (e.button.button = SDL_BUTTON_LEFT)
+				//check for space bar keypress
+				if (e.key.keysym.scancode == SDL_SCANCODE_SPACE)
 				{
-					//check if mouse is clicked no exit button region
-					if (e.button.x >= exitButtonDestination.x && e.button.x <= exitButtonDestination.x + 300 && e.button.y >= exitButtonDestination.y && e.button.y <= exitButtonDestination.y + 100)
-					{
-						//EXIT BUTTON CLOSES MENU
-						eventRunning = false;
-					}
+					//press space to close event
+					eventRunning = false;
 				}
 			}
 		}
 		SDL_RenderPresent(renderer);
 	}
-	cMessage = NULL;
-	delete(cMessage);
 	return eventCoins;
 }
 

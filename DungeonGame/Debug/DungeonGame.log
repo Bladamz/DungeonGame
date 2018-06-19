@@ -1,15 +1,19 @@
 ﻿  BattleLoop.cpp
-c:\users\blada\documents\visual studio 2017\projects\dungeongame\dungeongame\battleloop.cpp(7): warning C4244: 'argument': conversion from 'time_t' to 'unsigned int', possible loss of data
-c:\users\blada\documents\visual studio 2017\projects\dungeongame\dungeongame\battleloop.cpp(14): warning C4150: deletion of pointer to incomplete type '_TTF_Font'; no destructor called
+c:\users\blada\documents\visual studio 2017\projects\dungeongame\dungeongame\battleloop.cpp(8): warning C4244: 'argument': conversion from 'time_t' to 'unsigned int', possible loss of data
+c:\users\blada\documents\visual studio 2017\projects\dungeongame\dungeongame\battleloop.cpp(15): warning C4150: deletion of pointer to incomplete type '_TTF_Font'; no destructor called
   c:\users\blada\documents\visual studio 2017\projects\dungeongame\sdl2\include\sdl_ttf.h(86): note: see declaration of '_TTF_Font'
-c:\users\blada\documents\visual studio 2017\projects\dungeongame\dungeongame\battleloop.cpp(105): warning C4305: 'argument': truncation from 'double' to 'float'
 c:\users\blada\documents\visual studio 2017\projects\dungeongame\dungeongame\battleloop.cpp(106): warning C4305: 'argument': truncation from 'double' to 'float'
-c:\users\blada\documents\visual studio 2017\projects\dungeongame\dungeongame\battleloop.cpp(117): warning C4305: 'argument': truncation from 'double' to 'float'
+c:\users\blada\documents\visual studio 2017\projects\dungeongame\dungeongame\battleloop.cpp(107): warning C4305: 'argument': truncation from 'double' to 'float'
 c:\users\blada\documents\visual studio 2017\projects\dungeongame\dungeongame\battleloop.cpp(118): warning C4305: 'argument': truncation from 'double' to 'float'
-c:\users\blada\documents\visual studio 2017\projects\dungeongame\dungeongame\battleloop.cpp(120): warning C4305: 'argument': truncation from 'double' to 'float'
+c:\users\blada\documents\visual studio 2017\projects\dungeongame\dungeongame\battleloop.cpp(119): warning C4305: 'argument': truncation from 'double' to 'float'
 c:\users\blada\documents\visual studio 2017\projects\dungeongame\dungeongame\battleloop.cpp(121): warning C4305: 'argument': truncation from 'double' to 'float'
-c:\users\blada\documents\visual studio 2017\projects\dungeongame\dungeongame\battleloop.cpp(138): warning C4244: 'initializing': conversion from 'double' to 'float', possible loss of data
-c:\users\blada\documents\visual studio 2017\projects\dungeongame\dungeongame\battleloop.cpp(273): warning C4305: 'argument': truncation from '__int64' to 'int'
-c:\users\blada\documents\visual studio 2017\projects\dungeongame\dungeongame\battleloop.cpp(273): warning C4309: 'argument': truncation of constant value
+c:\users\blada\documents\visual studio 2017\projects\dungeongame\dungeongame\battleloop.cpp(122): warning C4305: 'argument': truncation from 'double' to 'float'
+c:\users\blada\documents\visual studio 2017\projects\dungeongame\dungeongame\battleloop.cpp(139): warning C4244: 'initializing': conversion from 'double' to 'float', possible loss of data
+c:\users\blada\documents\visual studio 2017\projects\dungeongame\dungeongame\battleloop.cpp(274): warning C4305: 'argument': truncation from '__int64' to 'int'
+c:\users\blada\documents\visual studio 2017\projects\dungeongame\dungeongame\battleloop.cpp(274): warning C4309: 'argument': truncation of constant value
   LINK : C:\Users\blada\Documents\Visual Studio 2017\Projects\DungeonGame\Debug\DungeonGame.exe not found or not built by the last incremental link; performing full link
+Vector.obj : warning LNK4099: PDB 'vc141.pdb' was not found with 'Vector.obj' or at 'C:\Users\blada\Documents\Visual Studio 2017\Projects\DungeonGame\Debug\vc141.pdb'; linking object as if no debug info
+Entity.obj : warning LNK4099: PDB 'vc141.pdb' was not found with 'Entity.obj' or at 'C:\Users\blada\Documents\Visual Studio 2017\Projects\DungeonGame\Debug\vc141.pdb'; linking object as if no debug info
+Enemy.obj : warning LNK4099: PDB 'vc141.pdb' was not found with 'Enemy.obj' or at 'C:\Users\blada\Documents\Visual Studio 2017\Projects\DungeonGame\Debug\vc141.pdb'; linking object as if no debug info
+DungeonGenerator.obj : warning LNK4099: PDB 'vc141.pdb' was not found with 'DungeonGenerator.obj' or at 'C:\Users\blada\Documents\Visual Studio 2017\Projects\DungeonGame\Debug\vc141.pdb'; linking object as if no debug info
   DungeonGame.vcxproj -> C:\Users\blada\Documents\Visual Studio 2017\Projects\DungeonGame\Debug\DungeonGame.exe

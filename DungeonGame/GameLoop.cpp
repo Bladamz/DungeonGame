@@ -58,25 +58,7 @@ int GameLoop::runGameLoop(SDL_Renderer* renderer)
 
 	DungeonGenerator dungeonGenerator;
 	EventSystem eventSystem;
-
-	//LOAD UP Assets as Surface then convert to texture
-	SDL_Surface* grassSurface = IMG_Load("assets/TexturesTest/GrassTile.png");
-	SDL_Texture* grassTexture = SDL_CreateTextureFromSurface(renderer, grassSurface);
-
-	SDL_Surface* gateEnteranceSurface = IMG_Load("assets/TexturesTest/GateEnterance.png");
-	SDL_Texture* gateEnteranceTexture = SDL_CreateTextureFromSurface(renderer, gateEnteranceSurface);
-
-	SDL_Surface* gateExitSurface = IMG_Load("assets/TexturesTest/GateExit.png");
-	SDL_Texture* gateExitTexture = SDL_CreateTextureFromSurface(renderer, gateExitSurface);
-
-	SDL_Surface* blockSurface = IMG_Load("assets/TexturesTest/block.png");
-	SDL_Texture* blockTexture = SDL_CreateTextureFromSurface(renderer, blockSurface);
-
-	//Free memory by clearing surfaces
-	SDL_FreeSurface(grassSurface);
-	SDL_FreeSurface(gateEnteranceSurface);
-	SDL_FreeSurface(blockSurface);
-	SDL_FreeSurface(gateExitSurface);
+	Timer timer;
 
 	SDL_Event e;
 	
@@ -88,68 +70,17 @@ int GameLoop::runGameLoop(SDL_Renderer* renderer)
 		dungeonGenerator.generateDungeon(dungeon, floor);
 		dungeonGenerator.printDungeon(dungeon);
 
-		//generate tile map here
+		//generate spawn position
 		for (int x = 0; x < 40; x++)
 		{
 			for (int y = 0; y < 40; y++)
 			{
-				//2-7 is the walkable grass area
-				//0 = unwalkable block 
-				//8 = entry gate
-				//9 exit gate
-				if (dungeon[y][x] <= 7 && dungeon[y][x] > 1)
-				{
-					//make this array a walkable grass area
-					SDL_QueryTexture(grassTexture, NULL, NULL, &sourceRectangle.w, &sourceRectangle.h);
-					sourceRectangle.x = 0;
-					sourceRectangle.y = 0;
-					destinationRectangle.x = x * 32;
-					destinationRectangle.y = y * 32;
-					destinationRectangle.w = sourceRectangle.w * 2; //copy the width of our texture
-					destinationRectangle.h = sourceRectangle.h * 2; //copy the height of our texture
-					SDL_RenderCopy(renderer, grassTexture, &sourceRectangle, &destinationRectangle);
-				}
-				if (dungeon[y][x] == 0)
-				{
-					//make this array a unwalkable block area
-					SDL_QueryTexture(blockTexture, NULL, NULL, &sourceRectangle.w, &sourceRectangle.h);
-					sourceRectangle.x = 0;
-					sourceRectangle.y = 0;
-					destinationRectangle.x = x * 32;
-					destinationRectangle.y = y * 32;
-					destinationRectangle.w = sourceRectangle.w * 2; //copy the width of our texture
-					destinationRectangle.h = sourceRectangle.h * 2; //copy the height of our texture
-					SDL_RenderCopy(renderer, blockTexture, &sourceRectangle, &destinationRectangle);
-				}
 				if (dungeon[y][x] == 8)
 				{
-					spawnPosX = x * 32;
-					spawnPosY = y * 32;
-					//asign array position x and y
 					arrayPosX = x;
 					arrayPosY = y;
-					SDL_QueryTexture(gateExitTexture, NULL, NULL, &sourceRectangle.w, &sourceRectangle.h);
-					sourceRectangle.x = 0;
-					sourceRectangle.y = 0;
-					destinationRectangle.x = x * 32;
-					destinationRectangle.y = y * 32;
-					destinationRectangle.w = sourceRectangle.w * 2; //copy the width of our texture
-					destinationRectangle.h = sourceRectangle.h * 2; //copy the height of our texture
-					SDL_RenderCopy(renderer, gateExitTexture, &sourceRectangle, &destinationRectangle);
-
-
-				}
-				if (dungeon[y][x] == 9)
-				{
-					//make 8 and 9 array the gate. 
-					SDL_QueryTexture(gateEnteranceTexture, NULL, NULL, &sourceRectangle.w, &sourceRectangle.h);
-					sourceRectangle.x = 0;
-					sourceRectangle.y = 0;
-					destinationRectangle.x = x * 32;
-					destinationRectangle.y = y * 32;
-					destinationRectangle.w = sourceRectangle.w * 2; //copy the width of our texture
-					destinationRectangle.h = sourceRectangle.h * 2; //copy the height of our texture
-					SDL_RenderCopy(renderer, gateEnteranceTexture, &sourceRectangle, &destinationRectangle);
+					spawnPosX = x * 32;
+					spawnPosY = y * 32 - ((arrayPosY-8) * 32);
 				}
 			}
 		}
@@ -159,66 +90,9 @@ int GameLoop::runGameLoop(SDL_Renderer* renderer)
 
 		while (floorRunning && !knight->checkIfDead())
 		{
-			//check number on array tile and fire respective event
-			eventSystem.checkEvent(arrayPosY, arrayPosX, dungeon, renderer, knight, floor);
-			
 
-			//draw tile map in the loop
-			for (int x = 0; x < 40; x++)
-			{
-				for (int y = 0; y < 40; y++)
-				{
-					if (dungeon[y][x] <= 7 && dungeon[y][x] > 1)
-					{
-						SDL_QueryTexture(grassTexture, NULL, NULL, &sourceRectangle.w, &sourceRectangle.h);
-						sourceRectangle.x = 0;
-						sourceRectangle.y = 0;
-						destinationRectangle.x = x * 32;
-						destinationRectangle.y = y * 32;
-						destinationRectangle.w = sourceRectangle.w * 1; //copy the width of our texture
-						destinationRectangle.h = sourceRectangle.h * 1; //copy the height of our texture
-						SDL_RenderCopy(renderer, grassTexture, &sourceRectangle, &destinationRectangle);
-					}
-					if (dungeon[y][x] == 0)
-					{
-						SDL_QueryTexture(blockTexture, NULL, NULL, &sourceRectangle.w, &sourceRectangle.h);
-						sourceRectangle.x = 0;
-						sourceRectangle.y = 0;
-						destinationRectangle.x = x * 32;
-						destinationRectangle.y = y * 32;
-						destinationRectangle.w = sourceRectangle.w * 1; //copy the width of our texture
-						destinationRectangle.h = sourceRectangle.h * 1; //copy the height of our texture
-						SDL_RenderCopy(renderer, blockTexture, &sourceRectangle, &destinationRectangle);
-					}
-					if (dungeon[y][x] == 8)
-						{
-
-						SDL_QueryTexture(gateExitTexture, NULL, NULL, &sourceRectangle.w, &sourceRectangle.h);
-						sourceRectangle.x = 0;
-						sourceRectangle.y = 0;
-						destinationRectangle.x = x * 32;
-						destinationRectangle.y = y * 32;
-						destinationRectangle.w = sourceRectangle.w * 1; //copy the width of our texture
-						destinationRectangle.h = sourceRectangle.h * 1; //copy the height of our texture
-						SDL_RenderCopy(renderer, gateExitTexture, &sourceRectangle, &destinationRectangle);
-						}
-					if (dungeon[y][x] == 9)
-					{
-
-						SDL_QueryTexture(gateEnteranceTexture, NULL, NULL, &sourceRectangle.w, &sourceRectangle.h);
-						sourceRectangle.x = 0;
-						sourceRectangle.y = 0;
-						destinationRectangle.x = x * 32;
-						destinationRectangle.y = y * 32;
-						destinationRectangle.w = sourceRectangle.w * 1; //copy the width of our texture
-						destinationRectangle.h = sourceRectangle.h * 1; //copy the height of our texture
-						SDL_RenderCopy(renderer, gateEnteranceTexture, &sourceRectangle, &destinationRectangle);
-					}
-
-				}
-			}
-
-			//draw UI over map
+			//draw map
+			displayMap(renderer, dungeon);
 
 			//update delta time
 			Uint32 timeDiff = SDL_GetTicks() - lastUpdate;
@@ -251,6 +125,7 @@ int GameLoop::runGameLoop(SDL_Renderer* renderer)
 						if (dungeon[arrayPosY][arrayPosX] != 0)
 						{
 							knight->pos.x = (arrayPosX * 32) - playerOffSetX;
+							timer.start();
 						}
 						//else if current array position is 0 (a block texture), then move back
 						else
@@ -268,6 +143,7 @@ int GameLoop::runGameLoop(SDL_Renderer* renderer)
 						if (dungeon[arrayPosY][arrayPosX] != 0)
 						{
 							knight->pos.x = (arrayPosX * 32) - playerOffSetX;
+							timer.start();
 						}
 						//else if current array position is 0 (a block texture), then move back
 						else
@@ -285,7 +161,8 @@ int GameLoop::runGameLoop(SDL_Renderer* renderer)
 						//check if current array is not 0 (not a block texture)
 						if (dungeon[arrayPosY][arrayPosX] != 0)
 						{
-							knight->pos.y = (arrayPosY * 32) - playerOffSetY;
+							knight->pos.y = (arrayPosY * 32 - ((arrayPosY-8) * 32)) - playerOffSetY;
+							timer.start();
 						}
 						//else if current array position is 0 (a block texture), then move back
 						else
@@ -302,7 +179,8 @@ int GameLoop::runGameLoop(SDL_Renderer* renderer)
 						//check if current array is not 0 (not a block texture)
 						if (dungeon[arrayPosY][arrayPosX] != 0)
 						{
-							knight->pos.y = (arrayPosY * 32) - playerOffSetY;
+							knight->pos.y = (arrayPosY * 32 - ((arrayPosY-8) * 32 )) - playerOffSetY;
+							timer.start();
 						}
 						//else if current array position is 0 (a block texture), then move back
 						else
@@ -323,14 +201,32 @@ int GameLoop::runGameLoop(SDL_Renderer* renderer)
 			for (auto e : entities)
 			{
 				e->draw(0.4);
-			}			
+			}		
 
-			//check to see if player is at exit
-			if (dungeon[arrayPosY][arrayPosX] == 9)
+			if (timer.isStarted() && (timer.getTicks() >= 200))
 			{
-				floorRunning = false;
+				timer.stop();
+				//check number on array tile and fire respective event
+				eventSystem.checkEvent(arrayPosY, arrayPosX, dungeon, renderer, knight, floor);
+
+				//check to see if player is at exit
+				if (dungeon[arrayPosY][arrayPosX] == 9)
+				{
+					floorRunning = false;
+				}
 			}
+
+			//check if level up
+			if (knight->getExperience() >= knight->getLevelUpExperience())
+			{
+				knight->levelUp(renderer);
+			}
+
+			//display UI
 			displayUI(renderer, knight, floor);
+
+
+
 			SDL_RenderPresent(renderer);
 		}
 
@@ -461,4 +357,85 @@ void GameLoop::displayUI(SDL_Renderer* renderer, Player* player, float currentFl
 		SDL_DestroyTexture(coinsTexture);
 		SDL_DestroyTexture(uiBarTexture);
 	}
+}
+
+void GameLoop::displayMap(SDL_Renderer* renderer, int(*dungeon)[40])
+{
+	//LOAD UP Assets as Surface then convert to texture
+	SDL_Surface* grassSurface = IMG_Load("assets/TexturesTest/GrassTile.png");
+	SDL_Texture* grassTexture = SDL_CreateTextureFromSurface(renderer, grassSurface);
+
+	SDL_Surface* gateEnteranceSurface = IMG_Load("assets/TexturesTest/GateEnterance.png");
+	SDL_Texture* gateEnteranceTexture = SDL_CreateTextureFromSurface(renderer, gateEnteranceSurface);
+
+	SDL_Surface* gateExitSurface = IMG_Load("assets/TexturesTest/GateExit.png");
+	SDL_Texture* gateExitTexture = SDL_CreateTextureFromSurface(renderer, gateExitSurface);
+
+	SDL_Surface* blockSurface = IMG_Load("assets/TexturesTest/block.png");
+	SDL_Texture* blockTexture = SDL_CreateTextureFromSurface(renderer, blockSurface);
+
+	//Free memory by clearing surfaces
+	SDL_FreeSurface(grassSurface);
+	SDL_FreeSurface(gateEnteranceSurface);
+	SDL_FreeSurface(blockSurface);
+	SDL_FreeSurface(gateExitSurface);
+
+	//draw tile map in the loop
+	for (int x = 0; x < 40; x++)
+	{
+		for (int y = 0; y < 40; y++)
+		{
+			if (dungeon[y][x] <= 7 && dungeon[y][x] > 1)
+			{
+				SDL_QueryTexture(grassTexture, NULL, NULL, &sourceRectangle.w, &sourceRectangle.h);
+				sourceRectangle.x = 0;
+				sourceRectangle.y = 0;
+				destinationRectangle.x = x * 32;
+				destinationRectangle.y = y * 32 - ((arrayPosY - 8) * 32);
+				destinationRectangle.w = sourceRectangle.w * 1; //copy the width of our texture
+				destinationRectangle.h = sourceRectangle.h * 1; //copy the height of our texture
+				SDL_RenderCopy(renderer, grassTexture, &sourceRectangle, &destinationRectangle);
+			}
+			if (dungeon[y][x] == 0)
+			{
+				SDL_QueryTexture(blockTexture, NULL, NULL, &sourceRectangle.w, &sourceRectangle.h);
+				sourceRectangle.x = 0;
+				sourceRectangle.y = 0;
+				destinationRectangle.x = x * 32;
+				destinationRectangle.y = y * 32 - ((arrayPosY - 8) * 32);
+				destinationRectangle.w = sourceRectangle.w * 1; //copy the width of our texture
+				destinationRectangle.h = sourceRectangle.h * 1; //copy the height of our texture
+				SDL_RenderCopy(renderer, blockTexture, &sourceRectangle, &destinationRectangle);
+			}
+			if (dungeon[y][x] == 8)
+			{
+
+				SDL_QueryTexture(gateExitTexture, NULL, NULL, &sourceRectangle.w, &sourceRectangle.h);
+				sourceRectangle.x = 0;
+				sourceRectangle.y = 0;
+				destinationRectangle.x = x * 32;
+				destinationRectangle.y = y * 32 - ((arrayPosY - 8) * 32);
+				destinationRectangle.w = sourceRectangle.w * 1; //copy the width of our texture
+				destinationRectangle.h = sourceRectangle.h * 1; //copy the height of our texture
+				SDL_RenderCopy(renderer, gateExitTexture, &sourceRectangle, &destinationRectangle);
+			}
+			if (dungeon[y][x] == 9)
+			{
+
+				SDL_QueryTexture(gateEnteranceTexture, NULL, NULL, &sourceRectangle.w, &sourceRectangle.h);
+				sourceRectangle.x = 0;
+				sourceRectangle.y = 0;
+				destinationRectangle.x = x * 32;
+				destinationRectangle.y = y * 32 - ((arrayPosY - 8) * 32);
+				destinationRectangle.w = sourceRectangle.w * 1; //copy the width of our texture
+				destinationRectangle.h = sourceRectangle.h * 1; //copy the height of our texture
+				SDL_RenderCopy(renderer, gateEnteranceTexture, &sourceRectangle, &destinationRectangle);
+			}
+		}
+	}
+	SDL_DestroyTexture(grassTexture);
+	SDL_DestroyTexture(gateEnteranceTexture);
+	SDL_DestroyTexture(gateExitTexture);
+	SDL_DestroyTexture(blockTexture);
+
 }
