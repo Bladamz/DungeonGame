@@ -38,7 +38,7 @@ public:
 
 	//Displaying UI
 	void displayUI(SDL_Renderer* renderer, Player* player, float);
-	void displayMap(SDL_Renderer* renderer);
+	void displayMap(SDL_Renderer* renderer, int(*dungeon)[40]);
 	GameLoop(SDL_Renderer* renderer);
 	~GameLoop();
 

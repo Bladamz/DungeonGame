@@ -7,7 +7,7 @@ Player::Player()
 	defence = 10;
 	hP = 140;
 	critChance = 0.1;
-	experience = 1000;
+	experience = 0;
 	playerLevel = 1;
 	levelUpRunning = false;
 
