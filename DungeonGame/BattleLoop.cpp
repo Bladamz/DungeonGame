@@ -222,6 +222,14 @@ int BattleLoop::runBattleLoop(SDL_Renderer* renderer, Player* knightPlayer, floa
 				battle = false;
 				SDL_Quit();
 			}
+			if (e.type == SDL_KEYDOWN && !timer.isStarted())
+			{
+				//back to menu screen
+				if (e.key.keysym.scancode == SDL_SCANCODE_ESCAPE)
+				{
+					player->setHpChange(5000000000);
+				}
+			}
 			if (e.type == SDL_MOUSEBUTTONDOWN && !timer.isStarted())
 			{
 				//check if its the left mouse button down
@@ -259,7 +267,7 @@ int BattleLoop::runBattleLoop(SDL_Renderer* renderer, Player* knightPlayer, floa
 					{
 						timer.start();
 						cout << "Player has increased their crit chance by 1%." << endl;
-						player->setFocusChange(1);
+						player->setCritChange(0.1);
 						cout << "\n\n+---------------------------------------------------------------------------+\n\n";
 						if (!enemy->checkIfDead())
 						{
@@ -301,7 +309,7 @@ void BattleLoop::diplayStats(Player* player, SDL_Renderer* renderer)
 	string s;
 	
 	string strength = "Strength: ";
-	stream << fixed << setprecision(0) << player->getStrength();
+	stream << fixed << setprecision(0) << player->getStrengthChange();
 	s = stream.str();
 	strength += s;
 
@@ -309,15 +317,15 @@ void BattleLoop::diplayStats(Player* player, SDL_Renderer* renderer)
 	stream.clear();
 
 	string defence = "Defence: ";
-	stream << fixed << setprecision(0) << player->getDefence();
+	stream << fixed << setprecision(0) << player->getDefenceChange();
 	s = stream.str();
 	defence += s;
 
 	stream.str(string());
 	stream.clear();
 
-	string critChance = "Crit Chacnce: ";
-	stream << fixed << setprecision(2) << player->getCritChance();
+	string critChance = "Crit Chance: ";
+	stream << fixed << setprecision(2) << player->getCritChange();
 	s = stream.str();
 	critChance += s;
 
@@ -329,8 +337,8 @@ void BattleLoop::diplayStats(Player* player, SDL_Renderer* renderer)
 	s = stream.str();
 	experience += s;
 
-	
 	SDL_Color textColor = { 0, 0, 0, 0 };
+
 	if (font)
 	{
 		// now create a surface from the font

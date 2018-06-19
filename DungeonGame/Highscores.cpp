@@ -305,7 +305,7 @@ Highscores::Highscores()
 	int allHighScoreCounter = 0;
 	for (int k = 0; k < 10; k++)
 	{
-		display += to_string(highscoreNumberArr[k]) + " " + highscoreNameArr[k] + " " + to_string(highscoreScoreArr[k]) + "\n";
+		display += to_string(highscoreNumberArr[k]) + "            " + highscoreNameArr[k] + "                                                                                      " + to_string(highscoreScoreArr[k]) + "\n";
 		allHighScoreCounter += 3;
 	}
 	cout << "High Scores: \n" << getHighscore();

@@ -303,7 +303,8 @@ void Menu::characterCreation(SDL_Renderer* renderer)
 					{
 						//START BUTTON THINGS HERE
 						cout << "Character Creation complete!" << endl;
-						coins = startGameLoop->runGameLoop(renderer);
+						Highscores highscores;
+						highscores.checkNewScore("TestName", startGameLoop->runGameLoop(renderer));
 						startGame = false;
 					}
 				}
@@ -381,6 +382,23 @@ void Menu::viewHighScores(SDL_Renderer* renderer)
 	SDL_QueryTexture(namesTextTexture, NULL, NULL, &namesTextDestination.w, &namesTextDestination.h);
 	SDL_QueryTexture(scoresTextTexture, NULL, NULL, &scoresTextDestination.w, &scoresTextDestination.h);
 
+	//create a surface using this fonr to display some sort of message
+	SDL_Surface* highScoresListSurface = TTF_RenderText_Blended_Wrapped(font, highscore.getHighscore().c_str(), textColor, 1000);
+
+	//convert surface to texture
+	SDL_Texture* highScoresListTexture = SDL_CreateTextureFromSurface(renderer, highScoresListSurface);
+
+	//delete surface properly
+	SDL_FreeSurface(highScoresListSurface);
+
+	//text destination
+	SDL_Rect highScoresListDestination;
+	highScoresListDestination.x = 100;
+	highScoresListDestination.y = 125;
+
+	SDL_QueryTexture(highScoresListTexture,NULL, NULL, &highScoresListDestination.w, &highScoresListDestination.h);
+
+
 	SDL_Event e;
 
 	bool displayHighScores = true;
@@ -404,6 +422,7 @@ void Menu::viewHighScores(SDL_Renderer* renderer)
 		SDL_RenderCopy(renderer, highScoresTexture, NULL, &highScoresDestination);
 		SDL_RenderCopy(renderer, namesTextTexture, NULL, &namesTextDestination);
 		SDL_RenderCopy(renderer, scoresTextTexture, NULL, &scoresTextDestination);
+		SDL_RenderCopy(renderer, highScoresListTexture, NULL, &highScoresListDestination);
 
 		while (SDL_PollEvent(&e))
 		{

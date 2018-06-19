@@ -37,6 +37,9 @@ public:
 	float getStrength();
 	float getDefence();
 	float getCritChance();
+	float getCritChange();
+	float getDefenceChange();
+	float getStrengthChange();
 	float getLevel();
 
 	int getCoins();

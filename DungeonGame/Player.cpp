@@ -217,7 +217,7 @@ float Player::getDefence()
 
 float Player::getCritChance()
 {
-	return critChange;
+	return critChance;
 }
 
 float Player::getLevel()
@@ -238,4 +238,19 @@ void Player::addCoins(int addedCoins)
 void Player::setCoins(int setCoins)
 {
 	coins = setCoins;
+}
+
+float Player::getCritChange()
+{
+	return critChange;
+}
+
+float Player::getStrengthChange()
+{
+	return strengthChange;
+}
+
+float Player::getDefenceChange()
+{
+	return defenceChange;
 }
